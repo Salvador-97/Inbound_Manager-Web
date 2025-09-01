@@ -8,16 +8,24 @@ baseDatos = create_engine(r'sqlite:///app/static\db\productos.db')
 def home():
     return render_template('home.html')
 
-@main.route('/contenedores', methods=['GET', 'POST'])
+@main.route('/contenedores')
+def inicioContenedores():
+    return render_template('contenedores.html')
+
+@main.route('/contenedores/arrivo', methods=['GET', 'POST'])
 def contenedores():
-    prod = None
+    producto = None
     if request.method == 'GET':
         producto = request.args.get('sku_producto')
         with baseDatos.connect() as connection:
             consulta = text('SELECT * FROM productos WHERE SKU = :sku_producto')
             resultado = connection.execute(consulta, {"sku_producto": producto})
-            prod = resultado.fetchone()
-    return render_template('contenedores.html', producto=prod)
+            producto = resultado.fetchone()
+    return render_template('/contenedores/arrivo.html', producto=producto)
+
+@main.route('/contenedores/busqueda')
+def busquedaContenedor():
+    return render_template('contenedores/busqueda.html')
 
 @main.route('/configuracion')
 def configuracion():
