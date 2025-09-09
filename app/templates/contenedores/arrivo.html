@@ -1,75 +1,52 @@
 {%include 'header.html' %}
 
-    <h1>Contenedores</h1>
-
-    <form action="/contenedores">
-        <input type="text" id="sku" name="sku_producto">
-        <button>Buscar</button>
-    </form>
+    <h1>Nuevo contenedor</h1>
     
     <table class="table table-bordered">
         <thead class="thead-dark">
-            <tr>
-            <th scope="col">Información</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">Código de barras</th>
-                <td><input value="{{ producto.codigoBarras}}" type="text"></td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Productos por tarima</th>
-                <td><input value="{{ producto.productoTarima}}" type="text"></td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Cajas por tarima</th>
-                <td><input value="{{ producto.cajasTarima}}" type="text"></td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Master Pack</th>
-                <td><input value="{{ producto.masterPack}}" type="text"></td>
-                <td><button>Editar</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Descripción</th>
-                <td><input value="{{ producto.nombre}}" type="text"></td>
-                <td><button>Editar</button></td>
-            </tr>
-        </tbody>
-    </table>
-<table class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">Información</th>
-            </tr>
         </thead>
         <tbody>
             <tr>
                 <th scope="row">ID Contenedor</th>
                 <td><input type="text"></td>
+                <th scope="row">Productos por tarima</th>
+                <td><input value="{{ producto.productoTarima}}" type="text"></td>
             </tr>
             <tr>
                 <th scope="row">Fecha descarga</th>
                 <td><input type="date"></td>
+                <th scope="row">Cajas por tarima</th>
+                <td><input value="{{ producto.cajasTarima}}" type="text"></td>
             </tr>
             <tr>
                 <th scope="row">ID Proveedor</th>
                 <td><input type="text"></td>
+                <th scope="row">Master Pack</th>
+                <td><input value="{{ producto.masterPack}}" type="text"></td>
             </tr>
             <tr>
+                <th scope="row">SKU</th>
+                <th>
+                    <form action="/contenedores/arrivo">
+                    <input type="text" id="sku" name="sku_producto" value={{sku}}>
+                    <button>Buscar</button>
+                </form>
                 <th scope="row">No. de tarimas</th>
                 <td><input type="text"></td>
+                </th>
             </tr>
             <tr>
+                <th scope="row">Descripción</th>
+                <td><input value="{{ producto.nombre}}" type="text"></td>
                 <th scope="row">Resto (Cajas)</th>
                 <td><input type="text"></td>
             </tr>
+            <tr>
+                <th scope="row">Código de barras</th>
+                <td><input value="{{ producto.codigoBarras}}" type="text"></td>
+            </tr>
         </tbody>
-</table>
+    </table>
 <button>Generar información</button>
 
 {%include 'footer.html' %}

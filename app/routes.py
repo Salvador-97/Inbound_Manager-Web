@@ -15,13 +15,18 @@ def inicioContenedores():
 @main.route('/contenedores/arrivo', methods=['GET', 'POST'])
 def contenedores():
     producto = None
+    sku = ""
     if request.method == 'GET':
+        skuProducto = request.form.get('sku', "")
+    if request.method == 'POST':
+        skuProducto = request.form.get('sku_producto', "") 
         producto = request.args.get('sku_producto')
+    if skuProducto:
         with baseDatos.connect() as connection:
             consulta = text('SELECT * FROM productos WHERE SKU = :sku_producto')
             resultado = connection.execute(consulta, {"sku_producto": producto})
             producto = resultado.fetchone()
-    return render_template('/contenedores/arrivo.html', producto=producto)
+    return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
 @main.route('/contenedores/busqueda')
 def busquedaContenedor():

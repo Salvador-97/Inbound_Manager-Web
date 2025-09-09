@@ -1,35 +1,39 @@
 {%include 'header.html' %}
-<h2>Maneja todo lo que entra en tu almacen</h2>
-<div>
-    <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Fuga, ipsam ex aut excepturi debitis quis ut placeat a culpa repellat? 
-        Fugit quas ad vero aliquam saepe nostrum, laborum reiciendis blanditiis?
+<div class="contenedor-presentacion">
+    <div class="contenedor-info">
+        <div class="contenedor-texto">
+            <h3>Maneja tu almacen</h3>
+            Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la 
+            empresa. Desde aquí se centraliza la información relacionada con contenedores, productos 
+            y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
+        </div>
+        <div class="contenedor-img">
+            <img class="imagen-inicio" src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
+        </div>
     </div>
-    <div>
-        <img src="/app/static/img/deposito.gif" alt="">
+    <div class="contenedor-info">
+        <div class="contenedor-texto">
+            <h3>Contenedores</h3>
+            La sección de contenedores permite registrar cada arribo, identificando su número, 
+            fecha y la información detallada de la carga que transporta. De esta forma se lleva 
+            un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad 
+            en todo momento.
+        </div>
+        <div class="contenedor-img">
+            <img class="imagen-inicio" src="{{ url_for('static', filename='img/container.gif')}}" alt="">
+        </div>
+    </div>
+    <div class="contenedor-info">
+        <div class="contenedor-texto">
+            <h3>Productos y almacén</h3>
+            Cada producto descargado de los contenedores recibe su registro de entrada en el sistema. 
+            Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización, 
+            la búsqueda y la correcta administración del inventario.
+        </div>
+        <div class="contenedor-img">
+            <img class="imagen-inicio" src="{{ url_for('static', filename='img/existencias.gif')}}" alt="">
+        </div>
     </div>
 </div>
-<h2>Contenedores</h2>
-<div>
-    <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Fuga, ipsam ex aut excepturi debitis quis ut placeat a culpa repellat? 
-        Fugit quas ad vero aliquam saepe nostrum, laborum reiciendis blanditiis?
-    </div>
-    <div>
-        <img src="/app/static/img/grua-para-contenedores.png" alt="">
-    </div>
-</div>
-<h2>Productos</h2>
-<div>
-    <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        Fuga, ipsam ex aut excepturi debitis quis ut placeat a culpa repellat? 
-        Fugit quas ad vero aliquam saepe nostrum, laborum reiciendis blanditiis?
-    </div>
-    <div>
-        <img src="/app/static/img/existencias.gif" alt="">
-    </div>
-</div>
+
 {%include 'footer.html' %}

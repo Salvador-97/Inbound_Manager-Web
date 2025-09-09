@@ -1,0 +1,39 @@
+:root{
+    --color-primario: #1A3D5D;
+    --color-fondo: #F5F6FA;
+    --fuente-titulos: "Roboto Condensed";
+    --fuente-texto: "Montserrat";
+}
+
+.titulo {
+    font-family: var(--fuente-titulos), sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    color: var(--color-primario);
+    margin: 0.5em;
+    text-align: center;
+}
+
+.contenedor-opciones{
+    border: 2px solid #000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+    width: 50%;
+}
+
+.tarjeta {
+    border: 1px solid red;
+    width: 40%;
+    height: 30em;
+}
+
+.tarjeta a {
+    text-decoration: none;
+}
+
+.tarjeta i{
+    font-size: 2em;
+    color: blueviolet;
+}
