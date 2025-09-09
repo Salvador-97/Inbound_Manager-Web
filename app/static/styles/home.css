@@ -34,7 +34,7 @@ body{
     transition: 0.4s ease;
 }
 
-.navbar-nav a:hover {
+.navbar-nav a:hover, .navbar-brand:hover {
     color: #c0c0c0;
 }
 
