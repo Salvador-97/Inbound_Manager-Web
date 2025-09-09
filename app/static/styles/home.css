@@ -42,6 +42,14 @@ body{
     background-color: var(--color-primario);
 }
 
+.dropdown-item:hover {
+    color: var(--color-primario) !important;
+}
+
+.navbar-nav .nav-link.show {
+    color: var(--color-fondo);
+}
+
 .navbar-expand-lg .navbar-collapse {
     justify-content: end;
     padding-right: 2em;

@@ -28,9 +28,11 @@ def contenedores():
             producto = resultado.fetchone()
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
-@main.route('/contenedores/busqueda')
+@main.route('/contenedores/busqueda', methods=['GET', 'POST'])
 def busquedaContenedor():
-    return render_template('contenedores/busqueda.html')
+    if request.method == 'GET':
+        contenedorID = request.form.get('sku', "")
+    return render_template('contenedores/busqueda.html', contenedorID = contenedorID)
 
 @main.route('/configuracion')
 def configuracion():
