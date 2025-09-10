@@ -3,6 +3,10 @@
     --color-secundario: #195791;
     --color-fondo: #F5F6FA;
     --color-icono: #c4c4c4;
+    --color-tarjeta-nuevo: #388E3C;
+    --color-tarjeta-nuevo-inactivo: #4CAF50;
+    --color-tarjeta-busqueda: #1E88E5;
+    --color-tarjetas-busqueda-inactivo: #42A5F5;
     --fuente-titulos: "Roboto Condensed";
     --fuente-texto: "Montserrat";
 }
@@ -25,7 +29,7 @@
 }
 
 .tarjeta {
-    background-color: var(--color-primario);
+    /* background-color: var(--color-tarjetas-inactivo); */
     width: 40%;
     height: 30em;
     cursor: pointer;
@@ -38,8 +42,20 @@
     transition: 0.4s ease;
 }
 
-.tarjeta:hover {
-    background-color: var(--color-secundario);
+.nuevo {
+    background-color: var(--color-tarjeta-nuevo-inactivo);
+}
+
+.nuevo:hover {
+    background-color: var(--color-tarjeta-nuevo);
+}
+
+.busqueda {
+    background-color: var(--color-tarjetas-busqueda-inactivo);
+}
+
+.busqueda:hover {
+    background-color: var(--color-tarjeta-busqueda);
 }
 
 .tarjeta h4 {

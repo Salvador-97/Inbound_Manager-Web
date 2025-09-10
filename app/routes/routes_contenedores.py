@@ -1,19 +1,15 @@
 from flask import Blueprint, render_template, request
 from sqlalchemy import create_engine, text 
 
-main = Blueprint('main', __name__, template_folder='app/templates')
+contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\productos.db')
 
-@main.route('/')
-def home():
-    return render_template('home.html')
-
-@main.route('/contenedores')
+@contenedores.route('/contenedores')
 def inicioContenedores():
     return render_template('contenedores.html')
 
-@main.route('/contenedores/arrivo', methods=['GET', 'POST'])
-def contenedores():
+@contenedores.route('/contenedores/arrivo', methods=['GET', 'POST'])
+def contenedoresSKU():
     producto = None
     sku = ""
     if request.method == 'GET':
@@ -28,16 +24,8 @@ def contenedores():
             producto = resultado.fetchone()
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
-@main.route('/contenedores/busqueda', methods=['GET', 'POST'])
+@contenedores.route('/contenedores/busqueda', methods=['GET', 'POST'])
 def busquedaContenedor():
     if request.method == 'GET':
         contenedorID = request.form.get('sku', "")
     return render_template('contenedores/busqueda.html', contenedorID = contenedorID)
-
-@main.route('/configuracion')
-def configuracion():
-    return render_template('configuracion.html')
-
-@main.route('/productos')
-def productos():
-    return render_template('productos.html')

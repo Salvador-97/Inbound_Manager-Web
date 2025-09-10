@@ -1,0 +1,32 @@
+:root{
+    --color-tarjeta-ubicacion-activo: #FB8C00;
+    --color-tarjeta-ubicacion: #FFB74D;
+}
+
+.opciones-productos{
+    width: 70%;
+}
+
+.tarjeta-producto{
+    width: 30%;
+}
+
+.ubicacion {
+    background-color: var(--color-tarjeta-ubicacion);
+}
+
+.ubicacion:hover {
+    background-color: var(--color-tarjeta-ubicacion-activo);
+}
+
+.iconoStack {
+    margin: 0.5em 0em !important;
+}
+
+.producto{
+    width: 50%;
+}
+
+/* .row-btn {
+    background-color: white !important;
+} */

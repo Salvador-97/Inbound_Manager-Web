@@ -1,10 +1,12 @@
-<h2 class="titulo">Búsqueda Contenedores</h2>
+{%include 'header.html' %}
+
+<h2 class="titulo">Búsqueda Productos</h2>
 
 <div class="input-busqueda-contenedor">
     <form action="/contenedores/busqueda">
         <div class="input-group mb-3">
             <div>
-                <input type="text" class="form-control" placeholder="ID contenedor"
+                <input type="text" class="form-control" placeholder="Sku producto"
                     id="contenedorID" name="contenedorID" value={{contenedorID}}>
             </div>
             <div class="input-group-append">
@@ -20,13 +22,11 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Fecha descarga</th>
-            <th scope="col">SKU</th>
+            <th scope="col">Sku</th>
             <th scope="col">Descripción</th>
-            <th scope="col">No. Tarimas</th>
-            <th scope="col">Resto</th>
+            <th scope="col">Código Barras</th>
+            <th scope="col">Producto/Tarima</th>
+            <th scope="col">Master Pack</th>
         </tr>
     </thead>
     <tbody>
@@ -36,8 +36,6 @@
             <td>Otto</td>
             <td>@mdo</td>
             <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
         </tr>
         <tr>
         <th scope="row">2</th>
@@ -45,8 +43,6 @@
             <td>Thornton</td>
             <td>@fat</td>
             <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
         </tr>
         <tr>
         <th scope="row">3</th>
@@ -54,9 +50,9 @@
         <td>the Bird</td>
         <td>@twitter</td>
         <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
         </tr>
     </tbody>
     </table>
 </div>
+
+{%include 'footer.html' %}
