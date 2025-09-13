@@ -9,83 +9,83 @@
             <tr>
                 <th scope="row">ID Contenedor</th>
                 <td>
-                    <input type="text" class="form-control" placeholder="" aria-label="Recipient's username">
+                    <input type="text" class="form-control" placeholder="" name="id_ctn" form="form-ctn">
                 </td>
                 <th scope="row">Productos por tarima</th>
                 <td>
-                    <input value="{{ producto.productoTarima}}" type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input value="{{ producto.productoTarima}}" type="text" class="form-control"
+                    name="producto_tarima" form="form-ctn">
                 </td>
             </tr>
             <tr>
                 <th scope="row">Fecha descarga</th>
                 <td>
-                    <input type="date" class="form-control" placeholder="" aria-label="Recipient's username">
+                    <input type="date" class="form-control" form="form-ctn" name="fecha_descarga">
                 </td>
                 <th scope="row">Cajas por tarima</th>
                 <td>
-                    <input value="{{ producto.cajasTarima}}" type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input value="{{ producto.cajasTarima}}" type="text" class="form-control" 
+                    name="cajas_tarima" form="form-ctn">
                 </td>
             </tr>
             <tr>
                 <th scope="row">ID Proveedor</th>
                 <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input type="text" class="form-control" name="id_proveedor" form="form-ctn">
                 </td>
                 <th scope="row">Master Pack</th>
                 <td>
-                   <input value="{{ producto.masterPack}}" type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                   <input value="{{ producto.masterPack}}" type="text" class="form-control" 
+                   name="master_pack" form="form-ctn">
                 </td>
             </tr>
             <tr>
                 <th scope="row">SKU</th>
                 <th class="ctn-input">
-                    <form action="/contenedores/arrivo">
+                    <form action="/contenedores/arrivo" method="GET" id="form-sku">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder=""
-                            id="sku" name="sku_producto" value={{sku}}>
+                            id="sku_producto" name="sku_producto" value="{{skuProducto}}">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary btn-busqueda" type="button" id="button-addon2">
+                                    <button class="btn btn-outline-secondary btn-busqueda" 
+                                    type="submit" id="button-addon2" form="form-sku">
                                         <i class="fa-solid fa-magnifying-glass"></i>
                                     </button>
                                 </div>
                         </div>
-                    <!-- <input type="text" id="sku" name="sku_producto" value={{sku}}>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button> -->
                 </form>
                 <th scope="row">No. de tarimas</th>
                 <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input type="text" class="form-control" name="no_tarimas" form="form-ctn">
                 </td>
                 </th>
             </tr>
             <tr>
                 <th scope="row">Descripción</th>
                 <td>
-                    <input value="{{ producto.nombre}}" type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input value="{{ producto.nombre}}" type="text" class="form-control" 
+                    name="descripcion" form="form-ctn">
                 </td>
                 <th scope="row">Resto (Cajas)</th>
                 <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input type="text" class="form-control" name="resto" form="form-ctn">
                 </td>
             </tr>
             <tr>
                 <th scope="row">Código de barras</th>
                 <td>
-                    <input value="{{ producto.codigoBarras}}" type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input value="{{ producto.codigoBarras}}" type="text" class="form-control" 
+                    name="codigo_barras" form="form-ctn">
                 </td>
-                <td colspan="2">
-                    <button type="button" class="btn btn-outline-success">Generar información</button>
-                </td>
+            </tr>
+            <tr>
+                <th colspan="4" class="ctn-input">
+                    <form action="/contenedores/arrivo" method="POST" id="form-ctn">
+                        <button type="submit" class="btn btn-outline-success" form="form-ctn">
+                            Agregar
+                        </button>
+                    </form>
+                </th>
             </tr>
         </tbody>
     </table>

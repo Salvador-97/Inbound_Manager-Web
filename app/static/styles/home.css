@@ -14,6 +14,11 @@ body{
     background-attachment: fixed;
 }
 
+.icon-titulo {
+    width: 1.5em;
+    margin-right: 0.4em;
+}
+
 .navbar {
     background-color: var(--color-primario);
 }

@@ -2,14 +2,15 @@
 <h2 class="titulo">Búsqueda Contenedores</h2>
 
 <div class="input-busqueda-contenedor">
-    <form action="/contenedores/busqueda">
+    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="GET">
         <div class="input-group mb-3">
             <div>
                 <input type="text" class="form-control" placeholder="ID contenedor"
-                    id="contenedorID" name="contenedorID" value={{contenedorID}}>
+                    id="id_ctn" name="id_ctn" value="{{contenedorID}}" form="form_ctn_busqueda">
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary btn-busqueda" type="button" id="button-addon2">
+                <button class="btn btn-outline-secondary btn-busqueda" type="submit" 
+                        form="form_ctn_busqueda" id="button-addon2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -33,30 +34,12 @@
     <tbody>
         <tr>
             <th scope="row">{{contenedorID}}</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-        <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
+            <td>{{contenedor.id_contenedor}}</td>
+            <td>{{contenedor.sku_producto}}</td>
+            <td>{{contenedor.fecha_descarga}}</td>
+            <td>{{contenedor.proveedor}}</td>
+            <td>{{contenedor.no_tarimas}}</td>
+            <td>{{contenedor.resto_cajas}}</td>
         </tr>
     </tbody>
     </table>
