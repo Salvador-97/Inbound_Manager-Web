@@ -11,10 +11,9 @@ def inicioContenedores():
 @contenedores.route('/contenedores/arrivo', methods=['GET', 'POST'])
 def contenedoresSKU():
     producto = None
+    skuProducto = None
     if request.method == 'GET':
         skuProducto = request.args.get('sku_producto', "")
-        print("SKU GET: ", skuProducto)
-        sku = skuProducto
     if skuProducto:
         with baseDatos.connect() as connection:
             consulta = text('SELECT * FROM productos WHERE SKU = :sku_producto')
@@ -22,18 +21,18 @@ def contenedoresSKU():
             producto = resultado.fetchone()
             print("Producto enviado: ", producto)
     if request.method == 'POST':
-        tuplaDatos = obtencionDatos(skuProducto)
+        tuplaDatos = obtencionDatos()
         with baseDatos.connect() as connection:
-            print("SKU: ", sku)
-            columInsert = text('INSERT INTO contenedores VALUES (:id_contenedor, :sku_producto, :fecha_descarga, :proveedor, :no_tarimas, :resto_cajas')
-            connection.execute(columInsert, {"id_contenedor": tuplaDatos[0], "sku_producto": skuProducto,
+            columInsert = text('INSERT INTO contenedores VALUES (:id_contenedor, :sku_producto, :fecha_descarga, :proveedor, :no_tarimas, :resto_cajas)')
+            connection.execute(columInsert, {"id_contenedor": tuplaDatos[0], "sku_producto": tuplaDatos[1],
                                                           "fecha_descarga": tuplaDatos[3], "proveedor": tuplaDatos[5],
                                                           "no_tarimas": tuplaDatos[7], "resto_cajas": tuplaDatos[9]})
             connection.commit()
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
-def obtencionDatos(skuProducto):
+def obtencionDatos():
     idContenedor = request.form.get('id_ctn', "")
+    skuProducto = request.form.get('skuProducto', "")
     productoTarima = request.form.get('producto_tarima', "");
     fechaDescarga = request.form.get('fecha_descarga', "");
     cajasTarima = request.form.get('cajas_tarima', "");
@@ -49,6 +48,7 @@ def obtencionDatos(skuProducto):
 
 @contenedores.route('/contenedores/busqueda', methods=['GET'])
 def busquedaContenedor():
+    contenedor = None
     if request.method == 'GET':
         idContenedor = request.args.get('id_ctn', "")
         if idContenedor:
