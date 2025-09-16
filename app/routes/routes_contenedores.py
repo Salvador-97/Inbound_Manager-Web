@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
-from sqlalchemy import create_engine, text, insert
+from sqlalchemy import create_engine, text
+from app.scripts.f_generales import obtencionDatos
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -11,7 +12,7 @@ def inicioContenedores():
 @contenedores.route('/contenedores/arrivo', methods=['GET', 'POST'])
 def contenedoresSKU():
     producto = None
-    skuProducto = None
+    skuProducto = ""
     if request.method == 'GET':
         skuProducto = request.args.get('sku_producto', "")
     if skuProducto:
@@ -19,7 +20,6 @@ def contenedoresSKU():
             consulta = text('SELECT * FROM productos WHERE SKU = :sku_producto')
             resultado = connection.execute(consulta, {"sku_producto": skuProducto})
             producto = resultado.fetchone()
-            print("Producto enviado: ", producto)
     if request.method == 'POST':
         tuplaDatos = obtencionDatos()
         with baseDatos.connect() as connection:
@@ -27,33 +27,33 @@ def contenedoresSKU():
             connection.execute(columInsert, {"id_contenedor": tuplaDatos[0], "sku_producto": tuplaDatos[1],
                                                           "fecha_descarga": tuplaDatos[3], "proveedor": tuplaDatos[5],
                                                           "no_tarimas": tuplaDatos[7], "resto_cajas": tuplaDatos[9]})
-            connection.commit()
+            connection.commit() 
+            # Poner una validacion para que solo si se realizo la insercion del contenedor pase a 
+            # hacer esta otra insercion
+            insertArrivo = text('INSERT INTO arrivo_productos VALUES (:sku_producto, :piezas, :cajas, :fecha, :contenedor, :ubicacion)')
+            for i in range (0, int(tuplaDatos[7]) + 1):
+                if (i == (int(tuplaDatos[7]) + 1)):
+                    connection.execute(insertArrivo, {"sku_producto": tuplaDatos[1], "piezas": tuplaDatos[4] * tuplaDatos[9],
+                                                      "cajas": tuplaDatos[9], "fecha": tuplaDatos[3], "contenedor": tuplaDatos[0],
+                                                      "ubicacion": ""})
+                    connection.commit()
+                else:
+                    connection.execute(insertArrivo, {"sku_producto": tuplaDatos[1], "piezas": tuplaDatos[2],
+                                                      "cajas": tuplaDatos[4], "fecha": tuplaDatos[3], "contenedor": tuplaDatos[0],
+                                                      "ubicacion": ""})
+                    connection.commit()
+                
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
-def obtencionDatos():
-    idContenedor = request.form.get('id_ctn', "")
-    skuProducto = request.form.get('skuProducto', "")
-    productoTarima = request.form.get('producto_tarima', "");
-    fechaDescarga = request.form.get('fecha_descarga', "");
-    cajasTarima = request.form.get('cajas_tarima', "");
-    idProveedor = request.form.get('id_proveedor', "");
-    masterPack = request.form.get('master_pack', "");
-    noTarimas = request.form.get('no_tarimas', "");
-    descripcion = request.form.get('descripcion', "");
-    resto = request.form.get('resto', "");
-    codigoBarras = request.form.get('codigo_barras', "");
-    
-    return [idContenedor, skuProducto, productoTarima, fechaDescarga, cajasTarima, idProveedor, 
-            masterPack, noTarimas, descripcion, resto, codigoBarras]
-
-@contenedores.route('/contenedores/busqueda', methods=['GET'])
+@contenedores.route('/contenedores/busqueda', methods=['GET', 'POST'])
 def busquedaContenedor():
-    contenedor = None
-    if request.method == 'GET':
-        idContenedor = request.args.get('id_ctn', "")
-        if idContenedor:
+    resultadosTabla = []
+    tipoB = request.form.get("select-ctn", "")
+    if request.method == 'POST':
+        tipoBusqueda = request.form.get('id_ctn', "")
+        if tipoBusqueda:
             with baseDatos.connect() as connection:
-                consulta = text('SELECT * FROM contenedores WHERE id_contenedor = :idContenedor')
-                resultado = connection.execute(consulta, {"idContenedor": idContenedor})
-                contenedor = resultado.fetchone()
-    return render_template('contenedores/busqueda.html', contenedor=contenedor, contenedorID = idContenedor)
+                consulta = text(f"SELECT * FROM contenedores WHERE {tipoB} = :id_ctn")
+                resultado = connection.execute(consulta, {"id_ctn": tipoBusqueda})
+                resultadosTabla = resultado.fetchall()
+    return render_template('contenedores/busqueda.html', resultadosTabla=resultadosTabla, tipo = tipoB)

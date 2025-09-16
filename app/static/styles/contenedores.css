@@ -125,7 +125,7 @@
 
 /*Página busqueda contenedor*/
 .input-busqueda-contenedor{
-    width: 20%;
+    width: 40%;
     margin: 1em auto;
 }
 
@@ -136,4 +136,8 @@
 
 .label-div {
     vertical-align: middle;
+}
+
+.form-select {
+    text-align: center;
 }

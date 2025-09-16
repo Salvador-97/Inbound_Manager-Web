@@ -1,3 +1,53 @@
 {%include 'header.html' %}
-<h4>Ubicaciones</h4>
+
+<h2 class="titulo">Ubicaciones Productos</h2>
+
+<div class="input-busqueda-contenedor">
+    <form action="/productos/ubicaciones" method="GET" id="form-sku-ubicaciones">
+        <div class="input-group mb-3">
+            <div>
+                <input type="text" class="form-control" placeholder="SKU Producto"
+                    id="sku_producto" name="sku_producto" value="{{skuProducto}}" form="form-sku-ubicaciones">
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-busqueda" type="submit" 
+                id="button-addon2" form="form-sku-ubicaciones">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="ctn-tabla">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">SKU</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Producto/Tarima</th>
+            <th scope="col">Producto/Caja</th>
+            <th scope="col">Master Pack</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Contenedor</th>
+            <th scope="col">Ubicacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ubicaciones in resultadoUbicaciones %}
+        <tr>
+            <th scope="row">{{ resultadoUbicaciones.SKU }}</th>
+            <td>{{ ubicaciones.nombre }}</td>
+            <td>{{ ubicaciones.productoTarima }}</td>
+            <td>{{ ubicaciones.cajasTarima }}</td>
+            <td>{{ ubicaciones.masterPack }}</td>
+            <td>
+                <button>Editar</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+
 {%include 'footer.html' %}
