@@ -27,8 +27,8 @@ def obtencionDatos():
             masterPack, noTarimas, descripcion, resto, codigoBarras]
     
 def consultaDescripcion(connection, productoBusqueda):
-    consulta = text('SELECT nombre FROM productos WHERE SKU = :productoBusqueda')
+    consulta = text('SELECT * FROM productos WHERE sku_producto = :productoBusqueda')
     resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
-    descripcion = resultado.fetchone()
+    producto = resultado.fetchone()
 
-    return descripcion
+    return producto

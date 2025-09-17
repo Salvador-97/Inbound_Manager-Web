@@ -49,7 +49,7 @@
         {% for ubicaciones in resultadoUbicaciones %}
         <tr>
             <th scope="row">{{ ubicaciones.sku_producto }}</th>
-            <td>{{ descripcion }}</td>
+            <td>{{ descripcion.nombre }}</td>
             <td>{{ ubicaciones.piezas }}</td>
             <td>{{ ubicaciones.cajas }}</td>
             <td>{{ ubicaciones.fecha }}</td>

@@ -17,7 +17,7 @@ def contenedoresSKU():
         skuProducto = request.args.get('sku_producto', "")
     if skuProducto:
         with baseDatos.connect() as connection:
-            consulta = text('SELECT * FROM productos WHERE SKU = :sku_producto')
+            consulta = text('SELECT * FROM productos WHERE sku_producto = :sku_producto')
             resultado = connection.execute(consulta, {"sku_producto": skuProducto})
             producto = resultado.fetchone()
     if request.method == 'POST':

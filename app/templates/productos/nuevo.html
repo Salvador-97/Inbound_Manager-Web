@@ -5,54 +5,53 @@
         <thead class="thead-dark">
         </thead>
         <tbody>
-            <tr>
+            <form action="/productos/nuevo" id="form-nuevo-producto" method="POST">
+                <tr>
                 <th scope="row">SKU</th>
                 <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="skuProducto">
                 </td>
-            </tr>
-            <tr>
-                <th scope="row">Descripción</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Código de barras</th>
-                <td>
-                   <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Cajas por tarima</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="" 
-                        aria-label="Recipient's username"> 
-                </td>
-                
-            </tr>
-            <tr>
-                <th scope="row">Productos por tarima</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Master Pack</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="" 
-                    aria-label="Recipient's username">
-                </td>
-            </tr>
-            <tr>
-                <th colspan="2">
-                    <button type="button" class="btn btn-success">Agregar producto</button>
-                </th>
-            </tr>
+                </tr>
+                <tr>
+                    <th scope="row">Descripción</th>
+                    <td>
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="descripcion">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Código de barras</th>
+                    <td>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="codigo_barras">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Cajas por tarima</th>
+                    <td>
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="cajas_tarima"> 
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <th scope="row">Productos por tarima</th>
+                    <td>
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="producto_tarima">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Master Pack</th>
+                    <td>
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="master_pack">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <button type="submit" class="btn btn-success" form="form-nuevo-producto">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            Agregar producto
+                        </button>
+                    </th>
+                </tr>
+            </form>
         </tbody>
     </table>
     </div>

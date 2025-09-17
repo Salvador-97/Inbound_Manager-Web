@@ -34,3 +34,11 @@
 .ckc-ubicaciones {
     margin-left: 1em !important;
 }
+
+.form-check {
+    margin-left: 0.5em !important;
+}
+
+.table tr {
+    vertical-align: middle;
+}

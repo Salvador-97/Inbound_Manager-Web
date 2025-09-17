@@ -15,6 +15,12 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="editar" name="checkEditar" form="form-sku-busqueda" id="checkDefault">
+                <label class="form-check-label" for="checkDefault">
+                    Editar
+                </label>
+            </div>
         </div>
     </form>
 </div>
@@ -27,22 +33,41 @@
             <!-- <th scope="col">Código Barras</th> -->
             <th scope="col">Producto/Tarima</th>
             <th scope="col">Cajas</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Contenedor</th>
-            <th scope="col">Ubicación</th>
+            {% if (check != "editar") %}
+                <th scope="col">Fecha</th>
+                <th scope="col">Contenedor</th>
+                <th scope="col">Ubicación</th>
+            {% else %}
+                <th scope="col">Código de barras</th>
+                <th scope="col">Master Pack</th>
+                <th scope="col">Editar</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
         {% for resultado in resultadoProducto %}
         <tr>
             <th scope="row">{{ resultado.sku_producto }}</th>
-            <td>{{ descripcion[0] }}</td>
-            <!-- <td>{{ resultado.codigoBarras }}</td> -->
+            {% if (check != "editar") %}
+                <td>{{ descripcion.nombre }}</td>
+            {% else %}
+                <td>{{ resultado.nombre }}</td>
+            {% endif %}
             <td>{{ resultado.piezas }}</td>
             <td>{{ resultado.cajas }}</td>
-            <td>{{ resultado.fecha }}</td>
-            <td>{{ resultado.contenedor }}</td>
-            <td>{{ resultado.ubicacion }}</td>
+            {% if (check != "editar") %}
+                <td>{{ resultado.fecha }}</td>
+                <td>{{ resultado.contenedor }}</td>
+                <td>{{ resultado.ubicacion }}</td>
+            {% else %}
+                <td>{{ resultado.codigoBarras }}</td>
+                <td>{{ resultado.masterPack }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
