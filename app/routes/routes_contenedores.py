@@ -32,15 +32,19 @@ def contenedoresSKU():
             # hacer esta otra insercion
             insertArrivo = text('INSERT INTO arrivo_productos VALUES (:sku_producto, :piezas, :cajas, :fecha, :contenedor, :ubicacion)')
             for i in range (0, int(tuplaDatos[7]) + 1):
-                if (i == (int(tuplaDatos[7]) + 1)):
-                    connection.execute(insertArrivo, {"sku_producto": tuplaDatos[1], "piezas": tuplaDatos[4] * tuplaDatos[9],
+                if (i == (int(tuplaDatos[7]))):
+                    if (tuplaDatos[6] != 'N/A'):
+                        piezasResto = int(tuplaDatos[6]) * int(tuplaDatos[9])
+                    else: 
+                        piezasResto = int(tuplaDatos[9])
+                    connection.execute(insertArrivo, {"sku_producto": tuplaDatos[1], "piezas": piezasResto,
                                                       "cajas": tuplaDatos[9], "fecha": tuplaDatos[3], "contenedor": tuplaDatos[0],
-                                                      "ubicacion": ""})
+                                                      "ubicacion": "S/A"})
                     connection.commit()
                 else:
                     connection.execute(insertArrivo, {"sku_producto": tuplaDatos[1], "piezas": tuplaDatos[2],
                                                       "cajas": tuplaDatos[4], "fecha": tuplaDatos[3], "contenedor": tuplaDatos[0],
-                                                      "ubicacion": ""})
+                                                      "ubicacion": "S/A"})
                     connection.commit()
                 
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)

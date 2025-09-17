@@ -15,6 +15,19 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <div class="ckc-ubicaciones">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="0" name="checkSin" id="checkDefault">
+                    <label class="form-check-label" for="checkDefault">
+                        Sin Ubicación
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="checkCon" id="checkDefault">
+                    <label class="form-check-label" for="checkDefault">
+                        Con Ubicación
+                    </label>
+                </div>
             </div>
         </div>
     </form>
@@ -26,23 +39,25 @@
             <th scope="col">SKU</th>
             <th scope="col">Descripción</th>
             <th scope="col">Producto/Tarima</th>
-            <th scope="col">Producto/Caja</th>
-            <th scope="col">Master Pack</th>
+            <th scope="col">Cajas</th>
             <th scope="col">Fecha</th>
-            <th scope="col">Contenedor</th>
             <th scope="col">Ubicacion</th>
+            <th scope="col">Opciones</th>
         </tr>
     </thead>
     <tbody>
         {% for ubicaciones in resultadoUbicaciones %}
         <tr>
-            <th scope="row">{{ resultadoUbicaciones.SKU }}</th>
-            <td>{{ ubicaciones.nombre }}</td>
-            <td>{{ ubicaciones.productoTarima }}</td>
-            <td>{{ ubicaciones.cajasTarima }}</td>
-            <td>{{ ubicaciones.masterPack }}</td>
+            <th scope="row">{{ ubicaciones.sku_producto }}</th>
+            <td>{{ descripcion }}</td>
+            <td>{{ ubicaciones.piezas }}</td>
+            <td>{{ ubicaciones.cajas }}</td>
+            <td>{{ ubicaciones.fecha }}</td>
+            <td>{{ ubicaciones.ubicacion }}</td>
             <td>
-                <button>Editar</button>
+                <button type="button" class="btn btn-primary">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
             </td>
         </tr>
         {% endfor %}

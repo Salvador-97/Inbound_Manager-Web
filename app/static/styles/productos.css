@@ -27,6 +27,10 @@
     width: 50%;
 }
 
-/* .row-btn {
-    background-color: white !important;
-} */
+.input-group {
+    align-items: center;
+}
+
+.ckc-ubicaciones {
+    margin-left: 1em !important;
+}

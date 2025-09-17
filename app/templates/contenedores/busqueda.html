@@ -2,25 +2,24 @@
 <h2 class="titulo">Búsqueda Contenedores</h2>
 
 <div class="input-busqueda-contenedor">
-    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="POST">
-        <div>
+    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="POST" class="form-busqueda">
+        <div class="ctn-form">
             <select name="select-ctn" id="id-select-ctn" class="form-select" form="form_ctn_busqueda">
                 <option selected value="id_contenedor">ID Contenedor</option>
                 <option value="fecha_descarga">Fecha Descarga</option>
                 <option value="sku_producto">SKU Producto</option>
             </select>
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 ctn-form-input">
             <div>
-                <input type="text" class="form-control" placeholder="ID contenedor"
-                    id="id_ctn" name="id_ctn" value="{{contenedorID}}" form="form_ctn_busqueda">
+                <input type="text" class="form-control" id="id_ctn" name="id_ctn" 
+                value="{{contenedorID}}" form="form_ctn_busqueda">
             </div>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary btn-busqueda" type="submit" 
                         form="form_ctn_busqueda" id="button-addon2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-            </div>
             </div>
         </div>
     </form>

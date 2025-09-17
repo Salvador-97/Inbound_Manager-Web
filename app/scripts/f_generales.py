@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request
+from flask import request
+from sqlalchemy import create_engine, text 
+
 
 diccionarioREGEX = {"id_contenedor" : "[A-Z][A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]",
                     "sku_producto" : "[A-Z][A-Z][1-9][0-9]*[0-9]*C[1-9][0-9]*"}
@@ -23,3 +25,10 @@ def obtencionDatos():
     
     return [idContenedor, skuProducto, productoTarima, fechaDescarga, cajasTarima, idProveedor, 
             masterPack, noTarimas, descripcion, resto, codigoBarras]
+    
+def consultaDescripcion(connection, productoBusqueda):
+    consulta = text('SELECT nombre FROM productos WHERE SKU = :productoBusqueda')
+    resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
+    descripcion = resultado.fetchone()
+
+    return descripcion

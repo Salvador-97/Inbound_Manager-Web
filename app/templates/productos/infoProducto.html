@@ -15,7 +15,6 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
-            </div>
         </div>
     </form>
 </div>
@@ -25,9 +24,9 @@
         <tr>
             <th scope="col">SKU</th>
             <th scope="col">Descripción</th>
-            <th scope="col">Código Barras</th>
+            <!-- <th scope="col">Código Barras</th> -->
             <th scope="col">Producto/Tarima</th>
-            <th scope="col">Producto/Caja</th>
+            <th scope="col">Cajas</th>
             <th scope="col">Fecha</th>
             <th scope="col">Contenedor</th>
             <th scope="col">Ubicación</th>
@@ -36,11 +35,11 @@
     <tbody>
         {% for resultado in resultadoProducto %}
         <tr>
-            <th scope="row">{{ resultado.SKU }}</th>
-            <td>{{ resultado.nombre }}</td>
-            <td>{{ resultado.codigoBarras }}</td>
-            <td>{{ resultado.productoTarima }}</td>
-            <td>{{ resultado.cajasTarima }}</td>
+            <th scope="row">{{ resultado.sku_producto }}</th>
+            <td>{{ descripcion[0] }}</td>
+            <!-- <td>{{ resultado.codigoBarras }}</td> -->
+            <td>{{ resultado.piezas }}</td>
+            <td>{{ resultado.cajas }}</td>
             <td>{{ resultado.fecha }}</td>
             <td>{{ resultado.contenedor }}</td>
             <td>{{ resultado.ubicacion }}</td>
