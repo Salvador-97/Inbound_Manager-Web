@@ -44,34 +44,11 @@
             {% endif %}
         </tr>
     </thead>
-    <tbody>
-        {% for resultado in resultadoProducto %}
-        <tr>
-            <th scope="row">{{ resultado.sku_producto }}</th>
-            {% if (check != "editar") %}
-                <td>{{ descripcion.nombre }}</td>
-            {% else %}
-                <td>{{ resultado.nombre }}</td>
-            {% endif %}
-            <td>{{ resultado.piezas }}</td>
-            <td>{{ resultado.cajas }}</td>
-            {% if (check != "editar") %}
-                <td>{{ resultado.fecha }}</td>
-                <td>{{ resultado.contenedor }}</td>
-                <td>{{ resultado.ubicacion }}</td>
-            {% else %}
-                <td>{{ resultado.codigoBarras }}</td>
-                <td>{{ resultado.masterPack }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                </td>
-            {% endif %}
-        </tr>
-        {% endfor %}
+    <tbody id="tabla">
+
     </tbody>
     </table>
 </div>
+<div id="caja"></div>
 
 {%include 'footer.html' %}

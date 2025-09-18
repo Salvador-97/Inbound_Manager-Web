@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion, obtencionDatos
 
@@ -56,7 +56,9 @@ def productosInfo():
     checkEditar = ""
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
-        checkEditar = request.args.get("checkEditar", "")
+        print("Recibido en Flask:", productoBusqueda) 
+        # checkEditar = request.args.get("checkEditar", "")
+    """
     if productoBusqueda:
         with baseDatos.connect() as connection:
             
@@ -68,6 +70,15 @@ def productosInfo():
                 resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
                 resultadoProducto = resultado.fetchall()
             descripcion = consultaDescripcion(connection, productoBusqueda)
+    """
+    
                             
     return render_template('/productos/infoproducto.html', skuProducto = productoBusqueda, resultadoProducto = resultadoProducto,
                            descripcion = descripcion, check = checkEditar)
+    
+@productos.route('/api/productos/infoproducto', methods=['GET', 'POST'])
+def productosInformacionFetch():
+    if request.method == 'GET':
+        productoBusqueda = request.args.get("sku_producto", "")
+        checkEditar = request.args.get("checkEditar", "")                 
+    return jsonify({"sku": productoBusqueda})
