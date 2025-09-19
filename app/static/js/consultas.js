@@ -19,17 +19,28 @@ formulario.addEventListener('submit', function(e) {
         }
     })
     .then(datos => {
-        console.log("DATOS: ", datos)
+        const tbody = document.getElementById("tabla"); 
+        tbody.innerHTML = "";
 
-        const fila = document.createElement("tr");
+        const fragmento = document.createDocumentFragment();
+        const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']
+        
+        datos.productos.forEach(informacion => {
+            const fila = document.createElement("tr");
 
-        // 2. Crear celdas <td> para cada campo
-        const tdSku = document.createElement("td");
-        tdSku.textContent = datos.sku;
+            ordenInformacion.forEach(columna => {
+                const td = document.createElement("td");
 
-        fila.appendChild(tdSku)
-        document.getElementById("tabla").appendChild(fila);
-
+                if (columna == 'descripcion'){
+                    td.textContent = datos.descripcion;
+                } else {
+                    td.textContent = informacion[columna];
+                }
+                fila.appendChild(td);
+            })
+            fragmento.appendChild(fila);
+        })
+        tbody.appendChild(fragmento);
     })
     .catch(error => {
         console.log("Error: ", error)

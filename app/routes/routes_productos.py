@@ -80,5 +80,16 @@ def productosInfo():
 def productosInformacionFetch():
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
-        checkEditar = request.args.get("checkEditar", "")                 
-    return jsonify({"sku": productoBusqueda})
+        checkEditar = request.args.get("checkEditar", "")
+        if productoBusqueda:
+            with baseDatos.connect() as connection:
+                if checkEditar == "editar":
+                    resultado = consultaDescripcion(connection, productoBusqueda)
+                    resultadoProducto = [resultado]
+                else:
+                    consulta = text('SELECT * FROM arrivo_productos WHERE sku_producto = :productoBusqueda')
+                    resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
+                    resultadoProducto = resultado.fetchall()
+                    listaProductos = [dict(row._mapping) for row in resultadoProducto]
+                descripcion = consultaDescripcion(connection, productoBusqueda)
+    return jsonify({"sku": productoBusqueda, "productos": listaProductos, "descripcion": descripcion.nombre})
