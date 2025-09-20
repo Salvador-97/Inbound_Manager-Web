@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion, obtencionDatos
-import json
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')

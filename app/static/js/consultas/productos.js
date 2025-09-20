@@ -1,4 +1,4 @@
-import { tipoColumna } from "./f_generales.js"
+import { tipoColumna, generarEncabezadosTabla } from "../f_generales.js"
 
 const formulario = document.getElementById("form-sku-busqueda");
 formulario.addEventListener('submit', function(e) {
@@ -27,6 +27,7 @@ formulario.addEventListener('submit', function(e) {
         const fragmento = document.createDocumentFragment();
 
         if (datos.tipo == 'editar'){
+            generarEncabezadosTabla(datos.tipo)
             const fila = document.createElement("tr");
             const ordenInformacion = ['sku_producto', 'nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack']
             
@@ -37,6 +38,7 @@ formulario.addEventListener('submit', function(e) {
             })
             tbody.appendChild(fila);
         } else {
+            generarEncabezadosTabla(datos.tipo)
             datos.productos.forEach(informacion => {
                 const fila = document.createElement("tr");
                 const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']

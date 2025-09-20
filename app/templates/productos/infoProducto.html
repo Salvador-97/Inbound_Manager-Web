@@ -27,25 +27,10 @@
 <div class="ctn-tabla">
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th scope="col">SKU</th>
-            <th scope="col">Descripción</th>
-            <!-- <th scope="col">Código Barras</th> -->
-            <th scope="col">Producto/Tarima</th>
-            <th scope="col">Cajas</th>
-            {% if (check != "editar") %}
-                <th scope="col">Fecha</th>
-                <th scope="col">Contenedor</th>
-                <th scope="col">Ubicación</th>
-            {% else %}
-                <th scope="col">Código de barras</th>
-                <th scope="col">Master Pack</th>
-                <th scope="col">Editar</th>
-            {% endif %}
+        <tr id="encabezado">
         </tr>
     </thead>
     <tbody id="tabla">
-
     </tbody>
     </table>
 </div>
