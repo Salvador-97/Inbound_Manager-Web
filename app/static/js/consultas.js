@@ -1,3 +1,5 @@
+import { tipoColumna } from "./f_generales.js"
+
 const formulario = document.getElementById("form-sku-busqueda");
 formulario.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -23,24 +25,34 @@ formulario.addEventListener('submit', function(e) {
         tbody.innerHTML = "";
 
         const fragmento = document.createDocumentFragment();
-        const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']
-        
-        datos.productos.forEach(informacion => {
+
+        if (datos.tipo == 'editar'){
             const fila = document.createElement("tr");
-
+            const ordenInformacion = ['sku_producto', 'nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack']
+            
             ordenInformacion.forEach(columna => {
-                const td = document.createElement("td");
-
-                if (columna == 'descripcion'){
-                    td.textContent = datos.descripcion;
-                } else {
-                    td.textContent = informacion[columna];
-                }
+                const td = tipoColumna(columna)
+                td.textContent = datos.producto[columna]
                 fila.appendChild(td);
             })
-            fragmento.appendChild(fila);
-        })
+            tbody.appendChild(fila);
+        } else {
+            datos.productos.forEach(informacion => {
+                const fila = document.createElement("tr");
+                const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']
+                ordenInformacion.forEach(columna => {
+                    const td = tipoColumna(columna)
+                    if (columna == 'descripcion'){
+                        td.textContent = datos.descripcion.nombre;
+                    } else {
+                        td.textContent = informacion[columna];
+                    }
+                    fila.appendChild(td);
+                })
+                fragmento.appendChild(fila);
+            })
         tbody.appendChild(fragmento);
+        }
     })
     .catch(error => {
         console.log("Error: ", error)

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion, obtencionDatos
+import json
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -49,47 +50,40 @@ def productosUbicaciones():
                            resultadoUbicaciones = resultadoUbicaciones, descripcion = descripcion)
 
 @productos.route('/productos/infoproducto', methods=['GET', 'POST'])
-def productosInfo():
-    skuProducto = ""
-    descripcion = []
-    resultadoProducto = []
-    checkEditar = ""
-    if request.method == 'GET':
-        productoBusqueda = request.args.get("sku_producto", "")
-        print("Recibido en Flask:", productoBusqueda) 
-        # checkEditar = request.args.get("checkEditar", "")
-    """
-    if productoBusqueda:
-        with baseDatos.connect() as connection:
-            
-            if checkEditar == "editar":
-                resultado = consultaDescripcion(connection, productoBusqueda)
-                resultadoProducto = [resultado]
-            else:
-                consulta = text('SELECT * FROM arrivo_productos WHERE sku_producto = :productoBusqueda')
-                resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
-                resultadoProducto = resultado.fetchall()
-            descripcion = consultaDescripcion(connection, productoBusqueda)
-    """
-    
-                            
-    return render_template('/productos/infoproducto.html', skuProducto = productoBusqueda, resultadoProducto = resultadoProducto,
-                           descripcion = descripcion, check = checkEditar)
+def productosInfo():              
+    return render_template('/productos/infoproducto.html')
     
 @productos.route('/api/productos/infoproducto', methods=['GET', 'POST'])
 def productosInformacionFetch():
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
         checkEditar = request.args.get("checkEditar", "")
+        
         if productoBusqueda:
+            jsonConsulta = {}
             with baseDatos.connect() as connection:
                 if checkEditar == "editar":
                     resultado = consultaDescripcion(connection, productoBusqueda)
-                    resultadoProducto = [resultado]
+                    dictResultado = dict(resultado._mapping)
+                    jsonConsulta = {
+                        "sku": productoBusqueda, 
+                        "producto": dictResultado,
+                        "tipo": checkEditar
+                        }
                 else:
                     consulta = text('SELECT * FROM arrivo_productos WHERE sku_producto = :productoBusqueda')
                     resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
                     resultadoProducto = resultado.fetchall()
                     listaProductos = [dict(row._mapping) for row in resultadoProducto]
-                descripcion = consultaDescripcion(connection, productoBusqueda)
-    return jsonify({"sku": productoBusqueda, "productos": listaProductos, "descripcion": descripcion.nombre})
+                    
+                    descripcion = consultaDescripcion(connection, productoBusqueda)
+                    contenidoDescripcion = dict(descripcion._mapping)
+                    
+                    jsonConsulta = {
+                        "sku": productoBusqueda, 
+                        "productos": listaProductos, 
+                        "descripcion": contenidoDescripcion, 
+                        "producto": contenidoDescripcion,
+                        "tipo": 0
+                        }
+    return jsonify(jsonConsulta)
