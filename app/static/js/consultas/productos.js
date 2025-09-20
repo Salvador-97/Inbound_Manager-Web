@@ -1,4 +1,5 @@
 import { tipoColumna, generarEncabezadosTabla } from "../f_generales.js"
+import { crearBoton } from "../botones.js/editar.js";
 
 const formulario = document.getElementById("form-sku-busqueda");
 formulario.addEventListener('submit', function(e) {
@@ -28,17 +29,28 @@ formulario.addEventListener('submit', function(e) {
 
         if (datos.tipo == 'editar'){
             generarEncabezadosTabla(datos.tipo)
+
             const fila = document.createElement("tr");
             const ordenInformacion = ['sku_producto', 'nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack']
-            
+            let td = null
+
             ordenInformacion.forEach(columna => {
-                const td = tipoColumna(columna)
+                td = tipoColumna(columna)
                 td.textContent = datos.producto[columna]
                 fila.appendChild(td);
             })
+
+            const tdBoton = document.createElement('td')
+            const boton = crearBoton('editar', 'btn-primary')
+            const boton2 = crearBoton('eliminar', 'btn-danger');
+            tdBoton.appendChild(boton)
+            tdBoton.appendChild(boton2)
+            fila.appendChild(tdBoton)
+
             tbody.appendChild(fila);
         } else {
             generarEncabezadosTabla(datos.tipo)
+
             datos.productos.forEach(informacion => {
                 const fila = document.createElement("tr");
                 const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']

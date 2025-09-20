@@ -29,7 +29,12 @@ export function generarEncabezadosTabla(tipoConsulta){
         const columna = document.createElement('th');
 
         if (tipoConsulta == 'editar'){
-            columna.textContent = consultaInfo[i]
+            if (consultaInfo[i] == 'Opciones'){
+                columna.textContent = consultaInfo[i];
+                columna.id = 'editarBotones';
+            } else {
+                columna.textContent = consultaInfo[i];
+            }
         } else {
             columna.textContent = consultaArrivo[i]
         }
