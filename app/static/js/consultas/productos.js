@@ -35,7 +35,7 @@ formulario.addEventListener('submit', function(e) {
             let td = null
 
             ordenInformacion.forEach(columna => {
-                td = tipoColumna(columna)
+                td = tipoColumna(columna, 'sku_producto')
                 td.textContent = datos.producto[columna]
                 fila.appendChild(td);
             })

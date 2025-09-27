@@ -1,8 +1,8 @@
 
 
-export function tipoColumna(columna){
+export function tipoColumna(columna, columaPrincipal){
     let td = null;
-    if (columna == 'sku_producto'){
+    if (columna == columaPrincipal){
         td = document.createElement("th");
         return td;
     } else {
@@ -39,5 +39,18 @@ export function generarEncabezadosTabla(tipoConsulta){
             columna.textContent = consultaArrivo[i]
         }
         encabezado.appendChild(columna)
+    }
+}
+
+export function generarEncabezados(encabezados){
+    const titulos = document.getElementById('encabezado');
+
+    titulos.innerHTML = "";
+
+    for (let index = 0; index < encabezados.length; index++) {
+        const columna = document.createElement('th');
+
+        columna.textContent = encabezados[index]
+        titulos.appendChild(columna);
     }
 }

@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text
-from app.scripts.f_generales import obtencionDatos
+from app.scripts.f_generales import obtencionDatos, consultaDescripcion
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -49,6 +49,7 @@ def contenedoresSKU():
                 
     return render_template('/contenedores/arrivo.html', producto=producto, skuProducto = skuProducto)
 
+"""
 @contenedores.route('/contenedores/busqueda', methods=['GET', 'POST'])
 def busquedaContenedor():
     resultadosTabla = []
@@ -61,3 +62,30 @@ def busquedaContenedor():
                 resultado = connection.execute(consulta, {"id_ctn": tipoBusqueda})
                 resultadosTabla = resultado.fetchall()
     return render_template('contenedores/busqueda.html', resultadosTabla=resultadosTabla, tipo = tipoB)
+    """
+    
+@contenedores.route('/contenedores/busqueda', methods=['GET', 'POST'])
+def contenedoresBusqueda():
+    return render_template('/contenedores/busqueda.html')
+
+@contenedores.route('/api/contenedores/busqueda', methods=['GET', 'POST'])
+def busqueda():
+    opcionUsuario = ""
+    if request.method == 'GET':
+        opcionUsuario = request.args.get('select-ctn', "")
+        tipoBusqueda = request.args.get('id_ctn', "")
+    if opcionUsuario:
+        with baseDatos.connect() as connection:
+                consulta = text(f"SELECT * FROM contenedores WHERE {opcionUsuario} = :id_ctn")
+                resultado = connection.execute(consulta, {"id_ctn": tipoBusqueda})
+                resultadosTabla = resultado.fetchall()
+                dicResultados = [dict(row._mapping) for row in resultadosTabla]
+                                
+                descripcion = consultaDescripcion(connection, dicResultados[0].get('sku_producto'))
+                contenidoDescripcion = dict(descripcion._mapping)
+                
+                jsonConsulta = {
+                    "contenedores": dicResultados,
+                    "descripcion": contenidoDescripcion.get('nombre')
+                }
+    return jsonify(jsonConsulta)

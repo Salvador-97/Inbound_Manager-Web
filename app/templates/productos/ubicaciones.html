@@ -35,32 +35,10 @@
 <div class="ctn-tabla">
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th scope="col">SKU</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Producto/Tarima</th>
-            <th scope="col">Cajas</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Ubicacion</th>
-            <th scope="col">Opciones</th>
+        <tr id="encabezado">   
         </tr>
     </thead>
-    <tbody>
-        {% for ubicaciones in resultadoUbicaciones %}
-        <tr>
-            <th scope="row">{{ ubicaciones.sku_producto }}</th>
-            <td>{{ descripcion.nombre }}</td>
-            <td>{{ ubicaciones.piezas }}</td>
-            <td>{{ ubicaciones.cajas }}</td>
-            <td>{{ ubicaciones.fecha }}</td>
-            <td>{{ ubicaciones.ubicacion }}</td>
-            <td>
-                <button type="button" class="btn btn-primary">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
-            </td>
-        </tr>
-        {% endfor %}
+    <tbody id="contenido-tabla">
     </tbody>
     </table>
 </div>

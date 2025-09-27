@@ -2,7 +2,7 @@
 <h2 class="titulo">Búsqueda Contenedores</h2>
 
 <div class="input-busqueda-contenedor">
-    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="POST" class="form-busqueda">
+    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="GET" class="form-busqueda">
         <div class="ctn-form">
             <select name="select-ctn" id="id-select-ctn" class="form-select" form="form_ctn_busqueda">
                 <option selected value="id_contenedor">ID Contenedor</option>
@@ -27,28 +27,10 @@
 <div class="ctn-tabla">
 <table class="table table-striped">
     <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">SKU</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Fecha descarga</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">No. Tarimas</th>
-            <th scope="col">Resto</th>
-        </tr>
+        <tr id="encabezado"></tr>
     </thead>
-    <tbody>
-        {% for resultados in resultadosTabla %}
-        <tr>
-            <th scope="row">{{resultados.id_contenedor}}</th>
-            <td>{{resultados.sku_producto}}</td>
-            <td>{{resultados.proveedor}}</td>
-            <td>{{resultados.fecha_descarga}}</td>
-            <td></td>
-            <td>{{resultados.no_tarimas}}</td>
-            <td>{{resultados.resto_cajas}}</td>
-        </tr>
-        {% endfor %}
+    <tbody id="tablaContenedor">
+        
     </tbody>
     </table>
 </div>

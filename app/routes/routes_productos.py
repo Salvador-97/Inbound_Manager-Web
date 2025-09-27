@@ -25,9 +25,32 @@ def productoNuevo():
 
 @productos.route('/productos/ubicaciones', methods=['GET', 'POST'])
 def productosUbicaciones():
-    skuProducto = ""
-    resultadoUbicaciones = []
-    descripcion = [""]
+    # skuProducto = ""
+    # resultadoUbicaciones = []
+    # descripcion = [""]
+    # if request.method == 'GET':
+    #     skuProducto = request.args.get('sku_producto', "")
+    #     checkUbicacionSin = request.args.get("checkSin", "")
+    #     checkUbicacionCon = request.args.get("checkCon", "")
+    # if skuProducto:
+    #     with baseDatos.connect() as connection:
+    #         if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
+    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
+    #         elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
+    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
+    #         else:
+    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
+    #         resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
+    #         resultadoUbicaciones = resultado.fetchall()
+            
+    #         descripcion = consultaDescripcion(connection, skuProducto)
+            
+    return render_template('/productos/ubicaciones.html')
+
+@productos.route('/api/productos/ubicaciones', methods=['GET', 'POST'])
+def fetchUbicaciones():
+    dicUbicaciones = {}
+    filaDescripcion = {}
     if request.method == 'GET':
         skuProducto = request.args.get('sku_producto', "")
         checkUbicacionSin = request.args.get("checkSin", "")
@@ -35,18 +58,23 @@ def productosUbicaciones():
     if skuProducto:
         with baseDatos.connect() as connection:
             if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
-                consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
+               consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
             elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
                 consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
             else:
                 consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
             resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
-            resultadoUbicaciones = resultado.fetchall()
             
+            resultadoUbicaciones = [dict(row._mapping) for row in resultado.fetchall()]
+
             descripcion = consultaDescripcion(connection, skuProducto)
-            
-    return render_template('/productos/ubicaciones.html', skuProducto = skuProducto, 
-                           resultadoUbicaciones = resultadoUbicaciones, descripcion = descripcion)
+            contenidoDescripcion = dict(descripcion._mapping)
+                        
+            jsonConsulta = {
+                "ubicaciones": resultadoUbicaciones,
+                "descripcion": contenidoDescripcion.get('nombre')
+            }
+    return jsonify(jsonConsulta)
 
 @productos.route('/productos/infoproducto', methods=['GET', 'POST'])
 def productosInfo():              
