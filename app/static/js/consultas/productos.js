@@ -1,5 +1,5 @@
 import { tipoColumna, generarEncabezadosTabla } from "../f_generales.js"
-import { crearBoton } from "../botones.js/editar.js";
+import { crearBoton } from "../botones/editar.js";
 
 const formulario = document.getElementById("form-sku-busqueda");
 formulario.addEventListener('submit', function(e) {

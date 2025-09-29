@@ -54,3 +54,15 @@ export function generarEncabezados(encabezados){
         titulos.appendChild(columna);
     }
 }
+
+export function mensajesModal(modal, titulo, mensaje){
+    const miModal = new bootstrap.Modal(document.getElementById(modal));
+    const tituloSelect = document.getElementById('miModalLabel');
+    const mensajeSelect = document.getElementById('mensaje-Modal');
+
+
+    tituloSelect.textContent = titulo;
+    mensajeSelect.textContent = mensaje;
+
+    miModal.show();
+}

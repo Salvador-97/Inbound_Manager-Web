@@ -44,7 +44,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">
+                    <th colspan="2" id="barra-estado">
                         <button type="submit" class="btn btn-success" form="form-nuevo-producto">
                             <i class="fa-solid fa-circle-plus"></i>
                             Agregar producto
@@ -55,4 +55,21 @@
         </tbody>
     </table>
     </div>
+    <!-- Modal -->
+<div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="mensaje-Modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {%include 'footer.html' %}

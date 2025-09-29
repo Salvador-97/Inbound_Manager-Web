@@ -11,6 +11,7 @@ def productosSKU():
 
 @productos.route('/productos/nuevo', methods=['GET', 'POST'])
 def productoNuevo():
+    """
     tuplaDatos = ()
     if request.method == 'POST':
         tuplaDatos = obtencionDatos()
@@ -20,37 +21,39 @@ def productoNuevo():
             connection.execute(insertDB, {"sku" :tuplaDatos[1], "nombre": tuplaDatos[8],
                                "codigoBarras" :tuplaDatos[10], "productoTarima" :tuplaDatos[2],
                                "cajasTarima" :tuplaDatos[4], "masterPack" :tuplaDatos[6]})
-            connection.commit()  
+            connection.commit() 
+    """
     return render_template('productos/nuevo.html')
 
+@productos.route('/api/productos/nuevo', methods=['GET', 'POST'])
+def fetchNuevoProducto():
+    if (request.method == 'POST'):
+        formularios = ['skuProducto', 'descripcion', 'codigo_barras', 'cajas_tarima', 'producto_tarima', 'master_pack']
+        datos = {formulario: request.form.get(formulario) for formulario in formularios}
+    if datos:
+        with baseDatos.connect() as connection:
+            print("JSON: ", datos.get('skuProducto'))
+            consultaSKU = text('SELECT sku_producto FROM productos WHERE sku_producto = :skuProducto')
+            checkSKU = connection.execute(consultaSKU, {'skuProducto': datos.get('skuProducto')})
+            if (checkSKU.fetchone() != None): 
+                estadoConsulta = {
+                    "estado": 400
+                }
+            else:
+                insertSKU = text('INSERT INTO productos VALUES(:skuProducto, :descripcion, :codigo_barras, :producto_tarima, :cajas_tarima, :master_pack)')
+                connection.execute(insertSKU, datos)
+                connection.commit()
+                estadoConsulta = {
+                    "estado": 200
+                }
+    return jsonify(estadoConsulta)
+
 @productos.route('/productos/ubicaciones', methods=['GET', 'POST'])
-def productosUbicaciones():
-    # skuProducto = ""
-    # resultadoUbicaciones = []
-    # descripcion = [""]
-    # if request.method == 'GET':
-    #     skuProducto = request.args.get('sku_producto', "")
-    #     checkUbicacionSin = request.args.get("checkSin", "")
-    #     checkUbicacionCon = request.args.get("checkCon", "")
-    # if skuProducto:
-    #     with baseDatos.connect() as connection:
-    #         if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
-    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
-    #         elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
-    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
-    #         else:
-    #             consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
-    #         resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
-    #         resultadoUbicaciones = resultado.fetchall()
-            
-    #         descripcion = consultaDescripcion(connection, skuProducto)
-            
+def productosUbicaciones():    
     return render_template('/productos/ubicaciones.html')
 
 @productos.route('/api/productos/ubicaciones', methods=['GET', 'POST'])
 def fetchUbicaciones():
-    dicUbicaciones = {}
-    filaDescripcion = {}
     if request.method == 'GET':
         skuProducto = request.args.get('sku_producto', "")
         checkUbicacionSin = request.args.get("checkSin", "")

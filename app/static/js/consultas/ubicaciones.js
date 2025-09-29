@@ -1,5 +1,5 @@
 import { generarEncabezados, tipoColumna } from "../f_generales.js"
-import { crearBoton } from "../botones.js/editar.js"
+import { crearBoton } from "../botones/editar.js"
 
 const formularioUbicaciones = document.getElementById("form-sku-ubicaciones")
 
