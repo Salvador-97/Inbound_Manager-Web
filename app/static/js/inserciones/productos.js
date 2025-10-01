@@ -10,6 +10,8 @@ formularioNuevoProd.addEventListener('submit', function(e){
 
     console.log("Datos: ", datos)
 
+    // Agregar funcion que valide cada uno de los datos ingresados
+
     if (datos.skuProducto){
         const estado = document.getElementById('barra-estado');
         // estado.style.borderColor = "#F54927"
@@ -22,13 +24,6 @@ formularioNuevoProd.addEventListener('submit', function(e){
     })
     .then(response => response.json())
     .then(consulta => {
-        console.log("Datos: ", consulta)
-        console.log("Estado: ", consulta.estado)
-        const estadoForm = document.getElementById('barra-estado');
-        const miModal = new bootstrap.Modal(document.getElementById("miModal"));
-        const mensaje = document.getElementById('mensaje-Modal');
-        const titulo = document.getElementById('miModalLabel');
-
 
         if (consulta.estado == 400){
             mensajesModal('miModal', 'Error', '¡El SKU del producto ya existe!')

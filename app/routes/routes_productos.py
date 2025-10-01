@@ -11,18 +11,6 @@ def productosSKU():
 
 @productos.route('/productos/nuevo', methods=['GET', 'POST'])
 def productoNuevo():
-    """
-    tuplaDatos = ()
-    if request.method == 'POST':
-        tuplaDatos = obtencionDatos()
-    if tuplaDatos:
-        with baseDatos.connect() as connection:
-            insertDB = text('INSERT INTO productos VALUES(:sku, :nombre, :codigoBarras, :productoTarima, :cajasTarima, :masterPack)')
-            connection.execute(insertDB, {"sku" :tuplaDatos[1], "nombre": tuplaDatos[8],
-                               "codigoBarras" :tuplaDatos[10], "productoTarima" :tuplaDatos[2],
-                               "cajasTarima" :tuplaDatos[4], "masterPack" :tuplaDatos[6]})
-            connection.commit() 
-    """
     return render_template('productos/nuevo.html')
 
 @productos.route('/api/productos/nuevo', methods=['GET', 'POST'])

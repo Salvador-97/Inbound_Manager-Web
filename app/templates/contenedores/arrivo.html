@@ -13,8 +13,8 @@
                 </td>
                 <th scope="row">Productos por tarima</th>
                 <td>
-                    <input value="{{ producto.productoTarima}}" type="text" class="form-control"
-                    name="producto_tarima" form="form-ctn">
+                    <input type="text" class="form-control"
+                    name="piezas" form="form-ctn">
                 </td>
             </tr>
             <tr>
@@ -24,8 +24,8 @@
                 </td>
                 <th scope="row">Cajas por tarima</th>
                 <td>
-                    <input value="{{ producto.cajasTarima}}" type="text" class="form-control" 
-                    name="cajas_tarima" form="form-ctn">
+                    <input type="text" class="form-control" 
+                    name="cajas" form="form-ctn">
                 </td>
             </tr>
             <tr>
@@ -35,8 +35,8 @@
                 </td>
                 <th scope="row">Master Pack</th>
                 <td>
-                   <input value="{{ producto.masterPack}}" type="text" class="form-control" 
-                   name="master_pack" form="form-ctn">
+                   <input type="text" class="form-control" 
+                   name="masterPack" form="form-ctn">
                 </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@
                     <form action="/contenedores/arrivo" method="GET" id="form-sku">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder=""
-                            id="sku_producto" name="sku_producto" value="{{skuProducto}}">
+                            id="sku_producto" name="sku_producto">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary btn-busqueda" 
                                     type="submit" id="button-addon2" form="form-sku">
@@ -63,8 +63,8 @@
             <tr>
                 <th scope="row">Descripción</th>
                 <td>
-                    <input value="{{ producto.nombre}}" type="text" class="form-control" 
-                    name="descripcion" form="form-ctn">
+                    <input type="text" class="form-control" 
+                    name="nombre" form="form-ctn">
                 </td>
                 <th scope="row">Resto (Cajas)</th>
                 <td>
@@ -74,14 +74,14 @@
             <tr>
                 <th scope="row">Código de barras</th>
                 <td>
-                    <input value="{{ producto.codigoBarras}}" type="text" class="form-control" 
-                    name="codigo_barras" form="form-ctn">
+                    <input type="text" class="form-control" 
+                    name="codigoBarras" form="form-ctn">
                 </td>
             </tr>
             <tr>
                 <th colspan="4" class="ctn-input">
                     <form action="/contenedores/arrivo" method="POST" id="form-ctn">
-                        <input type="hidden" name="skuProducto" value="{{skuProducto}}">
+                        <input type="hidden" name="skuProducto">
                         <button type="submit" class="btn btn-outline-success" form="form-ctn">
                             Agregar
                         </button>
