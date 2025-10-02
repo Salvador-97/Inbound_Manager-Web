@@ -3,6 +3,7 @@ venv/
 env/
 .venv/
 .env/
+env_flask/
 
 # Archivos de Python compilados
 __pycache__/
