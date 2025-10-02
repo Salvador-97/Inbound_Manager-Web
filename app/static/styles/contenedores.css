@@ -68,10 +68,15 @@
     color: var(--color-icono);
 }
 
-.tarjeta i:hover, h4:hover {
-    color: white;
+.colorTarjeta {
+    color: white !important;
     transition: 0.4s ease;
 }
+
+/* .tarjeta i:hover, h4:hover {
+    color: white;
+    transition: 0.4s ease;
+} */
 
 /*Página "Nuevo contenedor" */
 .contenedor-tabla{
