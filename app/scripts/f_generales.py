@@ -1,5 +1,5 @@
 from flask import request
-from sqlalchemy import create_engine, text 
+from sqlalchemy import text 
 
 
 diccionarioREGEX = {"id_contenedor" : "[A-Z][A-Z][A-Z][A-Z][0-9][0-9][0-9][0-9][0-9][0-9][0-9]",
@@ -9,7 +9,7 @@ def tipoBusqueda():
     tipoB = request.form.get("id-select-ctn", "")
     print("Tipo Busqueda: ", tipoB)
     
-
+#Cambiar todo esto por un for
 def obtencionDatos():
     idContenedor = request.form.get('id_ctn', "")
     skuProducto = request.form.get('skuProducto', "")
@@ -28,7 +28,10 @@ def obtencionDatos():
     
 def consultaDescripcion(connection, productoBusqueda):
     consulta = text('SELECT * FROM productos WHERE sku_producto = :productoBusqueda')
-    resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
-    producto = resultado.fetchone()
-
-    return producto
+    try:    
+        resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
+    except Exception as e:
+        return None
+    else:
+        producto = resultado.fetchone()
+        return producto

@@ -106,15 +106,33 @@ def busqueda():
     if opcionUsuario:
         with baseDatos.connect() as connection:
                 consulta = text(f"SELECT * FROM contenedores WHERE {opcionUsuario} = :id_ctn")
-                resultado = connection.execute(consulta, {"id_ctn": valorBusqueda})
-                resultadosTabla = resultado.fetchall()
-                dicResultados = [dict(row._mapping) for row in resultadosTabla]
-                                
-                descripcion = consultaDescripcion(connection, dicResultados[0].get('sku_producto'))
-                contenidoDescripcion = dict(descripcion._mapping)
-                
-                jsonConsulta = {
-                    "contenedores": dicResultados,
-                    "descripcion": contenidoDescripcion.get('nombre')
-                }
+                try:
+                    resultado = connection.execute(consulta, {"id_ctn": valorBusqueda})
+                except Exception as e:
+                    jsonConsulta = {
+                        "error": str(e),
+                        "estado": 404
+                    }
+                else:
+                    resultadosTabla = resultado.fetchall()
+                    if (resultadosTabla):
+                        dicResultados = [dict(row._mapping) for row in resultadosTabla]
+                        
+                        descripcion = consultaDescripcion(connection, dicResultados[0].get('sku_producto'))
+                        if (descripcion != None):
+                            contenidoDescripcion = dict(descripcion._mapping)
+                        
+                            jsonConsulta = {
+                                "contenedores": dicResultados,
+                                "descripcion": contenidoDescripcion.get('nombre'),
+                                "estado": 200
+                            }
+                        else:
+                            jsonConsulta = {
+                                "estado": 400
+                            }
+                    else:
+                        jsonConsulta = {
+                                "estado": 404
+                            }
     return jsonify(jsonConsulta)
