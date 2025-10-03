@@ -1,0 +1,17 @@
+.error {
+    box-shadow: 0 0 0 .25rem rgba(232, 107, 81) !important;
+    border-color: rgba(232, 107, 81) !important;
+    background-color: #FAEBEB;
+}
+
+.check {
+    box-shadow: 0 0 0 .25rem rgba(81, 232, 101) !important;
+    border-color: rgba(81, 232, 101) !important;
+    background-color: #C0F6C7; 
+}
+
+.advertencia {
+    box-shadow: 0 0 0 .25rem #F8DC63 !important;
+    border-color: #F8DC63 !important;
+    background-color: #FCF0BB; 
+}

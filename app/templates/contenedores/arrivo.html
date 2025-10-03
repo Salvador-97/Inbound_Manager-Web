@@ -79,10 +79,10 @@
                 </td>
             </tr>
             <tr>
-                <th colspan="4" class="ctn-input">
+                <th colspan="4">
                     <form action="/contenedores/arrivo" method="POST" id="form-ctn">
                         <input type="hidden" name="skuProducto">
-                        <button type="submit" class="btn btn-outline-success" form="form-ctn">
+                        <button type="submit" class="btn btn-success" form="form-ctn">
                             Agregar
                         </button>
                     </form>
@@ -94,5 +94,23 @@
     <div class="contenedor-btn-arrivo">
         
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="modalInputError" tabindex="-1" aria-labelledby="miModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="miModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="mensaje-Modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {%include 'footer.html' %}

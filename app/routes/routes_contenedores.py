@@ -21,35 +21,75 @@ def arrivoFetch():
         if skuProducto:
             with baseDatos.connect() as connection:
                 consulta = text('SELECT * FROM productos WHERE sku_producto = :sku_producto')
-                resultado = connection.execute(consulta, {"sku_producto": skuProducto})
-                producto = resultado.fetchone()
-                
-                jsonConsulta = {
-                    "producto": dict(producto._mapping)
-                }
+
+                try:
+                    resultado = connection.execute(consulta, {"sku_producto": skuProducto})
+                    producto = resultado.fetchone()
+                except Exception as e:
+                    jsonConsulta = {
+                        "error": str(e),
+                        "estado": 400
+                    }
+                else:
+                    if (producto != None):
+                        jsonConsulta = {
+                            "producto": dict(producto._mapping),
+                            "estado": 200
+                        }
+                    else:
+                        jsonConsulta = {
+                            "producto": "Producto no encontrado.",
+                            "estado": 404
+                        }
+                        
     if ((request.method == 'POST')):
         datosContenedor = request.get_json()
         with baseDatos.connect() as connection:
             insertContenedor = text('INSERT INTO contenedores VALUES (:id_ctn, :skuProducto, :fecha_descarga, :id_proveedor, :no_tarimas, :resto)')
             insertUbicaciones = text('INSERT INTO arrivo_productos VALUES (:skuProducto, :piezas, :cajas, :fecha_descarga, :id_ctn, :ubicacion)')
             
-            connection.execute(insertContenedor, datosContenedor)
-            connection.commit()
-            
-            noTarimas = int(datosContenedor.get('no_tarimas'))
-            for i in range(1, noTarimas + 1):
-                if (i == noTarimas):
-                    cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
-                    datosContenedor['piezas'] = cajasTarima
-                    datosContenedor['cajas'] = datosContenedor['resto']
-                    connection.execute(insertUbicaciones, datosContenedor)
-                    connection.commit()
-                else:
-                    connection.execute(insertUbicaciones, datosContenedor)
-                    connection.commit()
-        jsonConsulta = {
-            "estado": 200
-        }
+            try:
+                connection.execute(insertContenedor, datosContenedor)
+            except Exception as e:
+                connection.rollback()
+                jsonConsulta = {
+                    "error": str(e),
+                    "estado": 400
+                }
+            else: 
+                connection.commit()
+                noTarimas = int(datosContenedor.get('no_tarimas'))
+                for i in range(1, noTarimas + 1):
+                    if (i == noTarimas):
+                        cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
+                        datosContenedor['piezas'] = cajasTarima
+                        datosContenedor['cajas'] = datosContenedor['resto']
+                        try:
+                            connection.execute(insertUbicaciones, datosContenedor)
+                        except Exception as e:
+                            connection.rollback()
+                            jsonConsulta = {
+                                "error": str(e),
+                                "estado": 400
+                            }
+                        else:
+                            connection.commit()
+                            jsonConsulta = {
+                                "estado": 200
+                            }
+                    else:
+                        try:
+                            connection.execute(insertUbicaciones, datosContenedor)
+                        except Exception as e:
+                            jsonConsulta = {
+                                "error": str(e),
+                                "estado": 400
+                            }
+                        else:
+                            connection.commit()
+                            jsonConsulta = {
+                                "estado": 200
+                            }
     return jsonify(jsonConsulta)
 
 
