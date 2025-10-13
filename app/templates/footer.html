@@ -15,6 +15,7 @@
 
     {% if request.path == '/productos/ubicaciones' %}
         <script src="{{ url_for('static', filename='js/consultas/ubicaciones.js') }}" type="module"></script>
+        <script src="{{ url_for('static', filename='js/inserciones/ubicaciones.js') }}" type="module"></script>
     {% endif %}
     {% if request.path == '/productos/nuevo' %}
         <script src="{{ url_for('static', filename='js/inserciones/productos.js') }}" type="module"></script>

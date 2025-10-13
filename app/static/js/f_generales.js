@@ -1,8 +1,8 @@
 
 
-export function tipoColumna(columna, columaPrincipal){
+export function tipoColumna(columna, columaPrincipal) {
     let td = null;
-    if (columna == columaPrincipal){
+    if (columna == columaPrincipal) {
         td = document.createElement("th");
         return td;
     } else {
@@ -11,25 +11,25 @@ export function tipoColumna(columna, columaPrincipal){
     }
 }
 
-export function generarEncabezadosTabla(tipoConsulta){
+export function generarEncabezadosTabla(tipoConsulta) {
     const consultaArrivo = ['SKU', 'Descripción', 'Piezas', 'Cajas', 'Fecha', 'Contenedor', 'Ubicación']
     const consultaInfo = ['SKU', 'Descripción', 'Código Barras', 'Piezas', 'Cajas', 'Master Pack', 'Opciones']
     const encabezado = document.getElementById('encabezado')
     let tamañoEncabezado = 0
 
     encabezado.innerHTML = ""
-    
-    if (tipoConsulta == 'editar'){
+
+    if (tipoConsulta == 'editar') {
         tamañoEncabezado = consultaInfo.length;
     } else {
         tamañoEncabezado = consultaArrivo.length;
     }
 
-    for(let i = 0; i < tamañoEncabezado; i++){
+    for (let i = 0; i < tamañoEncabezado; i++) {
         const columna = document.createElement('th');
 
-        if (tipoConsulta == 'editar'){
-            if (consultaInfo[i] == 'Opciones'){
+        if (tipoConsulta == 'editar') {
+            if (consultaInfo[i] == 'Opciones') {
                 columna.textContent = consultaInfo[i];
                 columna.id = 'editarBotones';
             } else {
@@ -42,7 +42,7 @@ export function generarEncabezadosTabla(tipoConsulta){
     }
 }
 
-export function generarEncabezados(encabezados){
+export function generarEncabezados(encabezados) {
     const titulos = document.getElementById('encabezado');
 
     titulos.innerHTML = "";
@@ -55,14 +55,22 @@ export function generarEncabezados(encabezados){
     }
 }
 
-export function mensajesModal(modal, titulo, mensaje){
+export function mensajesModal(modal, titulo, mensaje) {
     const miModal = new bootstrap.Modal(document.getElementById(modal));
     const tituloSelect = document.getElementById('miModalLabel');
     const mensajeSelect = document.getElementById('mensaje-Modal');
 
 
     tituloSelect.textContent = titulo;
-    mensajeSelect.textContent = mensaje;
+    if (mensaje == 'input') {
+        mensajeSelect.innerHTML = `<form action="" id="form-ubicacion">
+                            <div class="form-group">
+                            <input type="text" class="form-control input-ubicacion" id="ubicacion" name="ubicacion" form="form-ubicacion">
+                            </div>
+                            </form>`;
+    } else {
+        mensajeSelect.textContent = mensaje;
+    }
 
     miModal.show();
 }

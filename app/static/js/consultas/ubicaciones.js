@@ -22,8 +22,6 @@ formularioUbicaciones.addEventListener('submit', function(e) {
         }
     })
     .then(datos => {
-        console.log("Datos: ", datos);
-
         const tabla = document.getElementById('contenido-tabla');
         const fragmento = document.createDocumentFragment();
 
@@ -40,13 +38,16 @@ formularioUbicaciones.addEventListener('submit', function(e) {
                 if (columnas == 'descripcion'){
                     celda.textContent = datos.descripcion;
                 } else {
+                    if (columnas == 'cajas'){
+                        celda.setAttribute('name', 'cajas')
+                    }
                     celda.textContent = informacion[columnas]
                 }
                 fila.appendChild(celda);
             })
 
             const celdaOpciones = document.createElement('td');
-            const boton = crearBoton('actualizar', 'btn-primary')
+            const boton = crearBoton('editar', 'btn-primary')
             const boton2 = crearBoton('eliminar', 'btn-danger');
 
             celdaOpciones.appendChild(boton);

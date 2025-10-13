@@ -2,7 +2,8 @@ export function crearBoton(texto, tipoBoton){
     const boton = document.createElement('button');
     boton.classList.add('btn');
     boton.classList.add(tipoBoton);
-    boton.setAttribute('type', 'button')
+    boton.setAttribute('type', 'submit')
+    boton.setAttribute('name', texto)
     let fontawesome = '';
     let marginLeft = '0'
 

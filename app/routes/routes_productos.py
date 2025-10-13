@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
-from app.scripts.f_generales import consultaDescripcion, obtencionDatos
+from app.scripts.f_generales import consultaDescripcion
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -46,25 +46,67 @@ def fetchUbicaciones():
         skuProducto = request.args.get('sku_producto', "")
         checkUbicacionSin = request.args.get("checkSin", "")
         checkUbicacionCon = request.args.get("checkCon", "")
-    if skuProducto:
-        with baseDatos.connect() as connection:
-            if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
-               consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
-            elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
-                consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
-            else:
-                consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
-            resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
-            
-            resultadoUbicaciones = [dict(row._mapping) for row in resultado.fetchall()]
+        if skuProducto:
+            with baseDatos.connect() as connection:
+                if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
+                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
+                elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
+                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
+                else:
+                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
+                resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
+                
+                resultadoUbicaciones = [dict(row._mapping) for row in resultado.fetchall()]
 
-            descripcion = consultaDescripcion(connection, skuProducto)
-            contenidoDescripcion = dict(descripcion._mapping)
-                        
-            jsonConsulta = {
-                "ubicaciones": resultadoUbicaciones,
-                "descripcion": contenidoDescripcion.get('nombre')
-            }
+                descripcion = consultaDescripcion(connection, skuProducto)
+                contenidoDescripcion = dict(descripcion._mapping)
+                            
+                jsonConsulta = {
+                    "ubicaciones": resultadoUbicaciones,
+                    "descripcion": contenidoDescripcion.get('nombre')
+                }
+    if (request.method == 'POST'):
+        ubicacion = request.form.get('ubicacion', "")
+        skuProducto = request.form.get('skuProducto', "")
+        cajas = request.form.get('cajas', "")
+        if (ubicacion):
+            with baseDatos.connect() as connection:
+                consulta = text('SELECT * FROM ubicaciones WHERE ubicacion =:ubicacion')
+                try:
+                    resultado = connection.execute(consulta, {"ubicacion": ubicacion })
+                except Exception as e:
+                    jsonConsulta = {
+                        "error": str(e),
+                        "estado": 404
+                    }
+                else:
+                    resultadoUbicacion = resultado.fetchone()
+                    if (resultadoUbicacion != None):
+                        if (resultadoUbicacion[2] == 0) :
+                            datos = {"skuProducto": skuProducto, "disponible": 1, "cajas": cajas, "ubicacion": ubicacion}
+                            insercion = text('UPDATE ubicaciones SET sku_producto = :skuProducto, disponible = :disponible, cajas = :cajas WHERE ubicacion = :ubicacion')
+                                                        
+                            try:
+                                connection.execute(insercion, datos)
+                            except Exception as e:
+                                jsonConsulta = {
+                                    "error": str(e),
+                                    "estado": 400
+                                }
+                                connection.rollback()
+                            else:
+                                jsonConsulta = {
+                                    "estado": 200
+                                }
+                                connection.commit()       
+                        else:
+                            jsonConsulta = {
+                                "estado": 400
+                            }
+                    else: 
+                        jsonConsulta = {
+                        "estado": 404
+                    }
     return jsonify(jsonConsulta)
 
 @productos.route('/productos/infoproducto', methods=['GET', 'POST'])

@@ -1,0 +1,15 @@
+{%include 'header.html' %}
+<title>Productos</title>
+<h2 class="titulo">Productos</h2>
+
+<div class="contenedor-opciones opciones-productos">
+    <div class="tarjeta tarjeta-producto nuevo" onclick="window.location.href = '/productos/nuevo'">
+        <i class="fa-solid fa-pen-to-square"></i>
+        <h4>Nuevo</h4>
+    </div>
+    <div class="tarjeta tarjeta-producto busqueda" onclick="window.location.href = '/productos/infoproducto'">
+        <i class="fa-solid fa-magnifying-glass-plus"></i>
+        <h4>Buscar</h4>
+    </div>
+</div>
+{%include 'footer.html' %}
