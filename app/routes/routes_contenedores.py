@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text
-from app.scripts.f_generales import obtencionDatos, consultaDescripcion
+from app.scripts.f_generales import consultaDescripcion
+from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertUbicaciones, idTarima
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -9,89 +10,113 @@ baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 def inicioContenedores():
     return render_template('contenedores.html')
 
-
 @contenedores.route('/contenedores/arrivo', methods=['GET', 'POST'])
 def contenedoresSKU():
     return render_template('/contenedores/arrivo.html')
 
 @contenedores.route('/api/contenedores/arrivo', methods = ['GET', 'POST'])
 def arrivoFetch():
+    """
+    Realiza consultas e inserciones para los nuevos contenedores que llegan al almacén.
+
+    GET:
+        Consulta la información del producto a recibir mediante una solicitud GET.
+    POST:
+        Inserta en la base de datos la información del contenedor y los productos recibidos vía POST.
+
+    Returns:
+        dict: Estados de las operaciones en la base de datos.
+    """
+    print(f"Método recibido: {request.method}")
     if (request.method == 'GET'):
         skuProducto = request.args.get('sku_producto', "")
-        if skuProducto:
+        
+        if not skuProducto:
+            return jsonify({
+                "error": "Falta el SKU del producto.",
+                "estado": "400"
+            }), 400
+            
+        try:
             with baseDatos.connect() as connection:
-                consulta = text('SELECT * FROM productos WHERE sku_producto = :sku_producto')
-
-                try:
-                    resultado = connection.execute(consulta, {"sku_producto": skuProducto})
-                    producto = resultado.fetchone()
-                except Exception as e:
-                    jsonConsulta = {
-                        "error": str(e),
-                        "estado": 400
-                    }
-                else:
-                    if (producto != None):
-                        jsonConsulta = {
-                            "producto": dict(producto._mapping),
-                            "estado": 200
-                        }
-                    else:
-                        jsonConsulta = {
-                            "producto": "Producto no encontrado.",
-                            "estado": 404
-                        }
-                        
-    if ((request.method == 'POST')):
+                consulta = text(consultaProducto)
+                resultado = connection.execute(consulta, {"sku_producto": skuProducto})
+                producto = resultado.fetchone()
+                
+            if producto:
+                return jsonify({
+                    "producto": dict(producto._mapping),
+                    "estado": 200
+                }), 200
+                
+            return jsonify({
+                "producto": "Producto no encontrado.",
+                "estado": 404
+            }), 404
+                
+        except Exception as e:
+            return jsonify({
+                "error": str(e),
+                "mensaje": "Error al consultar en la base de datos.",
+                "estado": 500
+            }), 500           
+    elif (request.method == 'POST'):
         datosContenedor = request.get_json()
-        with baseDatos.connect() as connection:
-            insertContenedor = text('INSERT INTO contenedores VALUES (:id_ctn, :skuProducto, :fecha_descarga, :id_proveedor, :no_tarimas, :resto)')
-            insertUbicaciones = text('INSERT INTO arrivo_productos VALUES (:id_tarima, :skuProducto, :piezas, :cajas, :fecha_descarga, :id_ctn, :ubicacion)')
-            try:
+
+        if not datosContenedor:
+            return jsonify({
+                "mensaje": "Datos incorrectos.",
+                "estado": 400
+            }), 400
+        try:        
+            with baseDatos.connect() as connection:
                 connection.execute(insertContenedor, datosContenedor)
-            except Exception as e:
-                connection.rollback()
-                print("id contenedor repetido")
-                jsonConsulta = {
-                    "error": str(e),
-                    "estado": 400
-                }
-            else: 
+
                 noTarimas = int(datosContenedor.get('no_tarimas'))
-                for i in range(1, noTarimas + 1): 
-                    datosContenedor['id_tarima'] = f"{datosContenedor.get('skuProducto')}-{datosContenedor.get('id_ctn')[0:2]}{datosContenedor.get('id_ctn')[4:6]}-{i:02}"
+                for i in range(0, noTarimas + 1):
                     
+                    datosContenedor['id_tarima'] = idTarima(datosContenedor.get('skuProducto'),datosContenedor.get('id_ctn'), i + 1)
+
                     if (i == noTarimas):
-                        # Agregar validacion de cuando es 'N/A'
                         if (datosContenedor.get('masterPack') != 'N/A'):
                             cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
                             datosContenedor['piezas'] = cajasTarima
-                            datosContenedor['cajas'] = datosContenedor['resto']
                         else:
                             datosContenedor['piezas'] = datosContenedor['resto']
-                            datosContenedor['cajas'] = datosContenedor['resto']
-                    try:
-                        connection.execute(insertUbicaciones, datosContenedor)
-                    except Exception as e:
-                        jsonConsulta = {
-                            "error": str(e),
-                            "estado": 400
-                        }
-                    else:
-                        connection.commit()
-                        connection.commit()
-                        jsonConsulta = {
-                            "estado": 200
-                        }
-    return jsonify(jsonConsulta)
-
-
+                        datosContenedor['cajas'] = datosContenedor['resto']
+                
+                    connection.execute(insertUbicaciones, datosContenedor)
+                connection.commit()
+                return jsonify({
+                    "estado": 200
+                }), 200
+        except Exception as e:
+            connection.rollback()
+            return jsonify({
+                "error": str(e),
+                "estado": 400
+            }), 400
+    return jsonify({
+        "mensaje": "Método no permitido.",
+        "estado": 405
+    }), 405
+    
 @contenedores.route('/contenedores/busqueda', methods=['GET', 'POST'])
 def contenedoresBusqueda():
     return render_template('/contenedores/busqueda.html')
 
-@contenedores.route('/api/contenedores/busqueda', methods=['GET', 'POST'])
+@contenedores.route('/api/contenedores/busqueda', methods=['GET'])
 def busqueda():
+    """
+    Realiza la consulta en la tabla de "contenedores" para ver si existe o no información
+    del id del contenedor ingresado.
+    
+    Detalles:
+        - Puede buscar un contenedor por su id, fecha o sku del producto
+    
+    Returns:
+        dict: Estados de las operaciones en la base de datos.
+    """
     opcionUsuario = ""
     if request.method == 'GET':
         opcionUsuario = request.args.get('select-ctn', "")

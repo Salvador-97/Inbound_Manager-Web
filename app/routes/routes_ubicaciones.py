@@ -26,9 +26,9 @@ def informacionUbicacion():
         if skuProducto:
             with baseDatos.connect() as connection:
                 if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
-                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/A'")
+                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/U'")
                 elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
-                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/A'")
+                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/U'")
                 else:
                     consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
                 resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})

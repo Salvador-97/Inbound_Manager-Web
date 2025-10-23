@@ -95,6 +95,7 @@ formularioContenedor.addEventListener('submit', function(e) {
     })
     .then(response => response.json())
     .then(estado => {
+        console.log("Error: ", estado)
         if (estado.error){
             console.log("Error: ", estado.error)
             if((estado.error).includes('UNIQUE')) {
