@@ -8,8 +8,9 @@ formularioUbicaciones.addEventListener('submit', function(e) {
 
     const datosForm = new FormData(formularioUbicaciones)
     const parametros = new URLSearchParams(datosForm)
+    console.log("Parametros: ", datosForm)
 
-    fetch(`/api/productos/ubicaciones?${parametros.toString()}`, {
+    fetch(`/api/ubicaciones/buscar?${parametros.toString()}`, {
         method: 'GET'
     })
     .then(response => {
@@ -22,13 +23,14 @@ formularioUbicaciones.addEventListener('submit', function(e) {
         }
     })
     .then(datos => {
+        console.log("Datos: ", datos)
         const tabla = document.getElementById('contenido-tabla');
         const fragmento = document.createDocumentFragment();
 
         tabla.innerHTML = "";
 
-        const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'ubicacion']
-        const encabezados = ['SKU', 'Descripción', 'Producto/Tarima', 'Cajas', 'Fecha', 'Ubicación', 'Opciones'];
+        const ordenInformacion = ['sku_producto', 'descripcion', 'id_tarima', 'piezas', 'cajas', 'fecha', 'ubicacion']
+        const encabezados = ['SKU', 'Descripción', 'Id Tarima', 'Producto/Tarima', 'Cajas', 'Fecha', 'Ubicación', 'Opciones'];
         generarEncabezados(encabezados)
 
         datos.ubicaciones.forEach(informacion => {
@@ -47,6 +49,8 @@ formularioUbicaciones.addEventListener('submit', function(e) {
             })
 
             const celdaOpciones = document.createElement('td');
+            celdaOpciones.setAttribute('id', informacion.id_tarima)
+
             const boton = crearBoton('editar', 'btn-primary')
             const boton2 = crearBoton('eliminar', 'btn-danger');
 

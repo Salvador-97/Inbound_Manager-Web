@@ -23,5 +23,11 @@
     {% if request.path == '/productos/infoproducto' %}
         <script src="{{ url_for('static', filename='js/consultas/productos.js') }}" type="module"></script>
     {% endif %}
+
+    <!-- Paginas de ubicaciones -->
+    {% if request.path == '/ubicaciones/buscar' %}
+        <script src="{{ url_for('static', filename='js/consultas/ubicaciones.js') }}" type="module"></script>
+        <script src="{{ url_for('static', filename='js/inserciones/ubicaciones.js') }}" type="module"></script>
+    {% endif %}
 </body>
 </html>

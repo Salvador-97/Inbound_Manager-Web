@@ -96,6 +96,7 @@ formularioContenedor.addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(estado => {
         if (estado.error){
+            console.log("Error: ", estado.error)
             if((estado.error).includes('UNIQUE')) {
                 const input = document.querySelector('input[name=id_ctn]');
 

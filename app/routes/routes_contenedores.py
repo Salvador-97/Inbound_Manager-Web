@@ -46,50 +46,43 @@ def arrivoFetch():
         datosContenedor = request.get_json()
         with baseDatos.connect() as connection:
             insertContenedor = text('INSERT INTO contenedores VALUES (:id_ctn, :skuProducto, :fecha_descarga, :id_proveedor, :no_tarimas, :resto)')
-            insertUbicaciones = text('INSERT INTO arrivo_productos VALUES (:skuProducto, :piezas, :cajas, :fecha_descarga, :id_ctn, :ubicacion)')
-            
+            insertUbicaciones = text('INSERT INTO arrivo_productos VALUES (:id_tarima, :skuProducto, :piezas, :cajas, :fecha_descarga, :id_ctn, :ubicacion)')
             try:
                 connection.execute(insertContenedor, datosContenedor)
             except Exception as e:
                 connection.rollback()
+                print("id contenedor repetido")
                 jsonConsulta = {
                     "error": str(e),
                     "estado": 400
                 }
             else: 
-                connection.commit()
                 noTarimas = int(datosContenedor.get('no_tarimas'))
-                for i in range(1, noTarimas + 1):
+                for i in range(1, noTarimas + 1): 
+                    datosContenedor['id_tarima'] = f"{datosContenedor.get('skuProducto')}-{datosContenedor.get('id_ctn')[0:2]}{datosContenedor.get('id_ctn')[4:6]}-{i:02}"
+                    
                     if (i == noTarimas):
-                        cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
-                        datosContenedor['piezas'] = cajasTarima
-                        datosContenedor['cajas'] = datosContenedor['resto']
-                        try:
-                            connection.execute(insertUbicaciones, datosContenedor)
-                        except Exception as e:
-                            connection.rollback()
-                            jsonConsulta = {
-                                "error": str(e),
-                                "estado": 400
-                            }
+                        # Agregar validacion de cuando es 'N/A'
+                        if (datosContenedor.get('masterPack') != 'N/A'):
+                            cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
+                            datosContenedor['piezas'] = cajasTarima
+                            datosContenedor['cajas'] = datosContenedor['resto']
                         else:
-                            connection.commit()
-                            jsonConsulta = {
-                                "estado": 200
-                            }
+                            datosContenedor['piezas'] = datosContenedor['resto']
+                            datosContenedor['cajas'] = datosContenedor['resto']
+                    try:
+                        connection.execute(insertUbicaciones, datosContenedor)
+                    except Exception as e:
+                        jsonConsulta = {
+                            "error": str(e),
+                            "estado": 400
+                        }
                     else:
-                        try:
-                            connection.execute(insertUbicaciones, datosContenedor)
-                        except Exception as e:
-                            jsonConsulta = {
-                                "error": str(e),
-                                "estado": 400
-                            }
-                        else:
-                            connection.commit()
-                            jsonConsulta = {
-                                "estado": 200
-                            }
+                        connection.commit()
+                        connection.commit()
+                        jsonConsulta = {
+                            "estado": 200
+                        }
     return jsonify(jsonConsulta)
 
 

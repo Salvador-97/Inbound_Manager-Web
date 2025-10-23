@@ -3,10 +3,12 @@ import { mensajesModal } from "../f_generales.js";
 document.addEventListener('click', e => {
     const boton = e.target.closest('[name="editar"]');
     if (boton){
-        e.preventDefault();
+        e.preventDefault()
         mensajesModal('modalUbicacion', 'Nueva ubicación', 'input')
 
         const botonAgregar = document.getElementById('form-ubicacion');
+        //Meter validacion
+        const idTarima = boton.parentElement.id;
 
         botonAgregar.addEventListener('submit', e => {
             e.preventDefault();
@@ -17,8 +19,9 @@ document.addEventListener('click', e => {
 
             datosForm.append('skuProducto', sku);
             datosForm.append('cajas', cajas.textContent)
+            datosForm.append('idTarima', idTarima)
 
-            fetch('/api/productos/ubicaciones', {
+            fetch('/api/ubicaciones/buscar', {
                 method: 'POST',
                 body: datosForm
             })
