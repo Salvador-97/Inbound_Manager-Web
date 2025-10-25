@@ -3,14 +3,13 @@ import { reglasRegex, validacionInputColor, validarCampo } from "./validacionDat
 
 const formularioNuevoProd = document.getElementById('form-nuevo-producto');
 
-formularioNuevoProd.addEventListener('submit', function(e){
+formularioNuevoProd.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const datosFormulario = new FormData(formularioNuevoProd);
     const datos = Object.fromEntries(datosFormulario.entries())
-    console.log("Datos: ", datos)
 
-    const inputRegex = {"skuProducto": reglasRegex.skuProducto, "descripcion": reglasRegex.nombre, "codigo_barras": reglasRegex.codigoBarras, "producto_tarima": reglasRegex.cajas, "cajas_tarima": reglasRegex.cajas, "master_pack": reglasRegex.masterPack};
+    const inputRegex = { "skuProducto": reglasRegex.skuProducto, "descripcion": reglasRegex.nombre, "codigo_barras": reglasRegex.codigoBarras, "producto_tarima": reglasRegex.cajas, "cajas_tarima": reglasRegex.cajas, "master_pack": reglasRegex.masterPack };
 
     const inputs = Object.entries(inputRegex);
     let validacion = false;
@@ -33,16 +32,19 @@ formularioNuevoProd.addEventListener('submit', function(e){
         method: "POST",
         body: datosFormulario
     })
-    .then(response => response.json())
-    .then(consulta => {
-
-        if (consulta.estado == 400){
-            // mensajesModal('miModal', 'Error', '¡El SKU del producto ya existe!')
-        } else if (consulta.estado == 200) {
-            // mensajesModal('miModal', 'Exito', 'Producto agregado exitosamente');
-        }
-    })
-    .catch(error => {
-        console.error(error)
-    })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(datos => {
+                    mensajesModal('modalInput', `Error ${response.status}`, datos.mensaje)
+                })
+            } else if (response.ok) {
+                return response.json().then(datos => {
+                    mensajesModal('modalInput', 'Exito', datos.mensaje)
+                })
+            }
+            response.json()
+        })
+        .catch(error => {
+            console.error(error)
+        })
 })

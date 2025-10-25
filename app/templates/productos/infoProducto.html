@@ -10,17 +10,11 @@
                     id="sku_producto" name="sku_producto" value="{{skuProducto}}" form="form-sku-busqueda">
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary btn-busqueda" type="submit" 
+                <button class="btn btn-outline-secondary btn-busqueda" type="submit" title="boton-buscar"
                 id="button-addon2" form="form-sku-busqueda">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
-            <!-- <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="editar" name="checkEditar" form="form-sku-busqueda" id="checkDefault">
-                <label class="form-check-label" for="checkDefault">
-                    Editar
-                </label>
-            </div> -->
         </div>
     </form>
 </div>
@@ -35,5 +29,21 @@
     </table>
 </div>
 <div id="caja"></div>
+
+<div class="modal fade" id="modalInput" tabindex="-1" aria-labelledby="miModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="miModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body" id="mensaje-Modal">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {%include 'footer.html' %}

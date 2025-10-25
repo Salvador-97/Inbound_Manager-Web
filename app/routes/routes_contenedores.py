@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text
 from app.scripts.f_generales import consultaDescripcion
-from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertUbicaciones, idTarima
+from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertArrivo, idTarima
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -27,14 +27,12 @@ def arrivoFetch():
     Returns:
         dict: Estados de las operaciones en la base de datos.
     """
-    print(f"Método recibido: {request.method}")
     if (request.method == 'GET'):
         skuProducto = request.args.get('sku_producto', "")
         
         if not skuProducto:
             return jsonify({
-                "error": "Falta el SKU del producto.",
-                "estado": "400"
+                "mensaje": "Falta el SKU del producto.",
             }), 400
             
         try:
@@ -43,30 +41,25 @@ def arrivoFetch():
                 resultado = connection.execute(consulta, {"sku_producto": skuProducto})
                 producto = resultado.fetchone()
                 
-            if producto:
+            if not producto:
                 return jsonify({
-                    "producto": dict(producto._mapping),
-                    "estado": 200
-                }), 200
-                
-            return jsonify({
-                "producto": "Producto no encontrado.",
-                "estado": 404
+                    "mensaje": "Producto no encontrado.",
             }), 404
-                
+            
+            return jsonify({
+                "producto": dict(producto._mapping),
+            }), 200 
         except Exception as e:
             return jsonify({
                 "error": str(e),
                 "mensaje": "Error al consultar en la base de datos.",
-                "estado": 500
             }), 500           
     elif (request.method == 'POST'):
         datosContenedor = request.get_json()
 
         if not datosContenedor:
             return jsonify({
-                "mensaje": "Datos incorrectos.",
-                "estado": 400
+                "mensaje": "Datos incorrectos en algun campo.",
             }), 400
         try:        
             with baseDatos.connect() as connection:
@@ -85,15 +78,16 @@ def arrivoFetch():
                             datosContenedor['piezas'] = datosContenedor['resto']
                         datosContenedor['cajas'] = datosContenedor['resto']
                 
-                    connection.execute(insertUbicaciones, datosContenedor)
+                    connection.execute(insertArrivo, datosContenedor)
                 connection.commit()
                 return jsonify({
-                    "estado": 200
+                    "mensaje": "Contenedor agregado exitosamente."
                 }), 200
         except Exception as e:
             connection.rollback()
             return jsonify({
                 "error": str(e),
+                "mensaje": "Ocurrio un error al agregar el contenedor.",
                 "estado": 400
             }), 400
     return jsonify({
@@ -117,40 +111,34 @@ def busqueda():
     Returns:
         dict: Estados de las operaciones en la base de datos.
     """
-    opcionUsuario = ""
     if request.method == 'GET':
         opcionUsuario = request.args.get('select-ctn', "")
         valorBusqueda = request.args.get('id_ctn', "")
-    if opcionUsuario:
-        with baseDatos.connect() as connection:
+        if not (opcionUsuario or valorBusqueda):
+            return jsonify({
+                "mensaje": "Error en la entrada de busqueda",
+            }), 400
+            
+        try:    
+            with baseDatos.connect() as connection:
                 consulta = text(f"SELECT * FROM contenedores WHERE {opcionUsuario} = :id_ctn")
-                try:
-                    resultado = connection.execute(consulta, {"id_ctn": valorBusqueda})
-                except Exception as e:
-                    jsonConsulta = {
-                        "error": str(e),
-                        "estado": 404
-                    }
-                else:
-                    resultadosTabla = resultado.fetchall()
-                    if (resultadosTabla):
-                        dicResultados = [dict(row._mapping) for row in resultadosTabla]
-                        
-                        descripcion = consultaDescripcion(connection, dicResultados[0].get('sku_producto'))
-                        if (descripcion != None):
-                            contenidoDescripcion = dict(descripcion._mapping)
-                        
-                            jsonConsulta = {
-                                "contenedores": dicResultados,
-                                "descripcion": contenidoDescripcion.get('nombre'),
-                                "estado": 200
-                            }
-                        else:
-                            jsonConsulta = {
-                                "estado": 400
-                            }
-                    else:
-                        jsonConsulta = {
-                                "estado": 404
-                            }
-    return jsonify(jsonConsulta)
+                resultado = connection.execute(consulta, {"id_ctn": valorBusqueda})
+                resultadosTabla = resultado.fetchall()
+                    
+                dicResultados = [dict(row._mapping) for row in resultadosTabla]
+                descripcion = consultaDescripcion(connection, dicResultados[0].get('sku_producto'))
+                contenidoDescripcion = dict(descripcion._mapping)
+                return jsonify({
+                    "contenedores": dicResultados,
+                    "descripcion": contenidoDescripcion.get('nombre'),
+                    "mensaje": ''
+                }), 200  
+        except Exception as e:
+            return jsonify({
+                "error": str(e),
+                "mensaje": "Información no encontrada."
+            }), 404
+    return jsonify({
+        "mensaje": "Método no permitido.",
+        "estado": 405
+    }), 405            

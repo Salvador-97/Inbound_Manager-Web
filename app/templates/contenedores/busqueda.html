@@ -4,7 +4,7 @@
 <div class="input-busqueda-contenedor">
     <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="GET" class="form-busqueda">
         <div class="ctn-form">
-            <select name="select-ctn" id="id-select-ctn" class="form-select" form="form_ctn_busqueda">
+            <select name="select-ctn" id="id-select-ctn" class="form-select" form="form_ctn_busqueda" title="seleccion-ctn">
                 <option selected value="id_contenedor">ID Contenedor</option>
                 <option value="fecha_descarga">Fecha Descarga</option>
                 <option value="sku_producto">SKU Producto</option>
@@ -12,11 +12,11 @@
         </div>
         <div class="input-group mb-3 ctn-form-input">
             <div>
-                <input type="text" class="form-control" id="id_ctn" name="id_ctn" 
+                <input type="text" class="form-control" id="id_ctn" name="id_ctn" aria-label="identificador-buscar"
                 value="{{contenedorID}}" form="form_ctn_busqueda">
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary btn-busqueda" type="submit" 
+                <button class="btn btn-outline-secondary btn-busqueda" type="submit" aria-label="boton-buscar"
                         form="form_ctn_busqueda" id="button-addon2">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>

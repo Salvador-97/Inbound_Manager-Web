@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/contenedores.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/productos.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/validaciones.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/mantenimiento.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -48,8 +49,8 @@
         <a class="nav-link" href="/ubicaciones">Ubicaciones</a>
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/productos/infoproducto">Buscar ubicación</a></li>
-            <li><a class="dropdown-item" href="/productos/nuevo">Nuevo ubicación</a></li>
+            <li><a class="dropdown-item" href="/ubicaciones/buscar">Buscar ubicación</a></li>
+            <li><a class="dropdown-item" href="/ubicaciones/nueva">Nueva ubicación</a></li>
           </ul>
         </li>
       <li class="nav-item">

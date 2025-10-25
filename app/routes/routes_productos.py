@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion
+from app.scripts.sentencias_sql import consultaSku, insertProducto
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -15,65 +16,85 @@ def productoNuevo():
 
 @productos.route('/api/productos/nuevo', methods=['GET', 'POST'])
 def fetchNuevoProducto():
+    """
+    Realiza la inserción de un nuevo producto en la base de datos "productos".
+    
+    POST:
+        Verifica que no este el producto ya registrado, en caso de que no lo este,
+        lo agrega a la base de datos.
+    Returns
+        JSON del estado de la operación
+    """
     if (request.method == 'POST'):
         formularios = ['skuProducto', 'descripcion', 'codigo_barras', 'cajas_tarima', 'producto_tarima', 'master_pack']
         datos = {formulario: request.form.get(formulario) for formulario in formularios}
-    if datos:
-        with baseDatos.connect() as connection:
-            print("JSON: ", datos.get('skuProducto'))
-            consultaSKU = text('SELECT sku_producto FROM productos WHERE sku_producto = :skuProducto')
-            checkSKU = connection.execute(consultaSKU, {'skuProducto': datos.get('skuProducto')})
-            if (checkSKU.fetchone() != None): 
-                estadoConsulta = {
-                    "estado": 400
-                }
-            else:
-                insertSKU = text('INSERT INTO productos VALUES(:skuProducto, :descripcion, :codigo_barras, :producto_tarima, :cajas_tarima, :master_pack)')
-                connection.execute(insertSKU, datos)
+        
+        if not datos:
+            return jsonify({
+                "mensaje": "Error en los datos ingresados.",
+            }), 400
+        try:
+            with baseDatos.connect() as connection:
+                
+                if (connection.execute(consultaSku, {'skuProducto': datos.get('skuProducto')})):
+                    return jsonify({
+                        "mensaje": "El producto ya existe."
+                    }), 404
+                    
+                connection.execute(insertProducto, datos)
                 connection.commit()
-                estadoConsulta = {
-                    "estado": 200
-                }
-    return jsonify(estadoConsulta)
+                return jsonify({
+                    "mensaje": "Producto agregado exitosamente."
+                }), 200
+                
+        except Exception as e:
+            return jsonify({
+                "mensaje": "Ocurrio un error al consultar la base de datos.",
+            }), 400
+            
+    return jsonify({
+        "mensaje": "Ocurrio un problema al mandar la información, intente de nuevo.",
+    }), 405
 
-@productos.route('/productos/infoproducto', methods=['GET', 'POST'])
+@productos.route('/productos/infoproducto', methods=['GET'])
 def productosInfo():              
     return render_template('/productos/infoproducto.html')
     
-@productos.route('/api/productos/infoproducto', methods=['GET', 'POST'])
+@productos.route('/api/productos/infoproducto', methods=['GET'])
 def productosInformacionFetch():
+    """
+    Realiza la busqueda de un producto para mostrar su información, en caso de no encontrarse
+    se notifica al usuario.
+    
+    GET
+        Solicita el sku del producto para buscar y regresar la información
+    Returns
+        JSON con es estado de la consulta
+    """
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
-        # checkEditar = request.args.get("checkEditar", "")
-        checkEditar = 'editar'
         
-        if productoBusqueda:
-            jsonConsulta = {}
+        if not productoBusqueda:
+            return jsonify({
+                "mensaje": "Formato de SKU incorrecto.",
+            }), 400
+        
+        try:
             with baseDatos.connect() as connection:
-                if checkEditar == "editar":
-                    resultado = consultaDescripcion(connection, productoBusqueda)
-                    dictResultado = dict(resultado._mapping)
-                    jsonConsulta = {
-                        "sku": productoBusqueda, 
-                        "producto": dictResultado,
-                        "tipo": checkEditar
-                        }
-                """
-                else:
-                    consulta = text('SELECT * FROM arrivo_productos WHERE sku_producto = :productoBusqueda')
-                    resultado = connection.execute(consulta, {"productoBusqueda": productoBusqueda})
-                    resultadoProducto = resultado.fetchall()
-                    listaProductos = [dict(row._mapping) for row in resultadoProducto]
-                    
-                    descripcion = consultaDescripcion(connection, productoBusqueda)
-                    contenidoDescripcion = dict(descripcion._mapping)
-                    
-                    jsonConsulta = {
-                        "sku": productoBusqueda, 
-                        "productos": listaProductos, 
-                        "descripcion": contenidoDescripcion, 
-                        "producto": contenidoDescripcion,
-                        "tipo": 0
-                        }
-                """
-    return jsonify(jsonConsulta)
+                
+                resultado = consultaDescripcion(connection, productoBusqueda)
+                dictResultado = dict(resultado._mapping)
+                return jsonify({
+                    "sku": productoBusqueda, 
+                    "producto": dictResultado,
+                }), 200
+                
+        except Exception as e:
+            return jsonify({
+                "mensaje": "Producto no encontrado.",
+            }), 404
+            
+    return jsonify({
+        "mensaje": "Ocurrio un problema al mandar la información, intente de nuevo.",
+        "estado": 405
+    }), 405

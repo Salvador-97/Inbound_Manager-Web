@@ -2,14 +2,14 @@ import { generarEncabezados, mensajesModal, tipoColumna } from '../f_generales.j
 import { reglasRegex, validacionInputColor, validarCampo } from '../inserciones/validacionDatos.js';
 
 const busquedaCTN = document.getElementById("form_ctn_busqueda");
-busquedaCTN.addEventListener('submit', function(e) {
+busquedaCTN.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const infoFormulario = new FormData(busquedaCTN);
     const parametros = new URLSearchParams(infoFormulario);
 
     //Validacion en donde la opcion seleccionada coincida con el regex de esa opcion
-    const tipoSelect = {'id_contenedor': reglasRegex.id_ctn, 'sku_producto': reglasRegex.skuProducto, 'fecha_descarga': reglasRegex.fecha_descarga}
+    const tipoSelect = { 'id_contenedor': reglasRegex.id_ctn, 'sku_producto': reglasRegex.skuProducto, 'fecha_descarga': reglasRegex.fecha_descarga }
 
     const select = Object.entries(tipoSelect);
     let validacion = false
@@ -25,52 +25,48 @@ busquedaCTN.addEventListener('submit', function(e) {
         mensajesModal('modalInput', "Error", "Error en la entrada de busqueda")
         return;
     }
-    
+
     fetch(`/api/contenedores/busqueda?${parametros.toString()}`, {
         method: 'GET',
     })
-    .then(response => {
-        const contentType = response.headers.get('content-type');
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(datos => {
+                    mensajesModal('modalInput', `Error ${response.status}`, datos.mensaje)
+                })
+            }
+            return response.json()
+        })
+        .then(datos => {
+            const tablaContenedor = document.getElementById('tablaContenedor');
+            tablaContenedor.innerHTML = "";
 
-        if (contentType && contentType.includes('application/json')) {
-            return response.json();
-        } else {
-            return response.text();
-        }
-    })
-    .then(datos => {
-        const tablaContenedor = document.getElementById('tablaContenedor');
-        tablaContenedor.innerHTML = "";
-        console.log("Datos: ", datos)
-        if (datos.estado == 200) {
-            const fragmento = document.createDocumentFragment();
+            if (datos) {
+                const fragmento = document.createDocumentFragment();
 
-            const encabezados = ['ID', 'SKU', 'Proveedor', 'Fecha descarga', 'Descripción', 
-            'No. Tarimas', 'Resto'];
-            const ordenInformacion = ['id_contenedor', 'sku_producto', 'proveedor', 'fecha_descarga', 'descripcion', 'no_tarimas', 'resto_cajas'];
-            let td = null;
+                const encabezados = ['ID', 'SKU', 'Proveedor', 'Fecha descarga', 'Descripción',
+                    'No. Tarimas', 'Resto'];
+                const ordenInformacion = ['id_contenedor', 'sku_producto', 'proveedor', 'fecha_descarga', 'descripcion', 'no_tarimas', 'resto_cajas'];
+                let td = null;
 
-            generarEncabezados(encabezados);
-            datos.contenedores.forEach(informacion => {
-                const fila = document.createElement("tr");
-                ordenInformacion.forEach(columna => {
-                    td = tipoColumna(columna, 'id_contenedor');
-                    if (columna == 'descripcion'){
-                        td.textContent = datos.descripcion;
-                    } else {
-                        td.textContent = informacion[columna];
-                    }
-                    fila.appendChild(td);            })
-                fragmento.appendChild(fila);
-            })
-        tablaContenedor.appendChild(fragmento)
-        } else if (datos.estado == 400) {
-            mensajesModal('modalInput', "Error", 'Error dentro de la base de datos')
-        } else if (datos.estado == 404) {
-            mensajesModal('modalInput', "Error", 'Información no encontrada')
-        }
-    })
-    .catch(error => {
-        console.log("Error: ", error)
-    })
+                generarEncabezados(encabezados);
+                datos.contenedores.forEach(informacion => {
+                    const fila = document.createElement("tr");
+                    ordenInformacion.forEach(columna => {
+                        td = tipoColumna(columna, 'id_contenedor');
+                        if (columna == 'descripcion') {
+                            td.textContent = datos.descripcion;
+                        } else {
+                            td.textContent = informacion[columna];
+                        }
+                        fila.appendChild(td);
+                    })
+                    fragmento.appendChild(fila);
+                })
+                tablaContenedor.appendChild(fragmento)
+            }
+        })
+        .catch(error => {
+            console.log("Error: ", error)
+        })
 })

@@ -1,74 +1,63 @@
-import { tipoColumna, generarEncabezadosTabla } from "../f_generales.js"
+import { tipoColumna, generarEncabezadosTabla, mensajesModal } from "../f_generales.js"
 import { crearBoton } from "../botones/editar.js";
+import { reglasRegex, validacionInputColor, validarCampo } from "../inserciones/validacionDatos.js";
 
 const formulario = document.getElementById("form-sku-busqueda");
-formulario.addEventListener('submit', function(e) {
+formulario.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const infoFormulario = new FormData(formulario);
     const parametros = new URLSearchParams(infoFormulario);
-    console.log("Parametros:" , parametros.toString())
+    const datos = Object.fromEntries(infoFormulario.entries())
+
+    if(!validarCampo(datos.sku_producto, reglasRegex.skuProducto)){
+        validacionInputColor(false, document.querySelector('[name=sku_producto]'))
+        mensajesModal('modalInput', 'Error entrada', 'Formato no valido')
+        return
+    } else {
+        validacionInputColor(true, document.querySelector('[name=sku_producto]'))
+    }
 
     fetch(`/api/productos/infoproducto?${parametros.toString()}`, {
         method: 'GET',
     })
-    .then(response => {
-        const contentType = response.headers.get('content-type');
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(datos => {
+                    mensajesModal('modalInput', `Error ${response.status}`, datos.mensaje)
+                })
+            }
+            return response.json()
+        })
+        .then(datos => {
+            const tbody = document.getElementById("tabla");
+            tbody.innerHTML = "";
 
-        if (contentType && contentType.includes('application/json')) {
-            return response.json();
-        } else {
-            return response.text();
-        }
-    })
-    .then(datos => {
-        const tbody = document.getElementById("tabla"); 
-        tbody.innerHTML = "";
+            if (datos) {
+                generarEncabezadosTabla(datos.tipo)
 
-        const fragmento = document.createDocumentFragment();
-
-        if (datos.tipo == 'editar'){
-            generarEncabezadosTabla(datos.tipo)
-
-            const fila = document.createElement("tr");
-            const ordenInformacion = ['sku_producto', 'nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack']
-            let td = null
-
-            ordenInformacion.forEach(columna => {
-                td = tipoColumna(columna, 'sku_producto')
-                td.textContent = datos.producto[columna]
-                fila.appendChild(td);
-            })
-
-            const tdBoton = document.createElement('td')
-            const boton = crearBoton('editar', 'btn-primary')
-            const boton2 = crearBoton('eliminar', 'btn-danger');
-            tdBoton.appendChild(boton)
-            tdBoton.appendChild(boton2)
-            fila.appendChild(tdBoton)
-
-            tbody.appendChild(fila);
-        } else {
-            generarEncabezadosTabla(datos.tipo)
-
-            datos.productos.forEach(informacion => {
                 const fila = document.createElement("tr");
-                const ordenInformacion = ['sku_producto', 'descripcion', 'piezas', 'cajas', 'fecha', 'contenedor', 'ubicacion']
+                const ordenInformacion = ['sku_producto', 'nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack']
+                let td = null
+
                 ordenInformacion.forEach(columna => {
-                    const td = tipoColumna(columna)
-                    if (columna == 'descripcion'){
-                        td.textContent = datos.descripcion.nombre;
-                    } else {
-                        td.textContent = informacion[columna];
-                    }
+                    td = tipoColumna(columna, 'sku_producto')
+                    td.textContent = datos.producto[columna]
                     fila.appendChild(td);
                 })
-                fragmento.appendChild(fila);
-            })
-        tbody.appendChild(fragmento);
-        }
-    })
-    .catch(error => {
-        console.log("Error: ", error)
-    })
+
+                //Simplificar la creacion de estos botones
+                const tdBoton = document.createElement('td')
+                const boton = crearBoton('editar', 'btn-primary')
+                const boton2 = crearBoton('eliminar', 'btn-danger');
+                tdBoton.appendChild(boton)
+                tdBoton.appendChild(boton2)
+                fila.appendChild(tdBoton)
+
+                tbody.appendChild(fila);
+            }
+        })
+        .catch(error => {
+            console.log("Error: ", error)
+        })
 })

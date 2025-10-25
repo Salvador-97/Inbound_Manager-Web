@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion
+from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicaciones, insertUbicacion, insertArrivoUbicacion
 
 ubicaciones = Blueprint('ubicaciones', __name__, template_folder='app/templates')
 baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
@@ -9,7 +10,7 @@ baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 def ubicacionesMenu():
     return render_template('ubicaciones.html')
 
-@ubicaciones.route('/ubicaciones/nuevo')
+@ubicaciones.route('/ubicaciones/nueva')
 def nuevaUbicacion():
     return render_template('ubicaciones/nueva.html')
 
@@ -19,77 +20,86 @@ def informacion():
 
 @ubicaciones.route('/api/ubicaciones/buscar', methods=['GET', 'POST'])
 def informacionUbicacion():
+    """
+    Realiza la busqueda de todos los productos a partir de su sku, y permite mostrar cuales 
+    tienen o no tienen ubicación, tambien permite asignarles una ubicación o eliminarla.
+    
+    GET:
+        -Recupera la información de las ubicaciones de un cierto producto.
+    POST:
+        -Permite asignarle una ubicación a un tarima.
+    Returns:
+        JSON de los estados de las operaciones en la base de datos.
+    """
     if request.method == 'GET':
         skuProducto = request.args.get('sku_producto', "")
         checkUbicacionSin = request.args.get("checkSin", "")
         checkUbicacionCon = request.args.get("checkCon", "")
-        if skuProducto:
+        
+        if not skuProducto:
+            return jsonify({
+                "mensaje": "Error en la entrada",
+            }), 400
+        try:
+            #Meter una opcion donde mencione si hay informacion o no del producto
             with baseDatos.connect() as connection:
                 if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
-                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/U'")
+                    consultaUbicacion = consultaSU
                 elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
-                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/U'")
+                    consultaUbicacion = consultaCU
                 else:
-                    consultaUbicacion = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
+                    consultaUbicacion = consultaUbicaciones
                 resultado = connection.execute(consultaUbicacion, {"skuProducto" :skuProducto})
-                
+                    
                 resultadoUbicaciones = [dict(row._mapping) for row in resultado.fetchall()]
+                
+                if not resultadoUbicaciones:
+                    return jsonify({
+                        "mensaje": "No hay información de este producto."
+                }), 404
 
                 descripcion = consultaDescripcion(connection, skuProducto)
                 contenidoDescripcion = dict(descripcion._mapping)
                             
-                jsonConsulta = {
-                    "ubicaciones": resultadoUbicaciones,
-                    "descripcion": contenidoDescripcion.get('nombre')
-                }
-        return jsonify(jsonConsulta)
+            return jsonify({
+                "ubicaciones": resultadoUbicaciones,
+                "descripcion": contenidoDescripcion.get('nombre'),
+            }), 200
+        except Exception as e:
+            return jsonify({
+                "mensaje": "Producto no encontrado.",
+            }), 404
     if (request.method == 'POST'):
-        ubicacion = request.form.get('ubicacion', "")
-        skuProducto = request.form.get('skuProducto', "")
-        cajas = request.form.get('cajas', "")
-        idTarima = request.form.get('idTarima', "")
-        if (ubicacion):
+        formulario = ['ubicacion', 'skuProducto', 'cajas', 'idTarima']
+        datos = {items: request.form.get(items) for items in formulario}
+        
+        if not datos:
+            return jsonify({
+                "mensaje": "Error en la entrada.",
+            }), 400
+        try:    
             with baseDatos.connect() as connection:
                 consulta = text('SELECT * FROM ubicaciones WHERE ubicacion =:ubicacion')
-                try:
-                    resultado = connection.execute(consulta, {"ubicacion": ubicacion })
-                except Exception as e:
-                    jsonConsulta = {
-                        "error": str(e),
-                        "estado": 404
-                    }
-                else:
-                    resultadoUbicacion = resultado.fetchone()
-                    print("Resultado", resultadoUbicacion)
-                    if (resultadoUbicacion != None):
-                        if (resultadoUbicacion[2] == 0) :
-                            # datos = {"skuProducto": skuProducto, "disponible": 1, "cajas": cajas, "ubicacion": ubicacion}
-                            nuevaUbicacion = {"idTarima": idTarima, "disponible": 1, "cajas": cajas, "ubicacion": ubicacion}
-                            insercionUbicacion = text('UPDATE ubicaciones SET id_tarima = :idTarima, disponible = :disponible, cajas = :cajas WHERE ubicacion = :ubicacion')
-                            insercionArrivoUbicacion = text('UPDATE arrivo_productos SET ubicacion = :ubicacion WHERE id_tarima = :idTarima')        
-                            try:
-                                connection.execute(insercionUbicacion, nuevaUbicacion)
-                                connection.execute(insercionArrivoUbicacion, {"ubicacion": ubicacion,"idTarima": idTarima})
-                            except Exception as e:
-                                print(e)
-                                jsonConsulta = {
-                                    "error": str(e),
-                                    "estado": 400
-                                }
-                                connection.rollback()
-                                connection.rollback()
-                            else:
-                                jsonConsulta = {
-                                    "estado": 200
-                                }
-                                connection.commit()
-                                connection.commit()       
-                        else:
-                            jsonConsulta = {
-                                "estado": 400
-                            }
-                    else: 
-                        jsonConsulta = {
-                        "estado": 404
-                    }
-    return jsonify(jsonConsulta)
+                resultado = connection.execute(consulta, datos)
+                resultadoUbicacion = resultado.fetchone()
+                
+                if (resultadoUbicacion[2] == 0) :
+                    datos['disponible'] = 1
+                    insercionUbicacion = insertUbicacion
+                    insercionArrivoUbicacion = insertArrivoUbicacion       
+
+                    connection.execute(insercionUbicacion, datos)
+                    connection.execute(insercionArrivoUbicacion, datos)
+                    
+                connection.commit()
+                return jsonify({
+                    "mensaje": "Ubicación actualizada.",
+                }), 200
+        except Exception as e:
+            connection.rollback()
+            return jsonify({
+                "mensaje": "Error en al agregar ubicación.",
+            }), 400
+    return jsonify({
+        "mensaje": "Método no permitido",
+    }), 405
