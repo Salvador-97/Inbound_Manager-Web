@@ -1,4 +1,7 @@
-from app import app  # importa tu objeto Flask desde el paquete
+# wsgi.py
+from app import crearApp
+
+app = crearApp()  # crea el objeto Flask
 
 if __name__ == "__main__":
     app.run()
