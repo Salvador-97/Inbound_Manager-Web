@@ -26,8 +26,6 @@ busquedaCTN.addEventListener('submit', function (e) {
         return;
     }
 
-    console.log(`/api/contenedores/busqueda?${parametros.toString()}`)
-
     fetch(`/api/contenedores/busqueda?${parametros.toString()}`, {
         method: 'GET',
     })

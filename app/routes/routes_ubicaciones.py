@@ -5,7 +5,7 @@ from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicacion
 from app.routes.routes import baseDatos
 
 ubicaciones = Blueprint('ubicaciones', __name__, template_folder='app/templates')
-# baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
+apiUbicaciones = Blueprint('api_ubicaciones', __name__)
 
 @ubicaciones.route('/ubicaciones')
 def ubicacionesMenu():
@@ -19,7 +19,7 @@ def nuevaUbicacion():
 def informacion():
     return render_template('ubicaciones/ubicaciones.html')
 
-@ubicaciones.route('/api/ubicaciones/buscar', methods=['GET', 'POST'])
+@apiUbicaciones.route('/buscar', methods=['GET', 'POST'])
 def informacionUbicacion():
     """
     Realiza la busqueda de todos los productos a partir de su sku, y permite mostrar cuales 

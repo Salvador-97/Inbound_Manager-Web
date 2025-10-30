@@ -6,7 +6,6 @@ from app.routes.routes import baseDatos
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
 apiContenedores = Blueprint('api_contenedores', __name__)
-# baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 
 @contenedores.route('/contenedores')
 def inicioContenedores():
@@ -16,7 +15,7 @@ def inicioContenedores():
 def contenedoresSKU():
     return render_template('/contenedores/arrivo.html')
 
-@contenedores.route('/api/contenedores/arrivo', methods = ['GET', 'POST'])
+@apiContenedores.route('/arrivo', methods = ['GET', 'POST'])
 def arrivoFetch():
     """
     Realiza consultas e inserciones para los nuevos contenedores que llegan al almacén.
@@ -113,7 +112,6 @@ def busqueda():
     Returns:
         dict: Estados de las operaciones en la base de datos.
     """
-    print("LOG: Se accedió correctamente a la ruta de API /api/contenedores/busqueda")
     if request.method == 'GET':
         opcionUsuario = request.args.get('select-ctn', "")
         valorBusqueda = request.args.get('id_ctn', "")

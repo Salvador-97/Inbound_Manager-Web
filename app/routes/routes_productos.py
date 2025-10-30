@@ -4,6 +4,7 @@ from app.scripts.sentencias_sql import consultaSku, insertProducto
 from app.routes.routes import baseDatos
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
+apiProductos = Blueprint('api_productos', __name__)
 
 @productos.route('/producto')
 def productosSKU():
@@ -13,7 +14,7 @@ def productosSKU():
 def productoNuevo():
     return render_template('productos/nuevo.html')
 
-@productos.route('/api/productos/nuevo', methods=['GET', 'POST'])
+@apiProductos.route('/nuevo', methods=['GET', 'POST'])
 def fetchNuevoProducto():
     """
     Realiza la inserción de un nuevo producto en la base de datos "productos".
@@ -59,7 +60,7 @@ def fetchNuevoProducto():
 def productosInfo():              
     return render_template('/productos/infoproducto.html')
     
-@productos.route('/api/productos/infoproducto', methods=['GET'])
+@apiProductos.route('/infoproducto', methods=['GET'])
 def productosInformacionFetch():
     """
     Realiza la busqueda de un producto para mostrar su información, en caso de no encontrarse
@@ -72,7 +73,6 @@ def productosInformacionFetch():
     """
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
-        print("BD: ", baseDatos)
         
         if not productoBusqueda:
             return jsonify({
