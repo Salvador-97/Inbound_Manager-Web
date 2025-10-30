@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 def crearApp():
@@ -14,7 +15,16 @@ def crearApp():
     app.register_blueprint(productos)
     app.register_blueprint(ubicaciones)
     
-    for rule in app.url_map.iter_rules():
-        print(rule)
+    ruta_db = os.path.abspath(os.path.join(os.path.dirname(__file__), "static", "db", "almacen.db"))
+    print("Ruta absoluta de la DB:", ruta_db)
+
+    if os.path.exists(ruta_db):
+        print("✅ El archivo existe.")
+        size = os.path.getsize(ruta_db)
+        print(f"Tamaño del archivo: {size} bytes")
+        if size < 1000:
+            print("⚠️  El archivo parece estar vacío o recién creado.")
+    else:
+        print("❌ No se encontró la base de datos en esa ruta.")
     
     return app
