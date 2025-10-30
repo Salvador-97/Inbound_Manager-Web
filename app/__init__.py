@@ -14,7 +14,7 @@ def crearApp():
     app.register_blueprint(contenedores)
     app.register_blueprint(apiContenedores, url_prefix='/api/contenedores')
     app.register_blueprint(productos)
-    app.register_blueprint(apiProductos, url_prefix='/api/productos')
+    app.register_blueprint(apiProductos, url_prefix='/api/producto')
     app.register_blueprint(ubicaciones)
     app.register_blueprint(apiUbicaciones, url_prefix='/api/ubicaciones')
     

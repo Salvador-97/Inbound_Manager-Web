@@ -10,7 +10,7 @@ apiProductos = Blueprint('api_productos', __name__)
 def productosSKU():
     return render_template('producto.html')
 
-@productos.route('/productos/nuevo', methods=['GET', 'POST'])
+@productos.route('/producto/nuevo', methods=['GET', 'POST'])
 def productoNuevo():
     return render_template('productos/nuevo.html')
 
@@ -60,7 +60,7 @@ def fetchNuevoProducto():
 def productosInfo():              
     return render_template('/productos/infoproducto.html')
     
-@apiProductos.route('/infoproducto', methods=['GET'])
+@apiProductos.route('/informacion', methods=['GET'])
 def productosInformacionFetch():
     """
     Realiza la busqueda de un producto para mostrar su información, en caso de no encontrarse
