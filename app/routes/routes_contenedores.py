@@ -113,6 +113,7 @@ def busqueda():
     Returns:
         dict: Estados de las operaciones en la base de datos.
     """
+    print("LOG: Se accedió correctamente a la ruta de API /api/contenedores/busqueda")
     if request.method == 'GET':
         opcionUsuario = request.args.get('select-ctn', "")
         valorBusqueda = request.args.get('id_ctn', "")
