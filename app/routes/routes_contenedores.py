@@ -5,6 +5,7 @@ from app.scripts.sentencias_sql import consultaProducto, insertContenedor, inser
 from app.routes.routes import baseDatos
 
 contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
+apiContenedores = Blueprint('api_contenedores', __name__)
 # baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 
 @contenedores.route('/contenedores')
@@ -100,7 +101,7 @@ def arrivoFetch():
 def contenedoresBusqueda():
     return render_template('/contenedores/busqueda.html')
 
-@contenedores.route('/api/contenedores/busqueda', methods=['GET'])
+@apiContenedores.route('/busqueda', methods=['GET'])
 def busqueda():
     """
     Realiza la consulta en la tabla de "contenedores" para ver si existe o no información

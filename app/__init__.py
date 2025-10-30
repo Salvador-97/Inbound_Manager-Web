@@ -4,12 +4,17 @@ def crearApp():
     app = Flask(__name__)
     from .routes.routes import main
     from .routes.routes_contenedores import contenedores
+    from .routes.routes_contenedores import apiContenedores
     from .routes.routes_productos import productos
     from .routes.routes_ubicaciones import ubicaciones
     
     app.register_blueprint(main)
     app.register_blueprint(contenedores)
+    app.register_blueprint(apiContenedores, url_prefix='/api/contenedores')
     app.register_blueprint(productos)
     app.register_blueprint(ubicaciones)
+    
+    for rule in app.url_map.iter_rules():
+        print(rule)
     
     return app
