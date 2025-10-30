@@ -16,7 +16,6 @@ __pycache__/
 *.env.local
 instance/
 *.sqlite3
-*.db
 
 # Archivos de logs o errores
 *.log
