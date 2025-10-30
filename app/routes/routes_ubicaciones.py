@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, jsonify
-from sqlalchemy import create_engine, text 
+from sqlalchemy import text 
 from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicaciones, insertUbicacion, insertArrivoUbicacion
+from app.routes.routes import baseDatos
 
 ubicaciones = Blueprint('ubicaciones', __name__, template_folder='app/templates')
-baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
+# baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 
 @ubicaciones.route('/ubicaciones')
 def ubicacionesMenu():

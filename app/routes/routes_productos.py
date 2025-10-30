@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, request, jsonify
-from sqlalchemy import create_engine, text 
 from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaSku, insertProducto
+from app.routes.routes import baseDatos
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
-baseDatos = create_engine(r'sqlite:///app/static\db\almacen.db')
 
 @productos.route('/producto')
 def productosSKU():
@@ -73,6 +72,7 @@ def productosInformacionFetch():
     """
     if request.method == 'GET':
         productoBusqueda = request.args.get("sku_producto", "")
+        print("BD: ", baseDatos)
         
         if not productoBusqueda:
             return jsonify({
