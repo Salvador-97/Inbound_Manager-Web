@@ -12,15 +12,10 @@
     {% endif %}
 
     <!-- Paginas de productos -->
-
-    {% if request.path == '/productos/ubicaciones' %}
-        <script src="{{ url_for('static', filename='js/consultas/ubicaciones.js') }}" type="module"></script>
-        <script src="{{ url_for('static', filename='js/inserciones/ubicaciones.js') }}" type="module"></script>
-    {% endif %}
-    {% if request.path == '/productos/nuevo' %}
+    {% if request.path == '/producto/nuevo' %}
         <script src="{{ url_for('static', filename='js/inserciones/productos.js') }}" type="module"></script>
     {% endif %}
-    {% if request.path == '/productos/infoproducto' %}
+    {% if request.path == '/producto/informacion' %}
         <script src="{{ url_for('static', filename='js/consultas/productos.js') }}" type="module"></script>
     {% endif %}
 

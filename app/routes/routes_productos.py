@@ -58,7 +58,7 @@ def fetchNuevoProducto():
 
 @productos.route('/producto/informacion', methods=['GET'])
 def productosInfo():              
-    return render_template('/productos/infoproducto.html')
+    return render_template('/productos/informacion.html')
     
 @apiProductos.route('/informacion', methods=['GET'])
 def productosInformacionFetch():
