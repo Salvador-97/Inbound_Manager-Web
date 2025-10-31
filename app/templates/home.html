@@ -3,37 +3,45 @@
 <main class="container-fluid px-0">
     <div class="container-fluid contenedor-info my-5 d-flex justify-content-center pb-4 h-25">
         <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
-            <h3 class="col-12 col-sm-8 my-4">Maneja tu almacen</h3>
-            <p class="d-flex align-items-center col-12 col-sm-8">
-                Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la
-                empresa. Desde aquí se centraliza la información relacionada con contenedores, productos
-                y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
-            </p>
-            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
+            <h3 class="col-12 my-4">Maneja tu almacen</h3>
+            <div class="row justify-content-evenly">
+                <p class="d-flex align-items-center col-12 col-sm-8 col-lg-5">
+                    Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la
+                    empresa. Desde aquí se centraliza la información relacionada con contenedores, productos
+                    y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
+                </p>
+                <img class="col-8 col-sm-4 col-lg-2 w-sm-25 w-md-25 p-2 rounded-5"
+                    src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
+            </div>
         </div>
     </div>
     <div class="container-fluid contenedor-info my-5 d-flex justify-content-center pb-4 h-25">
         <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
             <h3 class="col-12 col-sm-8 my-4">Contenedores</h3>
-            <p class="d-flex align-items-center col-12 col-sm-8">
-                La sección de contenedores permite registrar cada arribo, identificando su número,
-                fecha y la información detallada de la carga que transporta. De esta forma se lleva
-                un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad
-                en todo momento.
-            </p>
-            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/container.gif')}}" alt="">
+            <div class="row justify-content-evenly">
+                <p class="d-flex align-items-center col-12 col-sm-8 col-lg-5">
+                    La sección de contenedores permite registrar cada arribo, identificando su número,
+                    fecha y la información detallada de la carga que transporta. De esta forma se lleva
+                    un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad
+                    en todo momento.
+                </p>
+                <img class="col-8 col-sm-4 col-lg-2 w-sm-25 w-md-25 p-2 rounded-5"
+                    src="{{ url_for('static', filename='img/container.gif')}}" alt="">
+            </div>
         </div>
     </div>
     <div class="container-fluid contenedor-info my-4 d-flex justify-content-center pb-4 h-25">
         <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
             <h3 class="col-12 col-sm-8 my-4">Productos y almacén</h3>
-            <p class="col-12 col-sm-8 my-4">
-                Cada producto descargado de los contenedores recibe su registro de entrada en el sistema.
-                Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización,
-                la búsqueda y la correcta administración del inventario.
-            </p>
-            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/existencias.gif')}}"
-                alt="">
+            <div class="row justify-content-evenly">
+                <p class="d-flex align-items-center col-12 col-sm-8 col-lg-5">
+                    Cada producto descargado de los contenedores recibe su registro de entrada en el sistema.
+                    Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización,
+                    la búsqueda y la correcta administración del inventario.
+                </p>
+                <img class="col-8 col-sm-4 col-lg-2 w-sm-25 w-md-25 p-2 rounded-5"
+                    src="{{ url_for('static', filename='img/existencias.gif')}}" alt="">
+            </div>
         </div>
     </div>
 </main>
