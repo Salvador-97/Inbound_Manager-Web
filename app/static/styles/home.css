@@ -67,21 +67,21 @@ body{
 
 .contenedor-info{
     /* border: 1px solid #000; */
-    padding: 1em 4em;
+    /* padding: 1em 4em;
     margin: 12em 0em;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-around; */
     background-color: var(--color-primario);
 }
 
 .contenedor-texto{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: justify;
-    /* border: 1px solid red; */
-    width: 50%;
+    border: 1px solid red;
+    width: 50%; */
     font-family: var(--fuente-texto), sans-serif;
     font-optical-sizing: auto;
     font-weight: bold;
@@ -104,6 +104,6 @@ body{
 }
 
 .imagen-inicio{
-    width: 100%;
-    border-radius: 40px;
+    /* width: 100%; */
+    border-radius: 3rem;
 }

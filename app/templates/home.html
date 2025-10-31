@@ -1,40 +1,41 @@
 {%include 'header.html' %}
 <title>Inicio</title>
-<div class="container-fluid">
-    <div class="contenedor-info">
-        <div class="contenedor-texto">
-            <h3>Maneja tu almacen</h3>
-            Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la 
-            empresa. Desde aquí se centraliza la información relacionada con contenedores, productos 
-            y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
-        </div>
-        <div class="contenedor-img">
-            <img class="imagen-inicio" src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
-        </div>
-    </div>
-    <div class="contenedor-info">
-        <div class="contenedor-texto">
-            <h3>Contenedores</h3>
-            La sección de contenedores permite registrar cada arribo, identificando su número, 
-            fecha y la información detallada de la carga que transporta. De esta forma se lleva 
-            un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad 
-            en todo momento.
-        </div>
-        <div class="contenedor-img">
-            <img class="imagen-inicio" src="{{ url_for('static', filename='img/container.gif')}}" alt="">
+<main class="container-fluid px-0">
+    <div class="container-fluid contenedor-info my-5 d-flex justify-content-center pb-4 h-25">
+        <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
+            <h3 class="col-12 col-sm-8 my-4">Maneja tu almacen</h3>
+            <p class="d-flex align-items-center col-12 col-sm-8">
+                Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la
+                empresa. Desde aquí se centraliza la información relacionada con contenedores, productos
+                y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
+            </p>
+            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
         </div>
     </div>
-    <div class="contenedor-info">
-        <div class="contenedor-texto">
-            <h3>Productos y almacén</h3>
-            Cada producto descargado de los contenedores recibe su registro de entrada en el sistema. 
-            Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización, 
-            la búsqueda y la correcta administración del inventario.
-        </div>
-        <div class="contenedor-img">
-            <img class="imagen-inicio" src="{{ url_for('static', filename='img/existencias.gif')}}" alt="">
+    <div class="container-fluid contenedor-info my-5 d-flex justify-content-center pb-4 h-25">
+        <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
+            <h3 class="col-12 col-sm-8 my-4">Contenedores</h3>
+            <p class="d-flex align-items-center col-12 col-sm-8">
+                La sección de contenedores permite registrar cada arribo, identificando su número,
+                fecha y la información detallada de la carga que transporta. De esta forma se lleva
+                un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad
+                en todo momento.
+            </p>
+            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/container.gif')}}" alt="">
         </div>
     </div>
-</div>
+    <div class="container-fluid contenedor-info my-4 d-flex justify-content-center pb-4 h-25">
+        <div class="row container-fluid text-center contenedor-texto d-flex justify-content-center">
+            <h3 class="col-12 col-sm-8 my-4">Productos y almacén</h3>
+            <p class="col-12 col-sm-8 my-4">
+                Cada producto descargado de los contenedores recibe su registro de entrada en el sistema.
+                Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización,
+                la búsqueda y la correcta administración del inventario.
+            </p>
+            <img class="col-8 col-sm-4 w-sm-25 p-2 rounded-5" src="{{ url_for('static', filename='img/existencias.gif')}}"
+                alt="">
+        </div>
+    </div>
+</main>
 
 {%include 'footer.html' %}

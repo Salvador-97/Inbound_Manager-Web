@@ -17,23 +17,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-center">
   <a class="navbar-brand" href="/">
     <img src="{{ url_for('static', filename='img/cajas.png')}}" alt="" class="icon-titulo">
     Inbound Manager
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#navbarNavDropdown" 
+      aria-controls="navbarNavDropdown" 
+      aria-expanded="false" 
+      aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse px-0" id="navbarNavDropdown">
+    <ul class="navbar-nav align-items-center">
       <li class="nav-item active">
         <a class="nav-link" href="/">Inicio</a>
       </li>
       <li class="nav-item dropdown d-flex align-items-center">
         <a class="nav-link" href="/contenedores">Contenedores</a>
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">          </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu navbar-collapse">
             <li><a class="dropdown-item" href="/contenedores/arrivo">Arrivo de contenedor</a></li>
             <li><a class="dropdown-item" href="/contenedores/busqueda">Buscar contenedor</a></li>
           </ul>
