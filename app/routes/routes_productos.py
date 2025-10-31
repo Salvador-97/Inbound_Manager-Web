@@ -56,7 +56,7 @@ def fetchNuevoProducto():
         "mensaje": "Ocurrio un problema al mandar la información, intente de nuevo.",
     }), 405
 
-@productos.route('/productos/infoproducto', methods=['GET'])
+@productos.route('/producto/informacion', methods=['GET'])
 def productosInfo():              
     return render_template('/productos/infoproducto.html')
     
