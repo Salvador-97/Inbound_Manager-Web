@@ -1,52 +1,53 @@
 {%include 'header.html' %}
 <h3 class="titulo">Nuevo Producto</h3>
-    <div class="contenedor-tabla producto">
-        <table class="table table-bordered">
+<title>Nuevo Producto</title>
+<div class="container">
+    <table class="table table-bordered ">
         <thead class="thead-dark">
         </thead>
         <tbody>
             <form action="/productos/nuevo" id="form-nuevo-producto" method="POST">
-                <tr>
-                <th scope="row">SKU</th>
-                <td>
-                    <input type="text" class="form-control" form="form-nuevo-producto" 
-                    name="skuProducto" placeholder="Ej. HG40C6">
-                </td>
-                </tr>
-                <tr>
-                    <th scope="row">Descripción</th>
-                    <td>
-                        <input type="text" class="form-control" form="form-nuevo-producto" 
-                        name="descripcion" placeholder="Mesa Plástico">
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">SKU</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="skuProducto"
+                            placeholder="Ej. HG40C6">
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Código de barras</th>
-                    <td>
-                    <input type="text" class="form-control" form="form-nuevo-producto" 
-                    name="codigo_barras" placeholder="7500000000000">
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">Descripción</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="descripcion"
+                            placeholder="Mesa Plástico">
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Cajas por tarima</th>
-                    <td>
-                        <input type="text" class="form-control" form="form-nuevo-producto" 
-                        name="cajas_tarima" min="1" placeholder="Ej. 5"> 
-                    </td>
-                    
-                </tr>
-                <tr>
-                    <th scope="row">Productos por tarima</th>
-                    <td>
-                        <input type="text" class="form-control" form="form-nuevo-producto" 
-                        name="producto_tarima" min="1" placeholder="Ej. 10">
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">Código de barras</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="codigo_barras"
+                            placeholder="7500000000000">
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Master Pack</th>
-                    <td>
-                        <input type="text" class="form-control" form="form-nuevo-producto" 
-                        name="master_pack" min="1" placeholder="Ej. 2 o N/A">
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">Cajas por tarima</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="cajas_tarima" min="1"
+                            placeholder="Ej. 5">
+                    </td>
+
+                </tr>
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">Productos por tarima</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="producto_tarima"
+                            min="1" placeholder="Ej. 10">
+                    </td>
+                </tr>
+                <tr class="d-flex flex-column flex-md-row">
+                    <th class="w-100 w-md-50 align-content-center" scope="row">Master Pack</th>
+                    <td class="w-100 w-md-50">
+                        <input type="text" class="form-control" form="form-nuevo-producto" name="master_pack" min="1"
+                            placeholder="Ej. 2 o N/A">
                     </td>
                 </tr>
                 <tr>
@@ -60,22 +61,22 @@
             </form>
         </tbody>
     </table>
-    </div>
-    <!-- Modal -->
+</div>
+<!-- Modal -->
 <div class="modal fade" id="modalInput" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body" id="mensaje-Modal">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel">Título del modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="mensaje-Modal">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 {%include 'footer.html' %}

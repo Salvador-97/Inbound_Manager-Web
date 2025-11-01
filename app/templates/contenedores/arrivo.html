@@ -1,120 +1,122 @@
 {%include 'header.html' %}
 
-    <h3 class="titulo">Nuevo contenedor</h3>
-    <div class="contenedor-tabla">
-        <table class="table table-bordered">
-        <thead class="thead-dark">
-        </thead>
+<title>Arrivo Contenedores</title>
+
+<h3 class="titulo">Nuevo contenedor</h3>
+<div class="container d-flex flex-column flex-md-row">
+    <table class="table table-bordered mb-0">
         <tbody>
-            <tr>
-                <th scope="row">ID Contenedor *</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="Ej. VHRT5679125" 
-                    name="id_ctn" form="form-ctn">
-                </td>
-                <th scope="row">Productos por tarima *</th>
-                <td>
-                    <input type="text" class="form-control" min="1" placeholder="100"
-                    name="piezas" form="form-ctn">
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">ID Contenedor *</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" placeholder="Ej. VHRT5679125" name="id_ctn" form="form-ctn">
                 </td>
             </tr>
-            <tr>
-                <th scope="row">Fecha descarga *</th>
-                <td>
-                    <input type="date" class="form-control" form="form-ctn" 
-                    name="fecha_descarga" placeholder="DD/MM/AAAA">
-                </td>
-                <th scope="row">Cajas por tarima *</th>
-                <td>
-                    <input type="text" class="form-control" min="1" placeholder="50"
-                    name="cajas" form="form-ctn">
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Fecha descarga *</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="date" class="form-control" form="form-ctn" name="fecha_descarga"
+                        placeholder="DD/MM/AAAA">
                 </td>
             </tr>
-            <tr>
-                <th scope="row">ID Proveedor *</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="Ej. P010"
-                    name="id_proveedor" form="form-ctn">
-                </td>
-                <th scope="row">Master Pack</th>
-                <td>
-                   <input type="text" class="form-control" min="1" placeholder="2"
-                   name="masterPack" form="form-ctn">
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">ID Proveedor *</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" placeholder="Ej. P010" name="id_proveedor" form="form-ctn">
                 </td>
             </tr>
-            <tr>
-                <th scope="row">SKU</th>
-                <th class="ctn-input">
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">SKU</th>
+                <th class="ctn-input p-2 w-100 w-md-75">
                     <form action="/contenedores/arrivo" method="GET" id="form-sku">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Ej. HG40C6"
-                            id="sku_producto" name="sku_producto">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary btn-busqueda" title="buscar"
-                                    type="submit" id="button-addon2" form="form-sku">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                    </button>
-                                </div>
+                            <input type="text" class="form-control" placeholder="Ej. HG40C6" id="sku_producto"
+                                name="sku_producto">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-busqueda" title="buscar" type="submit"
+                                    id="button-addon2" form="form-sku">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
                         </div>
-                </form>
-                <th scope="row">Tarimas Completas</th>
-                <td>
-                    <input type="text" class="form-control" min="0" placeholder="10"
-                    name="no_tarimas" form="form-ctn">
-                </td>
-                </th>
-            </tr>
-            <tr>
-                <th scope="row">Descripción</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="Mesa Plástico"
-                    name="nombre" form="form-ctn">
-                </td>
-                <th scope="row">Resto (Cajas)</th>
-                <td>
-                    <input type="text" class="form-control" min="0" placeholder="8"
-                    name="resto" form="form-ctn">
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">Código de barras</th>
-                <td>
-                    <input type="text" class="form-control" placeholder="7500000000000" 
-                    name="codigoBarras" form="form-ctn">
-                </td>
-            </tr>
-            <tr>
-                <th colspan="4">
-                    <form action="/contenedores/arrivo" method="POST" id="form-ctn">
-                        <input type="hidden" name="skuProducto">
-                        <button type="submit" class="btn btn-success" form="form-ctn">
-                            Agregar
-                        </button>
                     </form>
-                </th>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Descripción</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" placeholder="Mesa Plástico" name="nombre" form="form-ctn">
+                </td>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Código de barras</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" placeholder="7500000000000" name="codigoBarras"
+                        form="form-ctn">
+                </td>
             </tr>
         </tbody>
     </table>
-    </div>
-    <div class="contenedor-btn-arrivo">
-        
-    </div>
+    <!-- Segunda sección de inputs-->
+    <table class="table table-bordered mb-0">
+        <tbody>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Productos por tarima *</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" min="1" placeholder="100" name="piezas" form="form-ctn">
+                </td>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Cajas por tarima *</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" min="1" placeholder="50" name="cajas" form="form-ctn">
+                </td>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Master Pack</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" min="1" placeholder="2" name="masterPack" form="form-ctn">
+                </td>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Tarimas Completas</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" min="0" placeholder="10" name="no_tarimas" form="form-ctn">
+                </td>
+                </th>
+            </tr>
+            <tr class="d-flex flex-column flex-md-row">
+                <th class="p-2 w-100 w-md-25 align-content-center" scope="row">Resto (Cajas)</th>
+                <td class="p-2 w-100 w-md-75">
+                    <input type="text" class="form-control" min="0" placeholder="8" name="resto" form="form-ctn">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container text-center px-0 py-3">
+    <form action="/contenedores/arrivo" method="POST" id="form-ctn">
+        <input type="hidden" name="skuProducto">
+        <button type="submit" class="btn btn-success" form="form-ctn">
+            Agregar
+        </button>
+    </form>
+</div>
 
-    <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="modalInputError" tabindex="-1" aria-labelledby="miModalLabel">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="miModalLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body" id="mensaje-Modal">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="miModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body" id="mensaje-Modal">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 

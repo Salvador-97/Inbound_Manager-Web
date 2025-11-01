@@ -2,10 +2,10 @@
 
 <h2 class="titulo">Búsqueda Productos</h2>
 
-<div class="input-busqueda-contenedor">
-    <form action="/producto/informacion" method="GET" id="form-sku-busqueda">
-        <div class="input-group mb-3">
-            <div>
+<div class="container">
+    <form action="/producto/informacion" method="GET" id="form-sku-busqueda" class="">
+        <div class="input-group mb-3 flex-column">
+            <div class="mb-2">
                 <input type="text" class="form-control" placeholder="SKU Producto"
                     id="sku_producto" name="sku_producto" value="{{skuProducto}}" form="form-sku-busqueda">
             </div>
@@ -18,7 +18,7 @@
         </div>
     </form>
 </div>
-<div class="ctn-tabla">
+<div class="table-responsive my-4">
 <table class="table table-striped">
     <thead>
         <tr id="encabezado">
@@ -31,7 +31,7 @@
 <div id="caja"></div>
 
 <div class="modal fade" id="modalInput" tabindex="-1" aria-labelledby="miModalLabel">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="miModalLabel"></h5>

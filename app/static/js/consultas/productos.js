@@ -18,7 +18,7 @@ formulario.addEventListener('submit', function (e) {
         validacionInputColor(true, document.querySelector('[name=sku_producto]'))
     }
 
-    fetch(`/api/productos/infoproducto?${parametros.toString()}`, {
+    fetch(`/api/producto/informacion?${parametros.toString()}`, {
         method: 'GET',
     })
         .then(response => {

@@ -43,6 +43,14 @@ body{
     color: #c0c0c0;
 }
 
+.icono-nav {
+    color: #fff
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 2px #fff !important;
+}
+
 .dropdown-menu {
     background-color: var(--color-primario);
 }

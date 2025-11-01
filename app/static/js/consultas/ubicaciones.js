@@ -13,7 +13,7 @@ formularioUbicaciones.addEventListener('submit', function (e) {
 
     if (!validarCampo(datos.sku_producto, reglasRegex.skuProducto)) {
         validacionInputColor(false, document.querySelector('[name=sku_producto]'))
-        mensajesModal('modalUbicacion', 'Error entrada', 'Formato no valido')
+        mensajesModal('modalError', 'Error entrada', 'Formato no valido')
         return
     } else {
         validacionInputColor(true, document.querySelector('[name=sku_producto]'))
@@ -25,7 +25,7 @@ formularioUbicaciones.addEventListener('submit', function (e) {
         .then(response => {
             if (!response.ok) {
                 return response.json().then(datos => {
-                    mensajesModal('modalUbicacion', `Error ${response.status}`, datos.mensaje)
+                    mensajesModal('modalError', `Error ${response.status}`, datos.mensaje)
                 })
             }
             return response.json()
