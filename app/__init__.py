@@ -1,7 +1,13 @@
 from flask import Flask
+from flask_assets import Environment, Bundle
 
 def crearApp():
     app = Flask(__name__)
+    
+    assets = Environment(app)
+    scss = Bundle('styles/sass/home.scss', filters='libsass', output='styles/css/home.css')
+    assets.register('scss_all', scss)
+    
     from .routes.routes import main
     from .routes.routes_contenedores import contenedores
     from .routes.routes_contenedores import apiContenedores

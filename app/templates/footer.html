@@ -1,28 +1,36 @@
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/dc6efa34d2.js" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/tarjetas.js') }}" type="module"></script>
+<footer class="footer-page text-center text-white">
+    <div class="text-center p-3">
+        © 2025 Copyright:
+        <a href="#">Salvador Gutiérrez Olvera</a>
+    </div>
+</footer>
 
-    <!-- Paginas de contenedores -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/dc6efa34d2.js" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/tarjetas.js') }}" type="module"></script>
 
-    {% if request.path == '/contenedores/arrivo' %}
-        <script src="{{ url_for('static', filename='js/inserciones/contenedores.js') }}" type="module"></script>
-    {% endif %}
-    {% if request.path == '/contenedores/busqueda' %}
-        <script src="{{ url_for('static', filename='js/consultas/contenedores.js') }}" type="module"></script>
-    {% endif %}
+<!-- Paginas de contenedores -->
 
-    <!-- Paginas de productos -->
-    {% if request.path == '/producto/nuevo' %}
-        <script src="{{ url_for('static', filename='js/inserciones/productos.js') }}" type="module"></script>
-    {% endif %}
-    {% if request.path == '/producto/informacion' %}
-        <script src="{{ url_for('static', filename='js/consultas/productos.js') }}" type="module"></script>
-    {% endif %}
+{% if request.path == '/contenedores/arrivo' %}
+<script src="{{ url_for('static', filename='js/inserciones/contenedores.js') }}" type="module"></script>
+{% endif %}
+{% if request.path == '/contenedores/busqueda' %}
+<script src="{{ url_for('static', filename='js/consultas/contenedores.js') }}" type="module"></script>
+{% endif %}
 
-    <!-- Paginas de ubicaciones -->
-    {% if request.path == '/ubicaciones/buscar' %}
-        <script src="{{ url_for('static', filename='js/consultas/ubicaciones.js') }}" type="module"></script>
-        <script src="{{ url_for('static', filename='js/inserciones/ubicaciones.js') }}" type="module"></script>
-    {% endif %}
+<!-- Paginas de productos -->
+{% if request.path == '/producto/nuevo' %}
+<script src="{{ url_for('static', filename='js/inserciones/productos.js') }}" type="module"></script>
+{% endif %}
+{% if request.path == '/producto/informacion' %}
+<script src="{{ url_for('static', filename='js/consultas/productos.js') }}" type="module"></script>
+{% endif %}
+
+<!-- Paginas de ubicaciones -->
+{% if request.path == '/ubicaciones/buscar' %}
+<script src="{{ url_for('static', filename='js/consultas/ubicaciones.js') }}" type="module"></script>
+<script src="{{ url_for('static', filename='js/inserciones/ubicaciones.js') }}" type="module"></script>
+{% endif %}
 </body>
+
 </html>

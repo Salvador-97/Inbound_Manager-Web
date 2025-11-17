@@ -1,12 +1,13 @@
 :root{
     --color-primario: #1A3D5D;
     --color-fondo: #F5F6FA;
+    --color-fondo-oscuro: #0F172A;
     --fuente-titulos: "Roboto Condensed";
     --fuente-texto: "Montserrat";
 }
 
 body{
-    background-color: var(--color-fondo);
+    background-color: var(--color-fondo-oscuro);
     /* background-image: url("../img/fondo.png"); */
     background-repeat: no-repeat;
     /* background-size: cover; */

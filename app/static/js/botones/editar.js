@@ -5,7 +5,6 @@ export function crearBoton(texto, tipoBoton){
     boton.setAttribute('type', 'submit')
     boton.setAttribute('name', texto)
     let fontawesome = '';
-    let marginLeft = '0'
 
     switch (texto) {
         case 'editar':
@@ -13,7 +12,9 @@ export function crearBoton(texto, tipoBoton){
             break;
         case 'eliminar':
             fontawesome = '<i class="fa-solid fa-trash-can"></i>';
-            marginLeft = '0.6em';
+            boton.classList.add('mt-1')
+            boton.classList.add('mt-lg-0')
+            boton.classList.add('mx-lg-1')
             break;
         case 'actualizar': 
         fontawesome = '<i class="fa-solid fa-rotate"></i>'
@@ -22,7 +23,6 @@ export function crearBoton(texto, tipoBoton){
     }
 
     boton.innerHTML = fontawesome;
-    boton.style.marginLeft = marginLeft;
     
     return boton;
 }

@@ -1,0 +1,91 @@
+body {
+  background-color: #fafafa;
+}
+
+.icon-titulo {
+  width: 2rem;
+  padding-right: 0.5rem;
+}
+
+.navbar {
+  background-color: #1b3061;
+}
+.navbar a {
+  font-weight: 500;
+  color: #f3f2f2;
+}
+
+.navbar-toggler {
+  color: #f3f2f2;
+}
+
+.nav-item.show > .nav-link {
+  color: #487bcc;
+}
+
+.nav-link:hover {
+  color: #487bcc;
+}
+
+.contenedor-banner {
+  height: 90vh;
+  overflow: hidden;
+}
+.contenedor-banner div img {
+  object-fit: cover;
+}
+
+.contenedor-banner::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mensaje-inicio {
+  align-content: center;
+  color: #f3f2f2;
+  z-index: 10;
+}
+
+.caja-uno {
+  background-color: #0f172a;
+}
+
+.caja-dos {
+  background-color: #f3f2f2;
+}
+
+.contenedor-imagen {
+  background-color: #1b3061;
+}
+
+.justificar-texto {
+  text-align: justify;
+}
+
+.tarjeta-inicio {
+  color: #313131;
+  background-color: #1b3061;
+}
+.tarjeta-inicio h4 {
+  font-weight: 700;
+  color: #3e6db8;
+}
+.tarjeta-inicio p {
+  font-size: 0.8rem;
+  color: #313131;
+}
+
+.footer-page {
+  background-color: #1b3061;
+  color: #313131;
+  font-weight: 600;
+}
+.footer-page div a {
+  text-decoration: none;
+  color: #f3f2f2;
+  font-weight: 600;
+}
+
+/*# sourceMappingURL=home.css.map */

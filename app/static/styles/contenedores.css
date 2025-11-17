@@ -11,6 +11,12 @@
     --fuente-texto: "Montserrat";
 }
 
+.custom-rounded {
+  border-collapse: separate !important;
+  border-radius: 1rem !important;
+  overflow: hidden;
+}
+
 .titulo {
     font-family: var(--fuente-titulos), sans-serif;
     font-weight: bold;
@@ -27,6 +33,8 @@
     margin: auto;
     width: 50%;
 }
+
+
 
 .tarjeta {
     /* background-color: var(--color-tarjetas-inactivo); */

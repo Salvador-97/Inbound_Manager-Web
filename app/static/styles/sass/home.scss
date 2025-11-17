@@ -1,0 +1,103 @@
+$color-fondo: #1b3061;
+$color-letra: #313131;
+$color-letra-clara: #f3f2f2;
+$color-fondo-claro: #fafafa;
+$color-letra-hover: #487bcc;
+$color-fondo-etiquetas: #3e6db8;
+$colores-secciones: (
+  uno: #0f172a,
+  dos: #f3f2f2,
+);
+
+body {
+  background-color: $color-fondo-claro;
+}
+
+.icon-titulo {
+  width: 2rem;
+  padding-right: 0.5rem;
+}
+
+.navbar {
+  background-color: $color-fondo;
+  a {
+    font-weight: 500;
+    color: $color-letra-clara;
+  }
+}
+
+.navbar-toggler {
+  color: $color-letra-clara;
+}
+
+.nav-item.show > .nav-link {
+  color: $color-letra-hover;
+}
+
+.nav-link:hover {
+  color: $color-letra-hover;
+}
+
+.contenedor-banner {
+  height: 90vh;
+  overflow: hidden;
+  div {
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
+.contenedor-banner::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mensaje-inicio {
+  align-content: center;
+  color: $color-letra-clara;
+  z-index: 10;
+}
+
+@each $nombre, $color in $colores-secciones {
+  .caja-#{$nombre} {
+    background-color: $color;
+  }
+}
+
+.contenedor-imagen {
+  background-color: $color-fondo;
+}
+
+.justificar-texto {
+  text-align: justify;
+}
+
+.tarjeta-inicio {
+  color: $color-letra;
+  background-color: $color-fondo;
+
+  h4 {
+    font-weight: 700;
+    color: $color-fondo-etiquetas;
+  }
+  p {
+    font-size: 0.8rem;
+    color: $color-letra;
+  }
+}
+
+.footer-page {
+  background-color: $color-fondo;
+  color: $color-letra;
+  font-weight: 600;
+  div {
+    a {
+      text-decoration: none;
+      color: $color-letra-clara;
+      font-weight: 600;
+    }
+  }
+}
