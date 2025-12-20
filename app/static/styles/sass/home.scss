@@ -12,7 +12,11 @@ $colores-secciones: (
 );
 
 body {
-  background-color: $color-fondo-claro;
+  // background: #E8EBF2;
+  background-color: #0b132c;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 .icon-titulo {
