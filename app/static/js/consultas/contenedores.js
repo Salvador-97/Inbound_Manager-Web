@@ -1,5 +1,7 @@
-import { generarEncabezados, mensajesModal, tipoColumna } from '../f_generales.js'
+import { generarEncabezados, mensajesModal, tipoColumna, navBuscar } from '../f_generales.js'
 import { reglasRegex, validacionInputColor, validarCampo } from '../inserciones/validacionDatos.js';
+
+navBuscar();
 
 const busquedaCTN = document.getElementById("form_ctn_busqueda");
 busquedaCTN.addEventListener('submit', function (e) {
@@ -7,7 +9,7 @@ busquedaCTN.addEventListener('submit', function (e) {
 
     const infoFormulario = new FormData(busquedaCTN);
     const parametros = new URLSearchParams(infoFormulario);
-
+    
     //Validacion en donde la opcion seleccionada coincida con el regex de esa opcion
     const tipoSelect = { 'id_contenedor': reglasRegex.id_ctn, 'sku_producto': reglasRegex.skuProducto, 'fecha_descarga': reglasRegex.fecha_descarga }
 
@@ -38,6 +40,7 @@ busquedaCTN.addEventListener('submit', function (e) {
             return response.json()
         })
         .then(datos => {
+            console.log("Datos: ", datos)
             const tablaContenedor = document.getElementById('tablaContenedor');
             tablaContenedor.innerHTML = "";
 

@@ -1,0 +1,33 @@
+@use "colores";
+
+.nav-opciones {
+    gap: 0;
+
+    button {
+        border: none;
+        border-radius: 0;
+    }
+    button:hover {
+        background-color: colores.$color-inputs-oscuro-focus;
+        border: none;
+    }
+}
+
+.ocultar {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mostrar {
+    opacity: 100;
+    pointer-events: inherit;
+    top: 100%;
+}
+
+.flecha {
+    margin-left: 0.5rem;
+}
+
+.checks {
+    color: colores.$color-fuente;
+}

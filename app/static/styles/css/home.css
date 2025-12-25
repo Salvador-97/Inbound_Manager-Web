@@ -1,24 +1,16 @@
-.contenedor-formulario h3 {
-  text-align: center;
-  margin: 1rem 0;
-  font-weight: 600;
-  color: #fff;
-}
 .contenedor-formulario {
   margin-bottom: 1.5rem;
 }
 
 .contenedor-form-grid {
   background-color: #2d3b66;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   width: 70%;
   margin: 0 auto;
   text-align: center;
   padding: 1.25rem;
   border-radius: 1rem;
   font-weight: 600;
-  color: #fff;
+  color: #ccc;
   gap: 0.5rem;
 }
 
@@ -27,7 +19,10 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.input-form input {
+.input-form input,
+.input-form button,
+.input-form ul {
+  text-decoration: none;
   text-align: center;
   color: #89c6e0;
   padding: 0.6rem 0.75rem;
@@ -36,16 +31,34 @@
   background-color: #2d3b66;
   transition: border-color 0.3s ease-in, background-color 0.3s ease-in;
 }
-.input-form input:hover {
+.input-form input::placeholder,
+.input-form button::placeholder,
+.input-form ul::placeholder {
+  color: #ccc;
+}
+.input-form label {
+  transition: color 0.3s ease-in;
+}
+.input-form:hover label {
+  color: #fff;
+}
+.input-form input:hover,
+.input-form button:hover {
   border: 2px solid #89c6e0;
   background-color: #3d5088;
 }
-.input-form input:focus {
+.input-form input:hover::placeholder,
+.input-form button:hover::placeholder {
+  color: #89c6e0;
+}
+.input-form input:focus,
+.input-form select:focus {
   border: 2px solid #89c6e0;
-  background-color: #415285;
+  background-color: #3d5088;
   outline: none;
 }
-.input-form input::placeholder {
+.input-form input:focus:focus::placeholder,
+.input-form select:focus:focus::placeholder {
   color: #ccc;
 }
 
@@ -56,12 +69,48 @@
   margin-left: 0.5rem;
 }
 
-.btn-busqueda:hover {
+.btn-busqueda {
   background-color: #89c6e0;
+  border: none;
+}
+
+.btn-busqueda:hover {
+  background-color: #7db2c9;
 }
 
 .span-input {
   grid-column: span 3;
+}
+
+.nav-opciones {
+  gap: 0;
+}
+.nav-opciones button {
+  border: none;
+  border-radius: 0;
+}
+.nav-opciones button:hover {
+  background-color: #3d5088;
+  border: none;
+}
+
+.ocultar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mostrar {
+  opacity: 100;
+  pointer-events: inherit;
+  top: 100%;
+}
+
+.flecha {
+  margin-left: 0.5rem;
+}
+
+.checks {
+  color: #ccc;
 }
 
 body {
@@ -69,6 +118,13 @@ body {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.titulo {
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: 600;
+  color: #ccc;
 }
 
 .icon-titulo {

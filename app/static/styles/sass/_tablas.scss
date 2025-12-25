@@ -1,28 +1,19 @@
-$color-fondo: #1b3061;
+@use "colores";
 
 .contenedor-formulario {
-  h3 {
-    text-align: center;
-    margin: 1rem 0;
-    font-weight: 600;
-    color: #fff;
-  }
-
   margin-bottom: 1.5rem;
 }
 
 .contenedor-form-grid {
-  background-color: #2d3b66;
+  background-color: colores.$color-fondo-oscuro-tabla;
   // box-shadow: 0px 0px 8px 2px #131731;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   width: 70%;
   margin: 0 auto;
   text-align: center;
   padding: 1.25rem;
   border-radius: 1rem;
   font-weight: 600;
-  color: #fff;
+  color: colores.$color-fuente;
   gap: 0.5rem;
 }
 
@@ -31,28 +22,47 @@ $color-fondo: #1b3061;
   flex-direction: column;
   gap: 0.5rem;
 
-  input {
+  input,
+  button,
+  ul {
+    text-decoration: none;
     text-align: center;
-    color: #89c6e0;
+    color: colores.$color-borde-input;
     padding: 0.6rem 0.75rem;
-    border: 2px solid #ccc;
+    border: 2px solid colores.$color-fuente;
     border-radius: 0.4rem;
-    background-color: #2d3b66;
+    background-color: colores.$color-fondo-oscuro-tabla;
     transition: border-color 0.3s ease-in, background-color 0.3s ease-in;
+    &::placeholder {
+      color: colores.$color-fuente;
+    }
   }
 
-  input:hover {
-    border: 2px solid #89c6e0;
-    background-color: #3d5088;
+  label {
+    transition: color 0.3s ease-in;
   }
 
-  input:focus {
-    border: 2px solid #89c6e0;
-    background-color: #415285;
+  &:hover label {
+    color: #fff;
+  }
+
+  input:hover,
+  button:hover {
+    border: 2px solid colores.$color-borde-input;
+    background-color: colores.$color-inputs-oscuro-focus;
+    &::placeholder {
+      color: colores.$color-borde-input;
+    }
+  }
+
+  input:focus,
+  select:focus {
+    border: 2px solid colores.$color-borde-input;
+    background-color: colores.$color-inputs-oscuro-focus;
     outline: none;
-  }
-  input::placeholder {
-    color: #ccc;
+    &:focus::placeholder {
+      color: colores.$color-fuente;
+    }
   }
 }
 
@@ -64,8 +74,13 @@ $color-fondo: #1b3061;
   }
 }
 
+.btn-busqueda {
+  background-color: colores.$color-borde-input;
+  border: none;
+}
+
 .btn-busqueda:hover {
-  background-color: #89c6e0;
+  background-color: #7db2c9;
 }
 
 .span-input {

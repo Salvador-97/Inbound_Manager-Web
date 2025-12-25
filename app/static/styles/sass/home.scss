@@ -1,22 +1,20 @@
 @use "tablas";
-
-$color-fondo: #1b3061;
-$color-letra: #313131;
-$color-letra-clara: #f3f2f2;
-$color-fondo-claro: #fafafa;
-$color-letra-hover: #487bcc;
-$color-fondo-etiquetas: #3e6db8;
-$colores-secciones: (
-  uno: #0f172a,
-  dos: #f3f2f2,
-);
+@use "inputBuscar";
+@use "colores";
 
 body {
   // background: #E8EBF2;
-  background-color: #0b132c;
+  background-color: colores.$color-fondo-oscuro;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+}
+
+.titulo {
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 600;
+    color: colores.$color-fuente;
 }
 
 .icon-titulo {
@@ -25,22 +23,22 @@ body {
 }
 
 .navbar {
-  background-color: $color-fondo;
+  background-color: colores.$color-fondo;
   a {
     font-weight: 500;
-    color: $color-letra-clara;
+    color: colores.$color-letra-clara;
   }
   ul {
-    background-color: $color-fondo;
+    background-color: colores.$color-fondo;
   }
 }
 
 .navbar-toggler {
-  color: $color-letra-clara;
+  color: colores.$color-letra-clara;
 }
 
 .nav-link:hover {
-  color: $color-letra-hover;
+  color: colores.$color-letra-hover;
 }
 
 .contenedor-banner {
@@ -62,18 +60,18 @@ body {
 
 .mensaje-inicio {
   align-content: center;
-  color: $color-letra-clara;
+  color: colores.$color-letra-clara;
   z-index: 10;
 }
 
-@each $nombre, $color in $colores-secciones {
+@each $nombre, $color in colores.$colores-secciones {
   .caja-#{$nombre} {
     background-color: $color;
   }
 }
 
 .contenedor-imagen {
-  background-color: $color-fondo;
+  background-color: colores.$color-fondo;
 }
 
 .justificar-texto {
@@ -81,27 +79,27 @@ body {
 }
 
 .tarjeta-inicio {
-  color: $color-letra;
-  background-color: $color-fondo;
+  color: colores.$color-letra;
+  background-color: colores.$color-fondo;
 
   h4 {
     font-weight: 700;
-    color: $color-fondo-etiquetas;
+    color: colores.$color-fondo-etiquetas;
   }
   p {
     font-size: 0.8rem;
-    color: $color-letra;
+    color: colores.$color-letra;
   }
 }
 
 .footer-page {
-  background-color: $color-fondo;
-  color: $color-letra;
+  background-color: colores.$color-fondo;
+  color: colores.$color-letra;
   font-weight: 600;
   div {
     a {
       text-decoration: none;
-      color: $color-letra-clara;
+      color: colores.$color-letra-clara;
       font-weight: 600;
     }
   }

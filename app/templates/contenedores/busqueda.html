@@ -1,20 +1,23 @@
 {%include 'header.html' %}
 <title>Búsqueda Contenedores</title>
-<h2 class="titulo">Búsqueda Contenedores</h2>
-
-<div class="container-fluid px-0">
-    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="GET" 
-    class="container d-flex flex-column flex-md-row justify-content-center align-items-center">
-        <div class="mb-2 col-8 col-md-4 col-lg-3 mb-md-0">
-            <select name="select-ctn" id="id-select-ctn" class="form-select mr-md-2 text-center" form="form_ctn_busqueda"
-                title="seleccion-ctn">
-                <option selected value="id_contenedor">ID Contenedor</option>
-                <option value="fecha_descarga">Fecha Descarga</option>
-                <option value="sku_producto">SKU Producto</option>
-            </select>
+<main class="contenedor-formulario">
+    <h3 class="titulo">Búsqueda Contenedores</h3>
+    <form action="/contenedores/busqueda" id="form_ctn_busqueda" method="GET"
+        class="container ctn-form d-flex flex-column flex-md-row justify-content-center align-items-center">
+        <div class="mb-2 col-8 col-md-4 col-lg-3 mb-md-0 input-form position-relative">
+            <button name="select-ctn" value="id_contenedor" type="button" id="id-select-ctn"
+                class=" mr-md-2 text-center" form="form_ctn_busqueda" title="seleccion-ctn">
+                <span class="texto-select">ID contenedor</span>
+                <i class="fa-solid fa-caret-down flecha"></i>
+            </button>
+            <div class="input-form w-100 position-absolute nav-opciones ocultar">
+                <button value="id_contenedor" type="button">ID Contenedor</button>
+                <button value="fecha_descarga" type="button">Fecha Descarga</button>
+                <button value="sku_producto" type="button">SKU Producto</button>
+            </div>
         </div>
-        <div class="mb-3 col-8 col-md-4 d-flex flex-column flex-md-row justify-content-center">
-            <div class="mb-2 mb-md-0">
+        <div class="mb-3 mb-lg-0 col-8 col-md-4 d-flex flex-column flex-md-row justify-content-center">
+            <div class="input-form mb-2 mb-md-0">
                 <input type="text" class="form-control" id="id_ctn" name="id_ctn" aria-label="identificador-buscar"
                     value="{{contenedorID}}" form="form_ctn_busqueda">
             </div>
@@ -26,17 +29,7 @@
             </div>
         </div>
     </form>
-    <div class="container table-responsive my-4">
-        <table class="table table-striped">
-            <thead>
-                <tr id="encabezado"></tr>
-            </thead>
-            <tbody id="tablaContenedor">
-
-            </tbody>
-        </table>
-    </div>
-</div>
+</main>
 
 <!-- Modal -->
 <div class="modal fade" id="modalInput" tabindex="-1" aria-labelledby="miModalLabel">

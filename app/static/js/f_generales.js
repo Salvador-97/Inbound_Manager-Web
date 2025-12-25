@@ -74,3 +74,27 @@ export function mensajesModal(modal, titulo, mensaje) {
 
     miModal.show();
 }
+
+export function navBuscar() {
+    const botonNav = document.querySelector('[name="select-ctn"]');
+    const menuOpciones = document.querySelector(".nav-opciones");
+
+    botonNav.addEventListener('click', e => {
+        if (menuOpciones.classList.contains("mostrar")) {
+            menuOpciones.classList.remove("mostrar");
+        } else {
+            menuOpciones.classList.add('mostrar')
+            menuOpciones.addEventListener('click', e => {
+                const boton = e.target.closest('button');
+                const selectBoton = document.querySelector('[name="select-ctn"]');
+                const textoSelect = document.querySelector('.texto-select');
+
+                if (!boton) return;
+                menuOpciones.classList.remove("mostrar");
+
+                selectBoton.value = boton.value;
+                textoSelect.textContent = boton.textContent;
+            })
+        }
+    })
+}

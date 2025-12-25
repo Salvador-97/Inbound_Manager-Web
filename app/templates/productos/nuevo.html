@@ -1,8 +1,53 @@
 {%include 'header.html' %}
-<h3 class="titulo">Nuevo Producto</h3>
+
 <title>Nuevo Producto</title>
-<div class="container">
-    <table class="table custom-rounded table-striped-columns">
+<main class="contenedor-formulario">
+    <h3 class="titulo">Nuevo Producto</h3>
+    <div class="container contenedor-form-grid">
+        <form action="/productos/nuevo" id="form-nuevo-producto" method="POST">
+            <div class="row g-3">
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>SKU</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="skuProducto"
+                        placeholder="Ej. HG40C6">
+                </div>
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="descripcion"
+                        placeholder="Mesa Plástico">
+                </div>
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="codigo_barras"
+                        placeholder="7500000000000">
+                </div>
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>Cajas por tarima</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="cajas_tarima" min="1"
+                        placeholder="Ej. 5">
+                </div>
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>Productos por tarima</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="producto_tarima" min="1"
+                        placeholder="Ej. 10">
+                </div>
+                <div class="input-form col-12 col-md-6 col-lg-4">
+                    <label>Master Pack</label>
+                    <input type="text" class="form-control" form="form-nuevo-producto" name="master_pack" min="1"
+                        placeholder="Ej. 2 o N/A">
+                </div>
+                <div class="col-8 mx-auto">
+                    <button type="submit" class="btn btn-success" form="form-nuevo-producto">
+                        <i class="fa-solid fa-circle-plus"></i>
+                        Agregar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- <table class="table custom-rounded table-striped-columns">
         <thead class="thead-dark">
         </thead>
         <tbody>
@@ -60,7 +105,7 @@
                 </tr>
             </form>
         </tbody>
-    </table>
+    </table> -->
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalInput" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
