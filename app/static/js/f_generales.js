@@ -76,8 +76,11 @@ export function mensajesModal(modal, titulo, mensaje) {
 }
 
 export function navBuscar() {
-    const botonNav = document.querySelector('[name="select-ctn"]');
+    const botonNav = document.querySelector('[name="select-btn"]');
+    const inputSelect = document.getElementById('select');
     const menuOpciones = document.querySelector(".nav-opciones");
+
+    console.log("botonNav: ", botonNav)
 
     botonNav.addEventListener('click', e => {
         if (menuOpciones.classList.contains("mostrar")) {
@@ -92,7 +95,7 @@ export function navBuscar() {
                 if (!boton) return;
                 menuOpciones.classList.remove("mostrar");
 
-                selectBoton.value = boton.value;
+                inputSelect.value = boton.value;
                 textoSelect.textContent = boton.textContent;
             })
         }

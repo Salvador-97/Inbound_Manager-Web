@@ -113,8 +113,10 @@ def busqueda():
         dict: Estados de las operaciones en la base de datos.
     """
     if request.method == 'GET':
-        opcionUsuario = request.args.get('select-ctn', "")
+        opcionUsuario = request.args.get('select_ctn', "")
         valorBusqueda = request.args.get('id_ctn', "")
+        print("Opcion: ", opcionUsuario)
+        print("Valor: ", valorBusqueda)
         if not (opcionUsuario or valorBusqueda):
             return jsonify({
                 "mensaje": "Error en la entrada de busqueda",
