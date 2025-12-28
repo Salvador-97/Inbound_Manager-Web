@@ -4,6 +4,11 @@
   margin-bottom: 1.5rem;
 }
 
+.ctn-buscar {
+  width: 80%;
+  gap: 1rem;
+}
+
 .contenedor-form-grid {
   background-color: colores.$color-fondo-oscuro-tabla;
   // box-shadow: 0px 0px 8px 2px #131731;
@@ -21,21 +26,18 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
 
-  input,
-  button,
-  ul {
-    text-decoration: none;
-    text-align: center;
-    color: colores.$color-borde-input;
-    padding: 0.6rem 0.75rem;
-    border: 2px solid colores.$color-fuente;
-    border-radius: 0.4rem;
-    background-color: colores.$color-fondo-oscuro-tabla;
-    transition: border-color 0.3s ease-in, background-color 0.3s ease-in;
-    &::placeholder {
-      color: colores.$color-fuente;
-    }
+.input-estilo {
+  text-decoration: none;
+  text-align: center;
+  color: colores.$color-borde-input;
+  padding: 0.6rem 0.75rem;
+  border: 2px solid colores.$color-fuente;
+  background-color: colores.$color-fondo-oscuro-tabla;
+  transition: border-color 0.3s ease-in, background-color 0.3s ease-in;
+  &::placeholder {
+    color: colores.$color-fuente;
   }
 
   label {
@@ -45,24 +47,22 @@
   &:hover label {
     color: #fff;
   }
+}
 
-  input:hover,
-  button:hover {
-    border: 2px solid colores.$color-borde-input;
-    background-color: colores.$color-inputs-oscuro-focus;
-    &::placeholder {
-      color: colores.$color-borde-input;
-    }
+.input-estilo:hover {
+  border: 2px solid colores.$color-borde-input;
+  background-color: colores.$color-inputs-oscuro-focus;
+  &::placeholder {
+    color: colores.$color-borde-input;
   }
+}
 
-  input:focus,
-  select:focus {
-    border: 2px solid colores.$color-borde-input;
-    background-color: colores.$color-inputs-oscuro-focus;
-    outline: none;
-    &:focus::placeholder {
-      color: colores.$color-fuente;
-    }
+.input-estilo:focus {
+  border: 2px solid colores.$color-borde-input;
+  background-color: colores.$color-inputs-oscuro-focus;
+  outline: none;
+  &:focus::placeholder {
+    color: colores.$color-fuente;
   }
 }
 
@@ -85,4 +85,43 @@
 
 .span-input {
   grid-column: span 3;
+}
+
+@media screen and (max-width: 767px) {
+  .size-input {
+    width: 100% !important;
+  }
+
+  .bordes {
+    border-radius: 0.4rem !important;
+  }
+
+  .bordes-entrada {
+        border-radius: 0.4rem !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .ctn-buscar {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .ctn-buscar {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .bordes {
+    border-radius: 0.4rem 0 0 0.4rem !important;
+  }
+
+  .bordes-entrada {
+    border-width: 2px 0 2px 0 !important;
+    border-radius: 0;
+    border-style: solid;
+    border-color: colores.$color-fuente;
+  }
 }

@@ -2,6 +2,11 @@
   margin-bottom: 1.5rem;
 }
 
+.ctn-buscar {
+  width: 80%;
+  gap: 1rem;
+}
+
 .contenedor-form-grid {
   background-color: #2d3b66;
   width: 70%;
@@ -19,46 +24,40 @@
   flex-direction: column;
   gap: 0.5rem;
 }
-.input-form input,
-.input-form button,
-.input-form ul {
+
+.input-estilo {
   text-decoration: none;
   text-align: center;
   color: #89c6e0;
   padding: 0.6rem 0.75rem;
   border: 2px solid #ccc;
-  border-radius: 0.4rem;
   background-color: #2d3b66;
   transition: border-color 0.3s ease-in, background-color 0.3s ease-in;
 }
-.input-form input::placeholder,
-.input-form button::placeholder,
-.input-form ul::placeholder {
+.input-estilo::placeholder {
   color: #ccc;
 }
-.input-form label {
+.input-estilo label {
   transition: color 0.3s ease-in;
 }
-.input-form:hover label {
+.input-estilo:hover label {
   color: #fff;
 }
-.input-form input:hover,
-.input-form button:hover {
+
+.input-estilo:hover {
   border: 2px solid #89c6e0;
   background-color: #3d5088;
 }
-.input-form input:hover::placeholder,
-.input-form button:hover::placeholder {
+.input-estilo:hover::placeholder {
   color: #89c6e0;
 }
-.input-form input:focus,
-.input-form select:focus {
+
+.input-estilo:focus {
   border: 2px solid #89c6e0;
   background-color: #3d5088;
   outline: none;
 }
-.input-form input:focus:focus::placeholder,
-.input-form select:focus:focus::placeholder {
+.input-estilo:focus:focus::placeholder {
   color: #ccc;
 }
 
@@ -82,6 +81,38 @@
   grid-column: span 3;
 }
 
+@media screen and (max-width: 767px) {
+  .size-input {
+    width: 100% !important;
+  }
+  .bordes {
+    border-radius: 0.4rem !important;
+  }
+  .bordes-entrada {
+    border-radius: 0.4rem !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .ctn-buscar {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .ctn-buscar {
+    width: 40%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .bordes {
+    border-radius: 0.4rem 0 0 0.4rem !important;
+  }
+  .bordes-entrada {
+    border-width: 2px 0 2px 0 !important;
+    border-radius: 0;
+    border-style: solid;
+    border-color: #ccc;
+  }
+}
 .nav-opciones {
   gap: 0;
 }
@@ -103,6 +134,7 @@
   opacity: 100;
   pointer-events: inherit;
   top: 100%;
+  z-index: 10;
 }
 
 .flecha {

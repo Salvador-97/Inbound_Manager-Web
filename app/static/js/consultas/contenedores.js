@@ -9,7 +9,7 @@ busquedaCTN.addEventListener('submit', function (e) {
 
     const infoFormulario = new FormData(busquedaCTN);
     const parametros = new URLSearchParams(infoFormulario);
-    
+
     //Validacion en donde la opcion seleccionada coincida con el regex de esa opcion
     const tipoSelect = { 'id_contenedor': reglasRegex.id_ctn, 'sku_producto': reglasRegex.skuProducto, 'fecha_descarga': reglasRegex.fecha_descarga }
 
@@ -41,32 +41,25 @@ busquedaCTN.addEventListener('submit', function (e) {
         })
         .then(datos => {
             console.log("Datos: ", datos)
-            const tablaContenedor = document.getElementById('tablaContenedor');
-            tablaContenedor.innerHTML = "";
-
             if (datos) {
-                const fragmento = document.createDocumentFragment();
-
-                const encabezados = ['ID', 'SKU', 'Proveedor', 'Fecha descarga', 'Descripción',
-                    'No. Tarimas', 'Resto'];
+                const templateCard = document.getElementById('template-tarjeta');
+                const contenedorCards = document.getElementById('contenedor-tarjetas');
                 const ordenInformacion = ['id_contenedor', 'sku_producto', 'proveedor', 'fecha_descarga', 'descripcion', 'no_tarimas', 'resto_cajas'];
-                let td = null;
+                
+                contenedorCards.innerHTML = "";
 
-                generarEncabezados(encabezados);
                 datos.contenedores.forEach(informacion => {
-                    const fila = document.createElement("tr");
-                    ordenInformacion.forEach(columna => {
-                        td = tipoColumna(columna, 'id_contenedor');
-                        if (columna == 'descripcion') {
-                            td.textContent = datos.descripcion;
-                        } else {
-                            td.textContent = informacion[columna];
-                        }
-                        fila.appendChild(td);
+                    const cloneTemplate = templateCard.content.cloneNode(true);
+
+                    ordenInformacion.forEach(dato => {
+                        const info = cloneTemplate.querySelector(`[name="${dato}"]`)
+                        info.textContent = informacion[dato];
                     })
-                    fragmento.appendChild(fila);
+
+                    const boton = cloneTemplate.querySelector('[name="btn-detalles"]');
+                    boton.href = `/ubicaciones/buscar/${informacion['id_contenedor']}`
+                    contenedorCards.appendChild(cloneTemplate);
                 })
-                tablaContenedor.appendChild(fragmento)
             }
         })
         .catch(error => {
