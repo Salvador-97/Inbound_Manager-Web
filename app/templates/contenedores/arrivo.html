@@ -7,21 +7,21 @@
         <div class="row g-3">
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>ID Contenedor *</label>
-                <input type="text" class="form-control" placeholder="Ej. VHRT5679125" name="id_ctn" form="form-ctn">
+                <input type="text" class="form-control input-estilo" placeholder="Ej. VHRT5679125" name="id_ctn" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Fecha descarga *</label>
-                <input type="date" class="form-control" form="form-ctn" name="fecha_descarga" placeholder="DD/MM/AAAA">
+                <input type="date" class="form-control input-estilo" form="form-ctn" name="fecha_descarga" placeholder="DD/MM/AAAA">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>ID Proveedor *</label>
-                <input type="text" class="form-control" placeholder="Ej. P010" name="id_proveedor" form="form-ctn">
+                <input type="text" class="form-control input-estilo" placeholder="Ej. P010" name="id_proveedor" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>SKU</label>
                 <form action="/contenedores/arrivo" method="GET" id="form-sku">
                     <div class="input-form-append input-buscar">
-                        <input type="text" class="form-control" placeholder="Ej. HG40C6" id="sku_producto"
+                        <input type="text" class="form-control input-estilo" placeholder="Ej. HG40C6" id="sku_producto"
                             name="sku_producto">
                         <button class="btn btn-outline-secondary btn-busqueda" title="buscar" type="submit"
                             id="button-addon2" form="form-sku">
@@ -32,31 +32,31 @@
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Descripción</label>
-                <input type="text" class="form-control" placeholder="Mesa Plástico" name="nombre" form="form-ctn">
+                <input type="text" class="form-control input-estilo" placeholder="Mesa Plástico" name="nombre" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Código de barras</label>
-                <input type="text" class="form-control" placeholder="7500000000000" name="codigoBarras" form="form-ctn">
+                <input type="text" class="form-control input-estilo" placeholder="7500000000000" name="codigoBarras" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Productos por tarima *</label>
-                <input type="text" class="form-control" min="1" placeholder="50" name="piezas" form="form-ctn">
+                <input type="text" class="form-control input-estilo" min="1" placeholder="50" name="piezas" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Cajas por tarima *</label>
-                <input type="text" class="form-control" min="1" placeholder="2" name="cajas" form="form-ctn">
+                <input type="text" class="form-control input-estilo" min="1" placeholder="2" name="cajas" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Master Pack</label>
-                <input type="text" class="form-control" min="0" placeholder="10" name="masterPack" form="form-ctn">
+                <input type="text" class="form-control input-estilo" min="0" placeholder="10" name="masterPack" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Tarimas completas</label>
-                <input type="text" class="form-control" min="0" placeholder="30" name="no_tarimas" form="form-ctn">
+                <input type="text" class="form-control input-estilo" min="0" placeholder="30" name="no_tarimas" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Resto (cajas)</label>
-                <input type="text" class="form-control" min="0" placeholder="8" name="resto" form="form-ctn">
+                <input type="text" class="form-control input-estilo" min="0" placeholder="8" name="resto" form="form-ctn">
             </div>
             <div class="container text-center px-0 pt-3 span-input">
                 <form action="/contenedores/arrivo" method="POST" id="form-ctn">
