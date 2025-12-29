@@ -57,7 +57,7 @@ busquedaCTN.addEventListener('submit', function (e) {
                     })
 
                     const boton = cloneTemplate.querySelector('[name="btn-detalles"]');
-                    boton.href = `/ubicaciones/buscar/${informacion['id_contenedor']}`
+                    boton.href = `/ubicaciones/buscar?sku_producto=${informacion['sku_producto']}`
                     contenedorCards.appendChild(cloneTemplate);
                 })
             }

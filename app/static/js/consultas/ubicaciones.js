@@ -2,6 +2,17 @@ import { generarEncabezados, mensajesModal, tipoColumna } from "../f_generales.j
 import { crearBoton } from "../botones/editar.js"
 import { validarCampo, validacionInputColor, reglasRegex } from "../inserciones/validacionDatos.js"
 
+const params = new URLSearchParams(window.location.search);
+const sku = params.get('sku_producto');
+
+if (sku) {
+  fetch(`/api/ubicaciones/buscar?sku_producto=${encodeURIComponent(sku)}`)
+    .then(res => res.json())
+    .then(data => {
+      crearTabla(data);
+    });
+}
+
 const formularioUbicaciones = document.getElementById("form-sku-ubicaciones")
 
 formularioUbicaciones.addEventListener('submit', function (e) {
@@ -31,7 +42,16 @@ formularioUbicaciones.addEventListener('submit', function (e) {
             return response.json()
         })
         .then(datos => {
-            if (datos) {
+            console.log("Datos: ", datos)
+            crearTabla(datos)
+        })
+        .catch(error => {
+            console.log("Error: ", error)
+        });
+})
+
+function crearTabla(datos){
+    if (datos) {
                 const tabla = document.getElementById('contenido-tabla');
                 const fragmento = document.createDocumentFragment();
 
@@ -71,8 +91,4 @@ formularioUbicaciones.addEventListener('submit', function (e) {
                 })
                 tabla.appendChild(fragmento);
             }
-        })
-        .catch(error => {
-            console.log("Error: ", error)
-        });
-})
+}
