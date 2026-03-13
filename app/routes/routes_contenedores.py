@@ -4,7 +4,7 @@ from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertArrivo, idTarima
 from app.routes.routes import baseDatos
 
-contenedores = Blueprint('contenedores', __name__, template_folder='app/templates')
+contenedores = Blueprint('contenedores', __name__)
 apiContenedores = Blueprint('api_contenedores', __name__)
 
 @contenedores.route('/contenedores')
