@@ -26,8 +26,10 @@ busquedaSKU.addEventListener('submit', function (e) {
             return response.json()
         })
         .then(consulta => {
+            console.log("Datos: ", consulta)
+
             if (consulta) {
-                const datosProducto = ['sku_producto', 'nombre', 'codigoBarras', 'cajas', 'piezas', 'masterPack'];
+                const datosProducto = ['sku_producto', 'descripcion', 'codigo_barras', 'cajas_por_tarima', 'piezas', 'piezas_por_caja'];
 
                 datosProducto.forEach(informacion => {
                     const input = document.querySelector(`input[name=${informacion}]`);

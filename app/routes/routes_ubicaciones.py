@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import text 
 from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicaciones, insertUbicacion, insertArrivoUbicacion
-from app.routes.routes import baseDatos
+from app.routes.routes import basePostgreSQL
 
 ubicaciones = Blueprint('ubicaciones', __name__, template_folder='app/templates')
 apiUbicaciones = Blueprint('api_ubicaciones', __name__)
@@ -43,7 +43,7 @@ def informacionUbicacion():
             }), 400
         try:
             #Meter una opcion donde mencione si hay informacion o no del producto
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 if ((checkUbicacionSin == '0') and (checkUbicacionCon == "")):
                     consultaUbicacion = consultaSU
                 elif ((checkUbicacionCon == '1') and (checkUbicacionSin == "")):
@@ -79,7 +79,7 @@ def informacionUbicacion():
                 "mensaje": "Error en la entrada.",
             }), 400
         try:    
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 consulta = text('SELECT * FROM ubicaciones WHERE ubicacion =:ubicacion')
                 resultado = connection.execute(consulta, datos)
                 resultadoUbicacion = resultado.fetchone()

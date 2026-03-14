@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import text
 from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertArrivo, idTarima
-from app.routes.routes import baseDatos
+from app.routes.routes import  basePostgreSQL
+from app.routes.routes import basePostgreSQL
 
 contenedores = Blueprint('contenedores', __name__)
 apiContenedores = Blueprint('api_contenedores', __name__)
@@ -37,10 +38,11 @@ def arrivoFetch():
             }), 400
             
         try:
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 consulta = text(consultaProducto)
                 resultado = connection.execute(consulta, {"sku_producto": skuProducto})
                 producto = resultado.fetchone()
+                print("Producto: ", producto)
                 
             if not producto:
                 return jsonify({
@@ -63,7 +65,7 @@ def arrivoFetch():
                 "mensaje": "Datos incorrectos en algun campo.",
             }), 400
         try:        
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 connection.execute(insertContenedor, datosContenedor)
 
                 noTarimas = int(datosContenedor.get('no_tarimas'))
@@ -121,7 +123,7 @@ def busqueda():
             }), 400
             
         try:    
-            with baseDatos.connect() as connection:
+            with  basePostgreSQL.connect() as connection:
                 consulta = text(f"SELECT * FROM contenedores WHERE {opcionUsuario} = :id_ctn")
                 resultado = connection.execute(consulta, {"id_ctn": valorBusqueda})
                 resultadosTabla = resultado.fetchall()

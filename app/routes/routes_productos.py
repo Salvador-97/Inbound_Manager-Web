@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from app.scripts.f_generales import consultaDescripcion
 from app.scripts.sentencias_sql import consultaSku, insertProducto
-from app.routes.routes import baseDatos
+from app.routes.routes import basePostgreSQL
 
 productos = Blueprint('productos', __name__, template_folder='app/templates')
 apiProductos = Blueprint('api_productos', __name__)
@@ -34,7 +34,7 @@ def fetchNuevoProducto():
                 "mensaje": "Error en los datos ingresados.",
             }), 400
         try:
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 
                 if (connection.execute(consultaSku, {'skuProducto': datos.get('skuProducto')})):
                     return jsonify({
@@ -80,7 +80,7 @@ def productosInformacionFetch():
             }), 400
         
         try:
-            with baseDatos.connect() as connection:
+            with basePostgreSQL.connect() as connection:
                 
                 resultado = consultaDescripcion(connection, productoBusqueda)
                 dictResultado = dict(resultado._mapping)
