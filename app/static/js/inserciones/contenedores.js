@@ -29,16 +29,16 @@ busquedaSKU.addEventListener('submit', function (e) {
             console.log("Datos: ", consulta)
 
             if (consulta) {
-                const datosProducto = ['sku_producto', 'descripcion', 'codigo_barras', 'cajas_por_tarima', 'piezas', 'piezas_por_caja'];
+                const datosProducto = ['sku_producto', 'descripcion', 'codigo_barras', 'piezas_por_tarima', 'cajas_por_tarima', 'piezas_por_caja'];
 
                 datosProducto.forEach(informacion => {
                     const input = document.querySelector(`input[name=${informacion}]`);
                     if (input) {
                         input.value = consulta.producto[informacion];
-                    }
+                    } 
                 })
 
-                const inputs = ['nombre', 'codigoBarras', 'piezas', 'cajas', 'masterPack'];
+                const inputs = ['sku_producto', 'codigo_barras', 'piezas_por_caja', 'cajas_por_tarima'];
                 inputs.forEach(validacion => {
                     const input = document.querySelector(`input[name=${validacion}]`);
                     validacionAdvertencia(input, 'advertencia');
@@ -46,7 +46,9 @@ busquedaSKU.addEventListener('submit', function (e) {
             }
         })
         .catch(error => {
-            console.log(error)
+            console.error("Nombre:", error.name);       // Ej: ReferenceError
+            console.error("Mensaje:", error.message);   // Ej: variableNoDefinida is not defined
+            console.error("Traza (Stack):", error.stack);
         })
 })
 
@@ -57,7 +59,7 @@ formularioContenedor.addEventListener('submit', function (e) {
 
     const datosForm = new FormData(formularioContenedor);
     const sku = document.getElementById('sku_producto').value;
-    datosForm.set('skuProducto', sku);
+    datosForm.set('sku_producto', sku);
     datosForm.append('ubicacion', "S/U");
 
     const datos = Object.fromEntries(datosForm.entries());
@@ -100,6 +102,8 @@ formularioContenedor.addEventListener('submit', function (e) {
             return response.json()
         })
         .catch(error => {
-            console.log(error)
+            console.error("Nombre:", error.name);       // Ej: ReferenceError
+            console.error("Mensaje:", error.message);   // Ej: variableNoDefinida is not defined
+            console.error("Traza (Stack):", error.stack);
         })
 })

@@ -42,7 +42,6 @@ def arrivoFetch():
                 consulta = text(consultaProducto)
                 resultado = connection.execute(consulta, {"sku_producto": skuProducto})
                 producto = resultado.fetchone()
-                print("Producto: ", producto)
                 
             if not producto:
                 return jsonify({
@@ -71,15 +70,16 @@ def arrivoFetch():
                 noTarimas = int(datosContenedor.get('no_tarimas'))
                 for i in range(0, noTarimas + 1):
                     
-                    datosContenedor['id_tarima'] = idTarima(datosContenedor.get('skuProducto'),datosContenedor.get('id_ctn'), i + 1)
+                    datosContenedor['id_tarima'] = idTarima(datosContenedor.get('sku_producto'),datosContenedor.get('id_contenedor'), i + 1)
 
                     if (i == noTarimas):
-                        if (datosContenedor.get('masterPack') != 'N/A'):
-                            cajasTarima = int(datosContenedor.get('masterPack')) * int(datosContenedor.get('resto'))
-                            datosContenedor['piezas'] = cajasTarima
+                        print(datosContenedor)
+                        if (datosContenedor.get('piezas_por_caja') != 'N/A'):
+                            cajasTarima = int(datosContenedor.get('piezas_por_caja')) * int(datosContenedor.get('resto'))
+                            datosContenedor['cajas_por_tarima'] = cajasTarima
                         else:
                             datosContenedor['piezas'] = datosContenedor['resto']
-                        datosContenedor['cajas'] = datosContenedor['resto']
+                        datosContenedor['cajas_por_tarima'] = datosContenedor['resto']
                 
                     connection.execute(insertArrivo, datosContenedor)
                 connection.commit()

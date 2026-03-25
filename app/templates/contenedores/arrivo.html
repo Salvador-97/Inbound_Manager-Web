@@ -7,7 +7,7 @@
         <div class="row g-3">
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>ID Contenedor *</label>
-                <input type="text" class="form-control input-estilo" placeholder="Ej. VHRT5679125" name="id_ctn" form="form-ctn">
+                <input type="text" class="form-control input-estilo" placeholder="Ej. VHRT5679125" name="id_contenedor" form="form-ctn">
             </div>
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Fecha descarga *</label>
@@ -38,10 +38,10 @@
                 <label>Código de barras</label>
                 <input type="text" class="form-control input-estilo" placeholder="7500000000000" name="codigo_barras" form="form-ctn">
             </div>
-            <div class="input-form col-12 col-md-6 col-lg-4">
-                <label>Productos por tarima *</label>
-                <input type="text" class="form-control input-estilo" min="1" placeholder="50" name="piezas" form="form-ctn">
-            </div>
+            <!-- <div class="input-form col-12 col-md-6 col-lg-4">
+                <label>Piezas por tarima *</label>
+                <input type="text" class="form-control input-estilo" min="1" placeholder="50" name="piezas_por_tarima" form="form-ctn">
+            </div> -->
             <div class="input-form col-12 col-md-6 col-lg-4">
                 <label>Cajas por tarima *</label>
                 <input type="text" class="form-control input-estilo" min="1" placeholder="2" name="cajas_por_tarima" form="form-ctn">
@@ -60,7 +60,7 @@
             </div>
             <div class="container text-center px-0 pt-3 span-input">
                 <form action="/contenedores/arrivo" method="POST" id="form-ctn">
-                    <input type="hidden" name="skuProducto">
+                    <input type="hidden" name="sku_producto">
                     <button type="submit" class="btn btn-success" form="form-ctn">
                         Agregar
                     </button>
