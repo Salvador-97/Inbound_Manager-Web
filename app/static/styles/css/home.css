@@ -145,6 +145,10 @@
   color: #ccc;
 }
 
+.navbar-nav {
+  --bs-navbar-active-color: #487bcc;
+}
+
 body {
   background-color: #0b132c;
   font-family: "Inter", sans-serif;
@@ -152,11 +156,8 @@ body {
   font-style: normal;
 }
 
-.titulo {
-  text-align: center;
-  margin: 1rem 0;
-  font-weight: 600;
-  color: #ccc;
+.titulo-pagina:hover {
+  color: #487bcc;
 }
 
 .icon-titulo {

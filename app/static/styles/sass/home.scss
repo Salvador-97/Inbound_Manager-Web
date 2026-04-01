@@ -2,6 +2,10 @@
 @use "tools/inputBuscar";
 @use "tools/colores";
 
+.navbar-nav {
+  --bs-navbar-active-color: #{colores.$color-letra-hover};
+}
+
 body {
   // background: #E8EBF2;
   background-color: colores.$color-fondo-oscuro;
@@ -10,11 +14,8 @@ body {
   font-style: normal;
 }
 
-.titulo {
-    text-align: center;
-    margin: 1rem 0;
-    font-weight: 600;
-    color: colores.$color-fuente;
+.titulo-pagina:hover {
+  color: colores.$color-letra-hover;
 }
 
 .icon-titulo {
