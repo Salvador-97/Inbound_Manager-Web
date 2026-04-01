@@ -2,6 +2,7 @@
 <title>Inbound Manager</title>
 
 <main class="container-fluid px-0 d-flex flex-column">
+
     <section class="container-fluid px-0 position-relative contenedor-banner">
         <div class="w-100 h-100 position-absolute">
             <img src="{{ url_for('static', filename='img/Banner.jpg') }}" alt="banner-inbound"
@@ -20,62 +21,27 @@
         </div>
     </section>
 
+    <template id="tarjeta-inicio">
+        <div
+            class="container mb-5 text-center col-10 col-md-5 col-lg-3 tarjeta-inicio justify-content-evenly flex-column px-0 shadow bg-body-tertiary rounded">
+            <div class="contenedor-imagen py-4 text-center rounded-top">
+                <img class="imagen col-4 rounded-3" src="" alt="">
+            </div>
+
+            <h4 class="titulo col-12 my-3 text-center"></h4>
+
+            <p class="texto d-flex col-12 px-4 justificar-texto">
+
+            </p>
+
+            <a href="" class="link btn btn-success col-4 mb-4">Visitar</a>
+        </div>
+
+    </template>
+
     <section
-        class="container-fluid row px-0 my-5 m-0 d-flex flex-column flex-md-row justify-content-center justify-content-md-evenly">
-        <div
-            class="container mb-5 text-center col-10 col-md-5 col-lg-3 tarjeta-inicio justify-content-evenly flex-column px-0 shadow bg-body-tertiary rounded">
-
-            <div class="contenedor-imagen py-4 text-center rounded-top">
-                <img class="col-4 rounded-3" src="{{ url_for('static', filename='img/deposito.gif')}}" alt="">
-            </div>
-
-            <h4 class="col-12 my-3 text-center">Maneja tu almacen</h4>
-
-            <p class="d-flex col-12 px-4 justificar-texto">
-                Esta plataforma está diseñada para facilitar el control de entradas de mercancía en la
-                empresa. Desde aquí se centraliza la información relacionada con contenedores, productos
-                y su distribución dentro del almacén, asegurando un registro ordenado y accesible.
-            </p>
-
-            <a href="/contenedores" class="btn btn-success col-4 mb-4">Visitar</a>
-
-        </div>
-        
-        <div
-            class="container mb-5 text-center col-10 col-md-5 col-lg-3 tarjeta-inicio justify-content-evenly flex-column px-0 shadow bg-body-tertiary rounded">
-
-            <div class="contenedor-imagen py-4 text-center rounded-top">
-                <img class="col-4 rounded-3" src="{{ url_for('static', filename='img/container.gif')}}"
-                    alt="">
-            </div>
-
-            <h4 class="col-12 my-3 text-center">Contenedores</h4>
-            <p class="d-flex col-12 px-4 justificar-texto">
-                La sección de contenedores permite registrar cada arribo, identificando su número,
-                fecha y la información detallada de la carga que transporta. De esta forma se lleva
-                un control puntual sobre lo que ingresa, evitando errores y garantizando trazabilidad
-                en todo momento.
-            </p>
-            <a href="/contenedores" class="btn btn-success col-4 mb-4">Visitar</a>
-        </div>
-
-        <div
-            class="container mb-5 text-center col-10 col-md-5 col-lg-3 tarjeta-inicio justify-content-evenly flex-column px-0 shadow bg-body-tertiary rounded">
-            <div class="contenedor-imagen py-4 text-center rounded-top">
-                <img class="col-4 rounded-3"
-                    src="{{ url_for('static', filename='img/existencias.gif')}}" alt="">
-            </div>
-
-            <h4 class="col-12 my-3 text-center">Productos y almacén</h4>
-
-            <p class="d-flex col-12 px-4 justificar-texto">
-                Cada producto descargado de los contenedores recibe su registro de entrada en el sistema.
-                Posteriormente, se asigna su ubicación en el almacén, lo que facilita la organización,
-                la búsqueda y la correcta administración del inventario.
-            </p>
-
-            <a href="/producto" class="btn btn-success col-4 mb-4">Visitar</a>
-        </div>
+        class="container-fluid row px-0 my-5 m-0 d-flex flex-column flex-md-row justify-content-center justify-content-md-evenly"
+        id="contenedor-tarjetas">
     </section>
 </main>
 
