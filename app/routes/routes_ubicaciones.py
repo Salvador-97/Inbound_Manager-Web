@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import text 
 from app.scripts.f_generales import consultaDescripcion
-from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicaciones, insertUbicacion, insertArrivoUbicacion
+from app.scripts.sentencias_sql import consultaCU, consultaSU, consultaUbicaciones, insertUbicacion, insertArriboUbicacion
 from app.routes.routes import basePostgreSQL
 
 ubicaciones = Blueprint('ubicaciones', __name__, template_folder='app/templates')
@@ -87,10 +87,10 @@ def informacionUbicacion():
                 if (resultadoUbicacion[2] == 0) :
                     datos['disponible'] = 1
                     insercionUbicacion = insertUbicacion
-                    insercionArrivoUbicacion = insertArrivoUbicacion       
+                    insercionArriboUbicacion = insertArriboUbicacion       
 
                     connection.execute(insercionUbicacion, datos)
-                    connection.execute(insercionArrivoUbicacion, datos)
+                    connection.execute(insercionArriboUbicacion, datos)
                     
                 connection.commit()
                 return jsonify({

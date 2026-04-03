@@ -18,6 +18,13 @@ body {
   color: colores.$color-letra-hover;
 }
 
+.titulo {
+    text-align: center;
+    margin: 1rem 0;
+    font-weight: 600;
+    color: colores.$color-fuente;
+}
+
 .icon-titulo {
   width: 2rem;
   padding-right: 0.5rem;

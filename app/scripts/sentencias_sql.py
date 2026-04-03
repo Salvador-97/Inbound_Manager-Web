@@ -7,14 +7,14 @@ insertProducto = text('INSERT INTO productos VALUES(:skuProducto, :descripcion, 
 
 #Sentencias contenedores
 insertContenedor = text('INSERT INTO contenedores VALUES (:id_contenedor, :fecha_descarga , :id_proveedor, :sku_producto, :no_tarimas, :resto)')
-insertArrivo = text('INSERT INTO arrivos VALUES (:id_tarima, :sku_producto, :cajas_por_tarima, :piezas_por_caja, :fecha_descarga, :id_contenedor, :ubicacion)')
+insertArribo = text('INSERT INTO arribos VALUES (:id_tarima, :sku_producto, :cajas_por_tarima, :piezas_por_caja, :fecha_descarga, :id_contenedor, :ubicacion)')
 
 #Sentencias ubicaciones
-consultaSU = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/U'")
-consultaCU = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/U'")
-consultaUbicaciones = text("SELECT * FROM arrivo_productos WHERE sku_producto = :skuProducto")
+consultaSU = text("SELECT * FROM arribo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/U'")
+consultaCU = text("SELECT * FROM arribo_productos WHERE sku_producto = :skuProducto AND ubicacion != 'S/U'")
+consultaUbicaciones = text("SELECT * FROM arribo_productos WHERE sku_producto = :skuProducto")
 insertUbicacion = text('UPDATE ubicaciones SET id_tarima = :idTarima, disponible = :disponible, cajas = :cajas WHERE ubicacion = :ubicacion')
-insertArrivoUbicacion = text('UPDATE arrivo_productos SET ubicacion = :ubicacion WHERE id_tarima = :idTarima') 
+insertArriboUbicacion = text('UPDATE arribo_productos SET ubicacion = :ubicacion WHERE id_tarima = :idTarima') 
 
 def idTarima(sku, contenedor, indice):
     return f"{sku}-{contenedor[0:2]}{contenedor[4:6]}-{indice:02}"

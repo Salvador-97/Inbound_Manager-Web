@@ -160,6 +160,13 @@ body {
   color: #487bcc;
 }
 
+.titulo {
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: 600;
+  color: #ccc;
+}
+
 .icon-titulo {
   width: 2rem;
   padding-right: 0.5rem;

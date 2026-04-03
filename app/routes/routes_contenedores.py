@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy import text
 from app.scripts.f_generales import consultaDescripcion
-from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertArrivo, idTarima
+from app.scripts.sentencias_sql import consultaProducto, insertContenedor, insertArribo, idTarima
 from app.routes.routes import  basePostgreSQL
 from app.routes.routes import basePostgreSQL
 
@@ -12,12 +12,12 @@ apiContenedores = Blueprint('api_contenedores', __name__)
 def inicioContenedores():
     return render_template('contenedores.html')
 
-@contenedores.route('/contenedores/arrivo', methods=['GET', 'POST'])
+@contenedores.route('/contenedores/arribo', methods=['GET', 'POST'])
 def contenedoresSKU():
-    return render_template('/contenedores/arrivo.html')
+    return render_template('/contenedores/arribo.html')
 
-@apiContenedores.route('/arrivo', methods = ['GET', 'POST'])
-def arrivoFetch():
+@apiContenedores.route('/arribo', methods = ['GET', 'POST'])
+def arriboFetch():
     """
     Realiza consultas e inserciones para los nuevos contenedores que llegan al almacén.
 
@@ -81,7 +81,7 @@ def arrivoFetch():
                             datosContenedor['piezas'] = datosContenedor['resto']
                         datosContenedor['cajas_por_tarima'] = datosContenedor['resto']
                 
-                    connection.execute(insertArrivo, datosContenedor)
+                    connection.execute(insertArribo, datosContenedor)
                 connection.commit()
                 return jsonify({
                     "mensaje": "Contenedor agregado exitosamente."
