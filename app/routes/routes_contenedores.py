@@ -31,12 +31,12 @@ def arriboFetch():
     """
     if (request.method == 'GET'):
         skuProducto = request.args.get('sku_producto', "")
-        
+        print("Entro a get de busqueda")
         if not skuProducto:
             return jsonify({
                 "mensaje": "Falta el SKU del producto.",
             }), 400
-            
+        
         try:
             with basePostgreSQL.connect() as connection:
                 consulta = text(consultaProducto)

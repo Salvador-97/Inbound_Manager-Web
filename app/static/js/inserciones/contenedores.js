@@ -14,7 +14,7 @@ busquedaSKU.addEventListener('submit', function (e) {
 
     validacionInputColor(checkSku, input);
 
-    fetch(`/api/contenedores/arrivo?${parametros.toString()}`, {
+    fetch(`/api/contenedores/arribo?${parametros.toString()}`, {
         method: 'GET',
     })
         .then(response => {
@@ -84,7 +84,7 @@ formularioContenedor.addEventListener('submit', function (e) {
         return
     }
 
-    fetch('/api/contenedores/arrivo', {
+    fetch('/api/contenedores/arribo', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datos)

@@ -7,7 +7,7 @@ insertProducto = text('INSERT INTO productos VALUES(:skuProducto, :descripcion, 
 
 #Sentencias contenedores
 insertContenedor = text('INSERT INTO contenedores VALUES (:id_contenedor, :fecha_descarga , :id_proveedor, :sku_producto, :no_tarimas, :resto)')
-insertArribo = text('INSERT INTO arribos VALUES (:id_tarima, :sku_producto, :cajas_por_tarima, :piezas_por_caja, :fecha_descarga, :id_contenedor, :ubicacion)')
+insertArribo = text('INSERT INTO arribos VALUES (:id_tarima, :sku_producto, :fecha_descarga, :id_contenedor, :ubicacion, :cajas_por_tarima, :piezas_por_caja)')
 
 #Sentencias ubicaciones
 consultaSU = text("SELECT * FROM arribo_productos WHERE sku_producto = :skuProducto AND ubicacion = 'S/U'")

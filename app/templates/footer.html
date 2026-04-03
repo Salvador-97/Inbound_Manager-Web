@@ -7,13 +7,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/dc6efa34d2.js" crossorigin="anonymous"></script>
+
+<!-- Página de inicio -->
+{% if request.path == '/' %}
 <script src="{{ url_for('static', filename='js/tarjetas.js') }}" type="module"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}" type="module"></script>
-
+{% endif %}
 
 <!-- Paginas de contenedores -->
 
-{% if request.path == '/contenedores/arrivo' %}
+{% if request.path == '/contenedores/arribo' %}
 <script src="{{ url_for('static', filename='js/inserciones/contenedores.js') }}" type="module"></script>
 {% endif %}
 {% if request.path == '/contenedores/busqueda' %}
